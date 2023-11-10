@@ -1,0 +1,56 @@
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+<div class="container py-5 bb-footer">
+  <div class="row w-100">
+    <div class="col-12 col-md-4 text-center">
+      {% image self.logo width-200 as logo %}
+      <img src="{{ logo.url }}" alt="Logo AsyQuote" class="width-logo-footer img-fluid">
+    </div>
+    <div class="col-12 col-md-4 padding-left-footer">
+      <h1 class="footer_navigation_title">{{ self.footer_navigation_title }}</h1>
+      <div class="navigation-links">
+        {% for nav in self.footer_navigation.all %}
+          {% if navigation_text_page %}
+            <a href="{{ nav.navigation_text_page }}" class="navigation-a">
+              <p>{{ nav.navigation_text }}</p>
+            </a>
+          {% else %}
+            <a href="{{ nav.navigation_text_url }}" class="navigation-a">
+              <p>{{ nav.navigation_text }}</p>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-12 col-md-4 padding-left-footer">
+      <h1 class="footer_navigation_title">{{ self.footer_contact_title }}</h1>
+      <div class="navigation-links">
+        {% for nav in self.footer_contact.all %}
+          {% image nav.information_image width-30 as info_image %}
+          <div class="d-flex">
+            <img src="{{ info_image.url }}" alt="{{ info_image_alt }}" class="img-fluid image_footer_contact">
+            <a href="{{ nav.information_url }}" class="navigation-a" target="_blank">
+              <p>{{ nav.information }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="container">
+  <div class="row w-100">
+    <div class="col-12 col-md-6">
+      <p class="footer_rights">{{ self.copyright }}</p>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="align-additional">
+        {% for item in self.additional_information.all %}
+          <a href="#" class="href-additional">{{ item.additional_information_text }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+

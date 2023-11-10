@@ -1,0 +1,315 @@
+/* region hero section */
+.margin-from-nav {
+  margin-top: 15%;
+}
+
+.hero-title {
+  color: #000;
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 10%;
+  position: absolute;
+}
+
+.hero-p {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  position: absolute;
+  margin-top: 13.5%;
+  width: 25%;
+}
+
+.hero-button {
+  background: #62C6C8;
+  border-radius: 30px;
+  border: 0;
+  height: 7%;
+  position: absolute;
+  margin-top: 18%;
+}
+
+.hero-button-text {
+  color: #000;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.hero-image {
+  margin-left: 5%;
+}
+
+/* endregion */
+
+/* region uses-section */
+.title-uses {
+  color: #000;
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 8%;
+}
+
+.image-filter-uses {
+  filter: grayscale(100%);
+}
+
+/* endregion */
+
+/* region about section */
+.title-1-about {
+  color: #000;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.paragraph-1-about {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  width: 90%;
+}
+
+.mt-about-title-1 {
+  margin-top: 20%;
+}
+
+.title-2-about {
+  color: #000;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.paragraph-2-about {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  width: 90%;
+}
+
+.mt-about-title-2 {
+  margin-top: 15%;
+}
+
+.ml-about-title-2 {
+  margin-left: 5%;
+}
+
+.title-3-about {
+  color: #000;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.paragraph-3-about {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  width: 90%;
+}
+
+.mt-about-title-3 {
+  margin-top: 20%;
+}
+
+/* endregion */
+
+/* region review */
+.review_title {
+  color: #000;
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -1px;
+  width: 75%;
+}
+
+.margin-top-review {
+  margin-left: auto;
+  margin-top: 10%;
+  display: flex;
+}
+
+.slick-next:before, .slick-prev:before {
+  color: #62C6C8 !important;
+}
+
+.width-card {
+  width: 100%;
+}
+
+.align-col-center {
+  justify-content: center;
+}
+
+.review-card-title {
+  color: #000;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.review_card_paragraph {
+  font-size: 18px;
+  line-height: 30px; /* 150% */
+  letter-spacing: 0.38px;
+}
+
+.margin-left-review {
+  margin-left: 20px;
+}
+
+//.slick-prev.slick-arrow {
+//  margin-left: 20px;
+//}
+
+.width-image-review {
+  width: 200px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
+.letters_circle_review {
+  width: 55px;
+  height: 55px;
+  border: 0;
+  border-radius: 55px;
+  background: #62C6C8;
+  font-weight: 600;
+  color: white;
+  font-size: 22px;
+}
+
+.nome-funcao-align {
+  margin-left: 4%;
+  margin-top: 3.5%;
+}
+
+.person_card {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.function_card {
+  color: rgba(0, 0, 0, 0.70);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+/* endregion */
+
+/* region faqs */
+.faqs-title {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -1px;
+  margin-top: 10%;
+}
+
+.faqs-card-title {
+  color: #000;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.faqs-card-text {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.faqs-section {
+  margin-bottom: 5%;
+}
+
+.width-faq {
+  width: 45%;
+}
+
+.faq-href, .faq-href:hover {
+  color: #47B972;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.ml-faq {
+  margin-left: 0.5rem;
+}
+
+/* endregion */
+
+/* region action */
+.action-title {
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.call-back {
+  background: #ECECEC;
+  margin-top: 5%;
+}
+
+.call-button {
+  background: #62C6C8;
+  border-radius: 7px;
+  border: 0;
+  height: 4rem;
+  width: 14rem;
+}
+
+.call-button-text {
+  text-align: center;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.action-benefit {
+  color: rgba(0, 0, 0, 0.70);
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* endregion */
