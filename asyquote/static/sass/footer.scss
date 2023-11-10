@@ -1,0 +1,52 @@
+.footer_navigation_title {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.navigation-a, .navigation-a:hover {
+  color: black;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.padding-left-footer {
+  padding-left: 10%;
+}
+
+.bb-footer {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.60);
+  margin-bottom: 1%;
+}
+
+.footer_rights {
+  color: rgba(0, 0, 0, 0.40);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.image_footer_contact {
+  margin-right: 8%;
+  width: 30px;
+  height: 30px;
+}
+
+.href-additional, .href-additional:hover {
+  color: rgba(0, 0, 0, 0.40);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.align-additional {
+  justify-content: space-evenly;
+  display: flex;
+}
