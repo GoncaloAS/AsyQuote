@@ -14142,3 +14142,104 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
+
+.termos_class {
+  color: rgb(68, 68, 68);
+}
+
+.title-size {
+  font-size: 40px;
+}
+
+.gu {
+  font-size: 20px;
+}
+
+.fitcontent {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.fitcontent2 {
+  width: 50%;
+  margin: auto;
+}
+
+.btn-signin {
+  background-color: #29b8bb;
+  color: white;
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20%;
+  margin-top: 5%;
+}
+
+.btn-signin2 {
+  background-color: #29b8bb;
+  color: white;
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20%;
+}
+
+.btn-signin:hover {
+  color: white;
+  background-color: #62C6C8;
+}
+
+.btn-signin2:hover {
+  color: white;
+  background-color: #62C6C8;
+}
+
+.mt-h1 {
+  margin-top: 5%;
+}
+
+.mt2-h1 {
+  margin-top: 10%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.mt3-h1 {
+  margin-top: 5%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+#hint_id_password1 {
+  display: none;
+}
+
+#div_id_remember {
+  display: none;
+}
+
+.secondaryAction {
+  float: right;
+  color: gray;
+}
+
+.secondaryAction:hover {
+  color: dimgray;
+}
+
+.verification-paragraph {
+  font-size: 20px;
+  margin-top: 3%;
+  text-align: center;
+}
+
+.password_reset {
+  width: 80%;
+  margin: auto;
+}

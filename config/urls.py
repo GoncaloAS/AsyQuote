@@ -6,15 +6,22 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
+
+from asyquote.landingpage.models import Homepage
 from asyquote.landingpage.views import HomeListView
+from asyquote.landingpage_redirect.views import TermsListView
 
 urlpatterns = [
+
+    path("users/", include("asyquote.users.urls", namespace="users")),
+    path("accounts/", include("allauth.urls")),
     path(settings.ADMIN_URL, include(wagtailadmin_urls)),
+    path('django-admin/', admin.site.urls),
     path('', include(wagtail_urls)),
-    # path('aceder-beta/', )
+
+
     # User management
-    # path("users/", include("asyquote.users.urls", namespace="users")),
-    # path("accounts/", include("allauth.urls")),
+
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

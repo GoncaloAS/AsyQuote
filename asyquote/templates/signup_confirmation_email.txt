@@ -1,0 +1,14 @@
+Thank you for signing up, {{ user.username }}!
+
+We're excited to have you as part of our community.
+
+{% if user.development_help %}
+    You've indicated that you're willing to help with the development of AsyQuote. We appreciate your support!
+{% endif %}
+
+{% if user.receive_email %}
+    You've opted to receive emails about updates and news from AsyQuote. Stay tuned for exciting announcements!
+{% endif %}
+
+Best regards,
+The AsyQuote Team

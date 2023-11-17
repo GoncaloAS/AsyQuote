@@ -1,11 +1,15 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% block head_title %}
-  {% translate "Sign Up Closed" %}
+  {% translate "Registros Fechados" %}
 {% endblock head_title %}
-{% block inner %}
-  <h1>{% translate "Sign Up Closed" %}</h1>
-  <p>{% translate "We are sorry, but the sign up is currently closed." %}</p>
-{% endblock inner %}
+{% block content %}
+  <div class="container">
+    <div class="row w-100">
+      <h1>{% translate "Registros Fechados" %}</h1>
+      <p>{% translate "De momento não estamos a aceitar mais candidaturas." %}</p>
+    </div>
+  </div>
+{% endblock content %}
