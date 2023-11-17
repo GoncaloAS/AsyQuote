@@ -1,8 +1,10 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 from wagtail.fields import StreamField, RichTextField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
@@ -24,6 +26,39 @@ class CustomImage(Orderable):
 
     def __str__(self):
         return self.images_cards.title if self.images_cards else 'CustomImage'
+
+
+@register_snippet
+class AdditionalInformation(models.Model):
+    additional_information_text = models.CharField(max_length=255, blank=True, null=True)
+    additional_information_href = models.CharField(max_length=255, blank=True, null=True)
+
+
+@register_snippet
+class WebsitePages(models.Model):
+    text_pages = models.CharField(max_length=255, blank=True, null=True)
+    pages_href = models.CharField(max_length=255, blank=True, null=True)
+
+
+@register_snippet
+class FooterContact(models.Model):
+    information_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Image'
+    )
+    information = models.CharField(max_length=255, blank=True, null=True)
+    information_url = models.CharField(max_length=255, blank=True, null=True)
+
+
+@register_snippet
+class FooterTitles(models.Model):
+    footer_navigation_title = models.CharField(max_length=255, null=True, blank=True)
+    footer_contact_title = models.CharField(max_length=255, null=True, blank=True)
+    copyright = models.CharField(max_length=255, null=True, blank=True)
 
 
 class ImagesUses(blocks.StructBlock):
@@ -55,47 +90,43 @@ class Faqs(Orderable):
     href_url = models.URLField(max_length=255, blank=True, null=True)
 
 
-class FooterNavigation(Orderable):
-    page = ParentalKey("Homepage", related_name="footer_navigation")
-    navigation_text = models.CharField(max_length=255, blank=True, null=True)
-    navigation_text_page = models.ForeignKey('wagtailcore.Page', null=True, blank=True, related_name='+',
-                                             on_delete=models.SET_NULL)
-    navigation_text_url = models.CharField(max_length=255, blank=True, null=True)
-
-
-class FooterContact(Orderable):
-    page = ParentalKey("Homepage", related_name="footer_contact")
-    information_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Image'
-    )
-    information = models.CharField(max_length=255, blank=True, null=True)
-    information_url = models.CharField(max_length=255, blank=True, null=True)
-
-
-class AdditionalInformation(Orderable):
-    page = ParentalKey("Homepage", related_name="additional_information")
-    additional_information_text = models.CharField(max_length=255, blank=True, null=True)
-    additional_information_page = models.ForeignKey('wagtailcore.Page', null=True, blank=True, related_name='+',
-                                                    on_delete=models.SET_NULL)
-
-
-class Homepage(Page):
+class Homepage(RoutablePageMixin, Page):
     max_count = 1
-    template = "components/homepage/homepage.html"
 
-    # logo
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    @path('')
+    def current_events(self, request):
+        return self.render(
+            request,
+            template="components/homepage/homepage.html",
+        )
+
+    @path('termos-uso/')
+    def current_events2(self, request):
+        return self.render(
+            request,
+            template="components/redirects/termos.html",
+        )
+
+    @path('politica-privacidade/')
+    def current_events3(self, request):
+        return self.render(
+            request,
+            template="components/redirects/politica.html",
+        )
+
+    @path('creditos/')
+    def current_event4(self, request):
+        return self.render(
+            request,
+            template="components/redirects/creditos.html",
+        )
+
+    # @path('login/')
+    # def current_event5(self, request):
+    #     return self.render(
+    #         request,
+    #         template="account/login.html",
+    #     )
 
     # hero section
     hero_image = models.ForeignKey(
@@ -153,13 +184,7 @@ class Homepage(Page):
     action_title = models.CharField(max_length=255, null=True, blank=True)
     action_benefit = models.CharField(max_length=255, null=True, blank=True)
 
-    # footer
-    footer_navigation_title = models.CharField(max_length=255, null=True, blank=True)
-    footer_contact_title = models.CharField(max_length=255, null=True, blank=True)
-    copyright = models.CharField(max_length=255, null=True, blank=True)
-
     content_panels = Page.content_panels + [
-        FieldPanel('logo'),
         FieldPanel('hero_image'),
         FieldPanel('hero_title'),
         FieldPanel('hero_paragraph'),
@@ -186,21 +211,7 @@ class Homepage(Page):
         ),
         FieldPanel('action_title'),
         FieldPanel('action_benefit'),
-        FieldPanel('footer_navigation_title'),
-        MultiFieldPanel(
-            [InlinePanel("footer_navigation", label="Navigation")],
-            heading="Navigation",
-        ),
-        FieldPanel('footer_contact_title'),
-        MultiFieldPanel(
-            [InlinePanel("footer_contact", label="Contact")],
-            heading="Contact",
-        ),
-        FieldPanel('copyright'),
-        MultiFieldPanel(
-            [InlinePanel("additional_information", label="Additional Information")],
-            heading="Additional Information",
-        ),
+
     ]
 
     def get_context(self, request, *args, **kwargs):

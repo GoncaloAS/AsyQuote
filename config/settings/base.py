@@ -25,18 +25,17 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "Europe/Lisbon"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 # from django.utils.translation import gettext_lazy as _
-# LANGUAGES = [
-#     ('en', _('English')),
-#     ('fr-fr', _('French')),
-#     ('pt-br', _('Portuguese')),
-# ]
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ('pt', 'Português'),
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
+WAGTAIL_I18N_ENABLED = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
@@ -85,12 +84,14 @@ DJANGO_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
+    'wagtail.locales',
     'wagtail',
     'modelcluster',
     'taggit',
     'wagtail_modeladmin',
     'wagtail.contrib.modeladmin',
     'wagtailmenus',
+    "wagtail.contrib.routable_page",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -98,11 +99,13 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "captcha",
 ]
 
 LOCAL_APPS = [
     "asyquote.users",
     "asyquote.landingpage",
+    "asyquote.landingpage_redirect",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -207,6 +210,11 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "asyquote.users.context_processors.allauth_settings",
                 'wagtailmenus.context_processors.wagtailmenus',
+                'asyquote.utils.context_processors.titles_context',
+                'asyquote.utils.context_processors.contact_context',
+                'asyquote.utils.context_processors.navigation_context',
+                'asyquote.utils.context_processors.additional_context',
+
             ],
         },
     }
@@ -236,10 +244,16 @@ X_FRAME_OPTIONS = "DENY"
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND",
-    default="django.core.mail.backends.smtp.EmailBackend",
-)
+# EMAIL_BACKEND = env(
+#     "DJANGO_EMAIL_BACKEND",
+#     default="django.core.mail.backends.smtp.EmailBackend",
+# )
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email server's hostname
+EMAIL_PORT = 587  # Replace with your email server's port
+EMAIL_USE_TLS = True  # Use TLS (True/False)
+EMAIL_HOST_USER = 'goncaloalves0530@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'nnty pzkt puiz knkh'  # Replace with your email password
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -306,3 +320,5 @@ GRAPH_MODELS = {
 
 WAGTAIL_SITE_NAME = 'AsyQuote'
 WAGTAILADMIN_BASE_URL = "http://example.com"
+RECAPTCHA_PUBLIC_KEY = '6LeO9REpAAAAAF9qvsDruESJsyoZqDfaSCINxo3G'
+RECAPTCHA_PRIVATE_KEY = '6LeO9REpAAAAACoaDCfy0v2iX4MhBsUHaawkoDtc'

@@ -1,13 +1,18 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% block head_title %}
   {% translate "Verify Your E-mail Address" %}
 {% endblock head_title %}
-{% block inner %}
-  <h1>{% translate "Verify Your E-mail Address" %}</h1>
-  <p>
-    {% blocktranslate %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktranslate %}
-  </p>
-{% endblock inner %}
+{% block content %}
+  <div class="container">
+    <div class="row w-100">
+      <h1 class="mt2-h1">{% translate "Verifique o seu e-mail para concluir o registro" %}</h1>
+      <p class="verification-paragraph">
+        {% blocktranslate %}Mandamos um e-mail para si. De modo a acabar a sua candidatura, siga as instruções do e-mail.{% endblocktranslate %}
+      </p>
+    </div>
+  </div>
+
+{% endblock content %}

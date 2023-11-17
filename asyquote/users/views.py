@@ -29,6 +29,10 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self):
         return self.request.user
 
+    def post(self, request, *args, **kwargs):
+        print("ola")
+        return super().post(request, *args, **kwargs)
+
 
 user_update_view = UserUpdateView.as_view()
 
