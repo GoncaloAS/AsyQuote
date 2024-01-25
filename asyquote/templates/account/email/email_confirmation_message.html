@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmação de E-mail - AsyQuote</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    #email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+
+    .confirmation-link {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .thanks {
+      font-weight: bold;
+      color: #28a745;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+<div id="email-container">
+  <h1>Olá, da AsyQuote!</h1>
+
+  <p>Está a receber este e-mail porque o utilizador {{ user.username }} forneceu o seu endereço de e-mail para registrar
+    uma conta em <a href="https://localhost:3000">Asyquote</a></p>
+
+  <p>Para confirmar que estes dados estão corretos, clique no seguinte link:</p>
+
+  <a class="confirmation-link" href="{{ activate_url }}">Confirmar Endereço de E-mail</a>
+  <p><a href="https://localhost:3000">Asyquote</a></p>
+  <p class="thanks">Obrigado por escolher o AsyQuote!</p>
+  <div class="footer">
+    <p>Atenciosamente,</p>
+    <p>A Equipa AsyQuote</p>
+  </div>
+</div>
+</body>
+
+</html>

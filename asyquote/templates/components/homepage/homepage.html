@@ -4,54 +4,71 @@
 {% block content %}
 
   <div class="container">
-    <div class="row w-100">
-      <div class="col-12 col-md-4">
+  <div class="row w-100 m-auto">
+    <div class="col-12 col-md-5">
+      <div class="float-homepage">
         <h1 class="hero-title">{{ self.hero_title }}</h1>
         <div class="hero-p">{{ self.hero_paragraph|safe }}</div>
-        <a href="../aceder-beta">
+        <a href="{% url 'aceder-beta' %}">
           <button class="hero-button hero-button-text px-4">Aceder Beta</button>
         </a>
       </div>
+    </div>
 
-      <div class="col-12 col-md-8">
-        {% image self.hero_image width-1000 as hero_image %}
-        <img src="{{ hero_image.url }}" alt="{{ hero_image.alt }}" class="hero-image">
+    <div class="col-12 col-md-7 margin-mobile-hero">
+      {% image self.hero_image width-1000 as hero_image %}
+      <img src="{{ hero_image.url }}" alt="{{ hero_image.alt }}" class="hero-image img-fluid">
+    </div>
+    <div class="col-12">
+      <h1 class="title-uses">{{ self.uses_title }}</h1>
+      <div class="slider text-center mt-5">
+        {% for item in self.uses_image %}
+          <div class="slide">
+            <a href="{{ item.value.url_uses }}" target="_blank">
+              {% image item.value.image_uses width-200 as imagem_uses %}
+              <img src="{{ imagem_uses.url }}" alt="{{ imagem_uses.alt }}"
+                   class="img-fluid image-filter-uses">
+            </a>
+          </div>
+        {% endfor %}
       </div>
-      <div class="col-12">
-        <h1 class="title-uses">{{ self.uses_title }}</h1>
-        <div class="slider text-center mt-5">
-          {% for item in self.uses_image %}
-            <div class="slide">
-              <a href="{{ item.value.url_uses }}" target="_blank">
-                {% image item.value.image_uses width-200 as imagem_uses %}
-                <img src="{{ imagem_uses.url }}" alt="{{ imagem_uses.alt }}"
-                     class="img-fluid image-filter-uses">
-              </a>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col-12 col-md-6" id="sobre">
-        <h1 class="title-1-about mt-about-title-1">{{ self.about_title_1 }}</h1>
-        <p class="paragraph-1-about">{{ self.about_paragraph_1 }}</p>
-      </div>
-      <div class="col-12 col-md-5 text-end">
-        {% image self.about_image_1 width-600 as about_image_1 %}
-        <img src="{{ about_image_1.url }}" alt="{{ about_image_1.alt }}" class="img-fluid">
-      </div>
-      <div class="col-12 col-md-5 text-start">
+    </div>
+
+    <div class="col-12 col-md-6 padding-about margin-mobile-about" id="sobre">
+      <h1 class="title-1-about mt-about-title-1">{{ self.about_title_1 }}</h1>
+      <p class="paragraph-1-about">{{ self.about_paragraph_1 }}</p>
+    </div>
+    <div class="col-12 col-md-5 padding-tablet-about">
+      {% image self.about_image_1 width-600 as about_image_1 %}
+      <img src="{{ about_image_1.url }}" alt="{{ about_image_1.alt }}" class="img-fluid">
+    </div>
+    {#desktop#}
+    <div class="about-desktop row">
+      <div class="col-12 col-md-5 text-start margin2-mobile-about padding-tablet-about">
         {% image self.about_image_2 width-600 as about_image_2 %}
         <img src="{{ about_image_2.url }}" alt="{{ about_image_2.alt }}" class="img-fluid">
       </div>
-      <div class="col-12 col-md-6 ml-about-title-2">
-        <h1 class="title-2-about mt-about-title-2">{{ self.about_title_2 }}</h1>
-        <p class="paragraph-2-about">{{ self.about_paragraph_2 }}</p>
+        <div class="col-12 col-md-6 ml-about-title-2">
+          <h1 class="title-2-about mt-about-title-2">{{ self.about_title_2 }}</h1>
+          <p class="paragraph-2-about">{{ self.about_paragraph_2 }}</p>
+        </div>
       </div>
-      <div class="col-12 col-md-6">
+      {#mobile#}
+      <div class="about-mobile row">
+        <div class="col-12 col-md-6 ml-about-title-2">
+          <h1 class="title-2-about mt-about-title-2">{{ self.about_title_2 }}</h1>
+          <p class="paragraph-2-about">{{ self.about_paragraph_2 }}</p>
+        </div>
+        <div class="col-12 col-md-5 text-start margin2-mobile-about padding-tablet-about">
+          {% image self.about_image_2 width-600 as about_image_2 %}
+          <img src="{{ about_image_2.url }}" alt="{{ about_image_2.alt }}" class="img-fluid">
+        </div>
+      </div>
+      <div class="col-12 col-md-6 margin-mobile-about">
         <h1 class="title-3-about mt-about-title-3">{{ self.about_title_3 }}</h1>
         <p class="paragraph-3-about">{{ self.about_paragraph_3 }}</p>
       </div>
-      <div class="col-12 col-md-5 text-end">
+      <div class="col-12 col-md-5 text-end padding-tablet-about">
         {% image self.about_image_3 width-600 as about_image_3 %}
         <img src="{{ about_image_3.url }}" alt="{{ about_image_3.alt }}" class="img-fluid">
       </div>
@@ -91,14 +108,14 @@
     <div class="faqs-section">
       <h1 class="faqs-title" id="faqs">{{ self.faqs_title }}</h1>
     </div>
-    <div class="row w-100 justify-content-sm-between">
+    <div class="row w-100 justify-content-sm-between m-auto">
       {% for faq in self.faqs.all %}
         <div class="col-12 col-md-6 width-faq mb-4">
           <h1 class="faqs-card-title">{{ faq.question }}</h1>
           <p class="faqs-card-text">{{ faq.answer }}</p>
           {% if faq.text_href %}
             <div class="d-flex ">
-              <a href="{{ faq.href_url }}" class="faq-href">
+              <a href="{% url faq.href_url %}" class="faq-href">
                 {{ faq.text_href }}
                 <img src="{% static 'images/arrow_url.svg' %}" alt="arrow url" class="ml-faq">
               </a>
@@ -109,12 +126,12 @@
     </div>
   </div>
   <div class="container-fluid call-back py-5">
-    <div class="row w-100">
+    <div class="row w-100 m-auto">
       <div class="col-12">
         <div class="container">
           <h1 class="action-title mb-3">{{ self.action_title }}</h1>
           <div class="button-call mt-5">
-            <a href="../aceder-beta" class="d-block text-center">
+            <a href="{% url 'aceder-beta' %}" class="d-block text-center">
               <button class="call-button call-button-text px-4 mb-2">Aceder Beta</button>
             </a>
             <p class="action-benefit text-center">{{ self.action_benefit }}</p>

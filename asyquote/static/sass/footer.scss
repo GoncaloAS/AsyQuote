@@ -7,7 +7,7 @@
 
 .navigation-a, .navigation-a:hover {
   color: black;
-  font-size: 22px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -47,7 +47,7 @@
 }
 
 .align-additional {
-  justify-content: space-evenly;
+  justify-content: space-around;
   display: flex;
 }
 
@@ -62,3 +62,38 @@
 .gu {
   font-size: 20px;
 }
+
+@media (max-width: 992px) {
+  .footer_rights {
+    font-size: 18px;
+  }
+  .href-additional {
+    font-size: 18px;
+    text-align: center;
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .padding-left-footer {
+    padding-left: 0;
+    text-align: center;
+  }
+  .padding-left-footer2 {
+    padding-left: 0;
+    text-align: center;
+  }
+  .mobile-contactos {
+    display: block !important;
+  }
+  .image_footer_contact {
+    margin-right: 0%;
+  }
+  .padding-bottom-logo-mobile {
+    padding-bottom: 30px;
+  }
+}
+
+
+
+

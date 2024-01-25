@@ -1,0 +1,108 @@
+.builder_area {
+  margin-left: 330px;
+  margin-top: 50px;
+}
+
+.card_password {
+  background: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  width: 450px;
+  margin-right: 80px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+.card_marketing_preferences {
+  background: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  width: 450px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+#hint_id_new_password1 {
+  display: none;
+}
+
+.btn_change_password {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  background: #62C6C8;
+  border: 0;
+}
+
+.btn_change_password:hover {
+  background: #62C6C8;
+  border: 0;
+}
+
+.color_tabs_settings{
+  color: gray;
+}
+
+.color_tabs_settings:hover{
+  color: gray;
+}
+
+.card_settings{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.padding_preferences_card{
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.padding_form_password_change{
+  padding-top: 35px;
+}
+
+#ex-with-icons-tabs-1{
+  margin-top: 80px;
+}
+
+#ex-with-icons-tabs-2{
+  margin-top: 130px;
+}
+
+.width_buttons_email{
+  width: 46%;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.color_remove, .color_remove:hover{
+  background: #D2122E;
+  border: 0;
+}
+
+.color_primary, .color_primary:hover{
+  background: #17B169;
+  border: 0;
+}
+
+.color_resend{
+  background: #FDDA0D;
+  border: 0;
+}
+
+.add_email_settings, .add_email_settings:hover{
+  background: #62c6c8;
+  border: 0;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.margin_top_change_email{
+  margin-top: 45px;
+}
+
+.text_email_settings{
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 10%;
+}

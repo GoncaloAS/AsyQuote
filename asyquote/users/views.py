@@ -4,6 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
+from django.shortcuts import render
 
 User = get_user_model()
 
@@ -45,3 +46,9 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+
+# views.py
+
+def send_email_template(request):
+    return render(request, 'admin/send_email_template.html')

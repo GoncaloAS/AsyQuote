@@ -13,6 +13,9 @@ from wagtail.snippets.models import register_snippet
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 
+
+
+
 @register_snippet
 class CustomImage(Orderable):
     images_cards = models.ForeignKey(
@@ -87,7 +90,7 @@ class Faqs(Orderable):
     question = models.CharField(max_length=255, blank=True, null=True)
     answer = models.CharField(max_length=500, blank=True, null=True)
     text_href = models.CharField(max_length=255, blank=True, null=True)
-    href_url = models.URLField(max_length=255, blank=True, null=True)
+    href_url = models.CharField(max_length=255, blank=True, null=True)
 
 
 class Homepage(RoutablePageMixin, Page):

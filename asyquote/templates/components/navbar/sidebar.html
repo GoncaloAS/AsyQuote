@@ -1,0 +1,81 @@
+{% load static %}
+<div class="sidebarfont">
+  <nav class="sidebar locked">
+    <div class="logo_items flex">
+        <span class="nav_image">
+          <img src="{% static 'images/logo.png' %}" alt="Logo AsyQuote"/>
+        </span>
+      <span class="logo_name">AsyQuote</span>
+      <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+      <i class="bx bx-x" id="sidebar-close"></i>
+    </div>
+    <div class="menu_container">
+      <div class="menu_items">
+        <ul class="menu_item px-0">
+          <div class="menu_title flex">
+            <span class="title">Dashboard</span>
+            <span class="line"></span>
+          </div>
+          <li class="item">
+            <a href="#" class="link flex">
+              <i class="fa-regular fa-folder"></i>
+              <span>Todos os Projetos</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="../../../builder/produtos" class="link flex">
+              <i class="fa-solid fa-store"></i>
+              <span>Produtos</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="../../../" class="link flex">
+              <i class="fa-solid fa-house"></i>
+              <span>Página Principal</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="menu_item px-0">
+          <div class="menu_title flex">
+            <span class="title">Conta</span>
+            <span class="line"></span>
+          </div>
+          <li class="item">
+            <a href="../../builder/definicoes-conta/" class="link flex">
+              <i class="fa-solid fa-gears"></i>
+              <span>Definições</span>
+            </a>
+          </li>
+          <li class="item">
+            <form id="logoutForm" method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}"/>
+              {% endif %}
+              <a href="#" class="link flex" onclick="document.getElementById('logoutForm').submit(); return false;">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+              </a>
+            </form>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="sidebar_profile flex">
+          <span class="nav_image2">
+            <img src="{% static 'images/user.png' %}" alt="logo_img"/>
+          </span>
+        <div class="data_text">
+          <span class="name">{{ user.username }}</span>
+          <span class="email">{{ user.email }}</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <nav class="navbar22  flex">
+    <i class="bx bx-menu" id="sidebar-open"></i>
+  </nav>
+</div>

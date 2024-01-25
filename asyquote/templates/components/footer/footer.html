@@ -2,25 +2,26 @@
 
 <div class="container py-5 bb-footer">
   <div class="row w-100">
-    <div class="col-12 col-md-4 text-center">
+    <div class="col-12 col-md-4 text-center padding-bottom-logo-mobile">
       <img src="{% static 'images/logo.png' %}" alt="Logo AsyQuote" class="width-logo-footer img-fluid">
     </div>
     <div class="col-12 col-md-4 padding-left-footer">
       <h1 class="footer_navigation_title">{{ titles.footer_navigation_title }}</h1>
       <div class="navigation-links">
         {% for nav in navigation %}
-            <a href="{{ nav.pages_href }}" class="navigation-a">
+            <a href="{% if nav.pages_href %}{% url nav.pages_href %}{% else %}../../../../../{% endif %}" class="navigation-a">
+
               <p>{{ nav.text_pages }}</p>
             </a>
         {% endfor %}
       </div>
     </div>
-    <div class="col-12 col-md-4 padding-left-footer">
+    <div class="col-12 col-md-4 padding-left-footer2">
       <h1 class="footer_navigation_title">{{ titles.footer_contact_title }}</h1>
       <div class="navigation-links">
         {% for nav in contact %}
           {% image nav.information_image width-30 as info_image %}
-          <div class="d-flex">
+          <div class="d-flex mobile-contactos">
             <img src="{{ info_image.url }}" alt="{{ info_image_alt }}" class="img-fluid image_footer_contact">
             <a href="{{ nav.information_url }}" class="navigation-a" target="_blank">
               <p>{{ nav.information }}</p>

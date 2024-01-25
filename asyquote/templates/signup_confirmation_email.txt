@@ -1,14 +1,19 @@
-Thank you for signing up, {{ user.username }}!
+Olá {{ user.username }},
 
-We're excited to have you as part of our community.
+É com grande satisfação que o recebemos na nossa comunidade! Estamos animados por ter escolhido a nossa plataforma e queremos garantir que tenha a melhor experiência possível.
 
-{% if user.development_help %}
-    You've indicated that you're willing to help with the development of AsyQuote. We appreciate your support!
+{% if user.development_help and not user.receive_email%}
+Agradecemos por indicar seu interesse em contribuir para o desenvolvimento da AsyQuote! Sua disposição em nos ajudar é valiosa. De tempos em tempos, enviaremos questionários de satisfação para capturar suas ideias e aprimorar ainda mais a plataforma. Sua participação é fundamental para o sucesso da AsyQuote.
 {% endif %}
 
-{% if user.receive_email %}
-    You've opted to receive emails about updates and news from AsyQuote. Stay tuned for exciting announcements!
+{% if user.receive_email and not user.development_help %}
+Se optou por receber e-mails sobre as últimas novidades e atualizações da AsyQuote, saiba que boas surpresas estão a caminho! Fique ligado para não perder nenhuma informação importante. Queremos compartilhar tudo de novo e emocionante que estamos preparando para você.
 {% endif %}
 
-Best regards,
-The AsyQuote Team
+{% if user.receive_email and user.development_help %}
+Se optou por indicar o seu interesse em contribuir para o desenvolvimento do Asyquote e receber e-mails sobre as últimas novidades e atualizações do Asyquote, gostaríamos de expressar a nossa gratidão dupla! A sua decisão demonstra o quão valioso é o seu apoio para nós. Estamos ansiosos para construir juntos para uma comunidade vibrante e enriquecedora.
+{% endif %}
+Agradecemos por confiar no AsyQuote. Estamos aqui para oferecer a melhor experiência possível.
+
+Atenciosamente,
+A equipa do AsyQuote

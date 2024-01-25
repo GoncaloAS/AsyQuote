@@ -32,8 +32,6 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous">
     </script>
-
-
   {% endblock javascript %}
 </head>
 <body>
@@ -57,13 +55,7 @@
 {% endblock modal %}
 {% block inline_javascript %}
   <script src="{% static 'js/home.js' %}" type="text/javascript"></script>
-  <script type="text/javascript">
-    function removeId() {
-      setTimeout(() => {
-        window.location.hash !== '' ? window.history.replaceState("string", "AsyQuote", "{{ request.path }}") : null;
-      }, 0)
-    }
-  </script>
+
 {% endblock inline_javascript %}
 
 </body>
