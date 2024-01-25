@@ -1,6 +1,37 @@
 {% load static %}
 {% for item in menu_items %}
-  <a onclick="removeId()" class=" mx-4 nav-link item-nav-style color-black" href="{{ item.href }}">{{ item.text }}</a>
-
+  {% if item.href == 'login' %}
+    {% if user.is_authenticated %}
+      {# If user is authenticated, set the href to 'builder' #}
+      <a onclick="removeId('builder')" class="mx-4 nav-link item-nav-style color-black" href="{% url 'builder' %}">{{ item.text }}</a>
+    {% else %}
+      {# If user is not authenticated, keep the original login link #}
+      <a onclick="removeId('{{ item.href }}')" class="mx-4 nav-link item-nav-style color-black" href="{% url item.href %}">{{ item.text }}</a>
+    {% endif %}
+  {% else %}
+    {# For other links, keep the original href attribute #}
+    <a onclick="removeId('{{ item.href }}')" class="mx-4 nav-link item-nav-style color-black" href="{{ item.href }}">{{ item.text }}</a>
+  {% endif %}
 {% endfor %}
 
+<script>
+  function removeId(targetUrl) {
+    setTimeout(() => {
+      // Check if the current URL contains the login path
+
+      if (window.location.href.includes('/users/{user.username}')) {
+
+        // Redirect to the base URL if the current URL contains '/login/' and the user is not authenticated
+        if (!{{ user.is_authenticated }}) {
+          window.location.href = 'http://localhost:3000/';
+        }
+      } else if (window.location.href !== 'http://localhost:3000/') {
+        // Redirect to http://localhost:3000/ + targetUrl
+        window.location.href = 'http://localhost:3000/' + targetUrl;
+      } else {
+        // Update the hash part of the URL
+        window.location.hash = targetUrl;
+      }
+    }, 0);
+  }
+</script>

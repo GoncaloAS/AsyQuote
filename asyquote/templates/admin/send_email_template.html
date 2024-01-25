@@ -1,0 +1,95 @@
+<!-- send_email_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f1f2f3;
+        }
+
+        .loadingio-spinner-spinner-8e9aie13sn7 {
+            width: 5000px;
+            height: 5000px;
+            position: relative;
+            transform: translateZ(0) scale(1);
+            backface-visibility: hidden;
+            transform-origin: 0 0;
+        }
+
+        .ldio-gubs7td6xee {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            animation: ldio-gubs7td6xee linear 1s infinite;
+            background: #09bbc9;
+            border-radius: 6px;
+        }
+
+        .ldio-gubs7td6xee div {
+            box-sizing: content-box;
+            position: absolute;
+            width: 12px;
+            height: 24px;
+            border-radius: 6px / 12px;
+            transform-origin: 6px 52px;
+        }
+
+        @keyframes ldio-gubs7td6xee {
+            0% { opacity: 1 }
+            100% { opacity: 0 }
+        }
+
+        .ldio-gubs7td6xee div:nth-child(1) { transform: rotate(0deg); animation-delay: -0.9166666666666666s; }
+        .ldio-gubs7td6xee div:nth-child(2) { transform: rotate(30deg); animation-delay: -0.8333333333333334s; }
+        .ldio-gubs7td6xee div:nth-child(3) { transform: rotate(60deg); animation-delay: -0.75s; }
+        .ldio-gubs7td6xee div:nth-child(4) { transform: rotate(90deg); animation-delay: -0.6666666666666666s; }
+        .ldio-gubs7td6xee div:nth-child(5) { transform: rotate(120deg); animation-delay: -0.5833333333333334s; }
+        .ldio-gubs7td6xee div:nth-child(6) { transform: rotate(150deg); animation-delay: -0.5s; }
+        .ldio-gubs7td6xee div:nth-child(7) { transform: rotate(180deg); animation-delay: -0.4166666666666667s; }
+        .ldio-gubs7td6xee div:nth-child(8) { transform: rotate(210deg); animation-delay: -0.3333333333333333s; }
+        .ldio-gubs7td6xee div:nth-child(9) { transform: rotate(240deg); animation-delay: -0.25s; }
+        .ldio-gubs7td6xee div:nth-child(10) { transform: rotate(270deg); animation-delay: -0.16666666666666666s; }
+        .ldio-gubs7td6xee div:nth-child(11) { transform: rotate(300deg); animation-delay: -0.08333333333333333s; }
+        .ldio-gubs7td6xee div:nth-child(12) { transform: rotate(330deg); animation-delay: 0s; }
+    </style>
+</head>
+<body>
+
+<!-- Animated SVG Spinner -->
+<div class="loadingio-spinner-spinner-8e9aie13sn7">
+    <div class="ldio-gubs7td6xee">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+</div>
+
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var emailList = params.get('email_list');
+
+    // Construct the mailto URL with Bcc and a random email in 'To'
+    var mailtoLink = `mailto:${encodeURIComponent('example@example.com')}?bcc=${encodeURIComponent(emailList)}`;
+
+    // Simulate asynchronous task (e.g., sending email)
+    setTimeout(function() {
+        // Open the mailto link
+        window.location.href = mailtoLink;
+
+        // After a short delay, go back to the previous page
+        setTimeout(function() {
+            // Check if the referrer is different from the current page
+            if (document.referrer !== window.location.href) {
+                window.location.href = document.referrer;
+            }
+        }, 1000);
+    }, 3000);
+</script>
+</body>
+</html>

@@ -37,7 +37,7 @@ class UserSignupForm(SignupForm):
         required=False
     )
     receive_email = BooleanField(
-        label="Deseja receber e-mails sobre as novidades da ferramenta?",
+        label="Deseja receber email sobre as novidades da ferramenta?",
         required=False
     )
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(), label="Captcha")
@@ -62,12 +62,11 @@ class UserSignupForm(SignupForm):
 
     def send_signup_confirmation_email(self, user):
         subject = 'Thank you for signing up'
-        message = render_to_string('signup_confirmation_email.txt', {'user': user})
-        plain_message = strip_tags(message)
+        html_content = render_to_string('account/email/signup_email.html', {'user': user})
+        plain_message = strip_tags(html_content)
         from_email = 'goncaloalves0530@gmail.com'
         to_email = [user.email]
-
-        send_mail(subject, plain_message, from_email, to_email, html_message=message)
+        send_mail(subject, plain_message, from_email, to_email, html_message=html_content)
 
     field_order = ['email', 'username', 'password1', 'password2', 'development_help', 'receive_email', 'captcha']
 
