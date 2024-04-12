@@ -35,3 +35,10 @@ body {
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
+
+.z-index-messages {
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}

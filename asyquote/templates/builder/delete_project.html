@@ -1,0 +1,17 @@
+{% extends 'builder/builder_landing.html' %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        <h1>Delete Project</h1>
+        <p>Are you sure you want to delete "{{ project.title }}"?</p>
+        <form action="{% url 'delete_project' project.pk %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Delete">
+        </form>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

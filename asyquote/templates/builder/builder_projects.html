@@ -1,0 +1,107 @@
+{% extends 'builder/builder_landing.html' %}
+{% load crispy_forms_filters %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        <div class="col-md-6"></div>
+        <div id="list_data_a" class="col-md-3 text-end"><a href="{% url 'list_projects_table' %}"
+                                                           class="btn btn-secondary form-listing text-uppercase">
+          Listar Dados
+        </a>
+          <div id="list_projects_a" style="display: none" class="col-md-3 text-end"><a href="{% url 'project_list' %}"
+                                                                                       class="btn btn-secondary form-listing text-uppercase">
+            Listar Projetos
+          </a>
+          </div>
+        </div>
+        <div class="col-md-3 filters_projects text-end">
+          <select name="state" id="state_filter" class="form-select text-center text-uppercase no-outline"
+                  hx-get="{% url 'filter_projects' %}"
+                  hx-trigger="change" hx-target="#project_list">
+            <option value="EM ESPERA" selected>Em espera</option>
+            <option value="EM EXECUÇÃO">Em execução</option>
+            <option value="PERDIDO">Perdido</option>
+            <option value="CONCLUÍDO">Concluído</option>
+            <option value="">Todos</option>
+
+          </select>
+        </div>
+        <div id="project_list" class="d-flex flex-wrap align-items-start mt-5 padding_left_projects">
+          <div class="col-12 col-md-2 card create_project_card px-0 mr-cards-projects no-border justify-content-center"
+               id="project_add_more">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <div>
+                <img src="{% static 'images/add_project.png' %}" alt="add_project"
+                     class="image_cards_projects mx-0 img-fluid">
+              </div>
+            </button>
+          </div>
+          {% for project in projects %}
+            <div
+              class="col-12 col-md-2 card create_project_card mr-cards-projects text-center justify-content-center no-border {% if forloop.counter >= 4 %}mt-cards-projects{% endif %}">
+              <a href="{% url 'edit_project' project.key %}" class="text-decoration-none color-black edit_project_href">
+                <div class="justify-content-center">
+                  <img src="{% static 'images/folder_projects.png' %}" alt="Projetos"
+                       class="img-fluid img_projects_folder">
+                  <h3 class="project_title">{{ project.title }}</h3>
+                  <h5 class="project_client">{{ project.client.name }}</h5>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Criar Projeto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{% url 'create_project' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label class="label_form_create_project" for="id_quote">Numero do Orçamento:</label>
+                  {{ form.quote_number }}
+                </div>
+                <div class="form-group">
+                  <label class="label_form_create_project image-file-uploader" for="id_image">Imagem da
+                    capa:</label><br>
+                  <div class="custom-file">
+                    <input type="file" id="image_create_uploader" name="image" class="custom-file-input"
+                           accept=".png, .jpg, .jpeg" required
+                           onchange="previewImageCreate(this)">
+                    <label class="custom-file-label" for="id_image">Escolha uma imagem</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="label_form_create_project" for="id_title">Titulo:</label>
+                  {{ form.title }}
+                </div>
+                <div class="form-group">
+                  <label class="label_form_create_project" for="id_address">Morada:</label>
+                  {{ form.address }}
+                </div>
+                <div class="form-group">
+                  <label class="label_form_create_project" for="id_client">Cliente:</label>
+                  {{ form.client }}
+                </div>
+                <img id="imagePreviewCreate" src="" alt="Image Preview"
+                     style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
+                <button type="submit" class="btn btn-primary save_project">Salvar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -57,3 +57,18 @@ function fadeOutAlerts4() {
 
 fadeOutAlerts4();
 setInterval(fadeOutAlerts4, 2000);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.querySelector('.image-file-uploader');
+    const fileLabel = document.querySelector('.custom-file-label');
+
+    fileInput.addEventListener('change', function (e) {
+        const fileName = e.target.files[0].name;
+        const maxLength = 50;
+        if (fileName.length > maxLength) {
+            fileLabel.textContent = fileName.substring(0, maxLength) + '...';
+        } else {
+            fileLabel.textContent = fileName;
+        }
+    });
+});

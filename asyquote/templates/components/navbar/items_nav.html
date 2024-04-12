@@ -3,7 +3,7 @@
   {% if item.href == 'login' %}
     {% if user.is_authenticated %}
       {# If user is authenticated, set the href to 'builder' #}
-      <a onclick="removeId('builder')" class="mx-4 nav-link item-nav-style color-black" href="{% url 'builder' %}">{{ item.text }}</a>
+      <a class="mx-4 nav-link item-nav-style color-black" href="{% url 'project_list' %}">{{ item.text }}</a>
     {% else %}
       {# If user is not authenticated, keep the original login link #}
       <a onclick="removeId('{{ item.href }}')" class="mx-4 nav-link item-nav-style color-black" href="{% url item.href %}">{{ item.text }}</a>

@@ -1,12 +1,12 @@
 {% load static %}
 <div class="sidebarfont">
-  <nav class="sidebar locked">
+  <nav class="sidebar hoverable close sidebar_index">
     <div class="logo_items flex">
         <span class="nav_image">
           <img src="{% static 'images/logo.png' %}" alt="Logo AsyQuote"/>
         </span>
       <span class="logo_name">AsyQuote</span>
-      <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+      <i class="bx bx-lock-alt d-none" id="lock-icon" title="Unlock Sidebar"></i>
       <i class="bx bx-x" id="sidebar-close"></i>
     </div>
     <div class="menu_container">
@@ -17,19 +17,25 @@
             <span class="line"></span>
           </div>
           <li class="item">
-            <a href="#" class="link flex">
+            <a href="../../../../builder/projects/" class="link flex">
               <i class="fa-regular fa-folder"></i>
-              <span>Todos os Projetos</span>
+              <span>Projetos</span>
             </a>
           </li>
           <li class="item">
-            <a href="../../../builder/produtos" class="link flex">
+            <a href="../../../../../builder/products/" class="link flex">
               <i class="fa-solid fa-store"></i>
               <span>Produtos</span>
             </a>
           </li>
           <li class="item">
-            <a href="../../../" class="link flex">
+            <a href="../../../../builder/clients/" class="link flex">
+              <i class="fa-solid fa-users"></i>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="../../../../../" class="link flex">
               <i class="fa-solid fa-house"></i>
               <span>Página Principal</span>
             </a>
@@ -41,11 +47,19 @@
             <span class="line"></span>
           </div>
           <li class="item">
-            <a href="../../builder/definicoes-conta/" class="link flex">
+            <a href="../../../../builder/definicoes-conta/" class="link flex">
               <i class="fa-solid fa-gears"></i>
               <span>Definições</span>
             </a>
           </li>
+          {% if user.is_superuser %}
+            <li class="item">
+              <a href="../../../../django-admin/users/user/" class="link flex">
+                <i class="fa-solid fa-user"></i>
+                <span>Utilizadores</span>
+              </a>
+            </li>
+          {% endif %}
           <li class="item">
             <form id="logoutForm" method="post" action="{% url 'account_logout' %}">
               {% csrf_token %}

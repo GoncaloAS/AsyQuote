@@ -40,7 +40,12 @@
           {#              <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>#}
           {#            </li>#}
           {#          {% endif %}#}
-          <li class="margin_nav">
+          <li class="margin_nav d-flex">
+            {% if user.is_superuser %}
+              <a href="admin/pages/3/edit/" class="link23 flex" target="_blank">
+                <i class="fas fa-edit"></i>
+              </a>
+            {% endif %}
             {% if user.is_authenticated %}
               <form id="logoutForm" method="post" action="{% url 'account_logout' %}">
                 {% csrf_token %}
@@ -56,6 +61,7 @@
                 Aceder Beta
               </a>
             {% endif %}
+
           </li>
 
         </ul>

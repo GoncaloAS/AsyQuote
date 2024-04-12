@@ -28,6 +28,8 @@ aiohttp==3.9.1
 aiofiles==23.2.1
 
 # don't forget to run npm install
+# npm install izitoast --save
 # generate model er:
 # python manage.py graph_models -a --dot -o myapp_models.dot
-# dot -Tpng myapp_models.dot -omyapp_models.png
+# dot -Tpng myapp_models.dot -o myapp_models.png
+

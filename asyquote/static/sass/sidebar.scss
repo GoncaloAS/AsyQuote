@@ -163,6 +163,13 @@
   color: #707070;
 }
 
+.link23 {
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #707070;
+}
+
 .link:hover {
   color: #fff;
   background-color: #4070f4;
@@ -173,11 +180,20 @@
 
 }
 
+.link23:hover {
+  color: #62c6c8;
+
+}
+
 .link span {
   white-space: nowrap;
 }
 
 .link22 span {
+  white-space: nowrap;
+}
+
+.link23 span {
   white-space: nowrap;
 }
 
@@ -192,6 +208,16 @@
 }
 
 .link22 i {
+  height: 50px;
+  min-width: 55px;
+  display: flex;
+  font-size: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.link23 i {
   height: 50px;
   min-width: 55px;
   display: flex;
