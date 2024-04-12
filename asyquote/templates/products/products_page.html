@@ -1,0 +1,79 @@
+{% extends 'builder/builder_landing.html' %}
+{% load crispy_forms_filters %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        <form class="d-flex" action="#" hx-get="{% url 'filter_products' %}"
+              hx-trigger="input from input delay:300ms, change from .category_radio, keyup[keyCode===13 || keyCode === 8 || keyCode === 46]"
+              hx-target="#search-results" onsubmit="return false">
+          <div class="col-md-7 px-0">
+            <input id="searchInput" class="form-control mb-4" type="search" name="searchInput"
+                   placeholder="Procure produtos pelo nome...">
+          </div>
+          <div class="col-md-5 d-flex" style="position: relative; z-index: 100;">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" style="margin-inline: 20px;" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione o Fornecedor
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for supplier in all_suppliers %}
+                  <li>
+                    <input type="checkbox" name="name_supplier" id="supplier_checkbox{{ forloop.counter }}"
+                           class="text-center"
+                           value="{{ supplier.id }}">
+                    <label for="supplier_checkbox{{ forloop.counter }}">{{ supplier.name_supplier }}</label>
+                    </input>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione as Categorias
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                {% for category in all_categorys %}
+                  <div class="form-check">
+                    <li>
+                      <input name="name_category" id="category_radio{{ forloop.counter }}" type="radio"
+                             class="text-center category_radio" value="{{ category.id }}">
+                      <label for="category_radio{{ forloop.counter }}">{{ category.name_category }}</label>
+                      </input>
+                    </li>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </form>
+        <div id="search-results">
+          {% for product in products %}
+            <div class="col-md-4">
+              <a href="{{ product.URL }}" target="_blank"
+                 class="card card_products margin_right_products_cards text-decoration-none">
+                <div>
+                  {% image product.image width-320 height-180 as product_image %}
+                  <img src="{{ product_image.url }}" alt="{{ product_image.alt }}" class="image_cards_products mx-0">
+                </div>
+                <div class="card-body">
+                  <p class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
+                  <p class="text-center font_family_products color_price_products">{{ product.price }}&nbsp;EUR</p>
+                </div>
+              </a>
+            </div>
+          {% empty %}
+            <a href="{% url '404-products' %}"></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

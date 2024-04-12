@@ -1,0 +1,167 @@
+.products_area {
+  width: 100%;
+}
+
+.margin_right_products_cards {
+  margin-right: 20px;
+}
+
+.card.card_products {
+  width: 320px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  padding: 0 !important;
+}
+
+.card.card_products:hover {
+  border: 2px solid black;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+}
+
+.image_cards_products {
+  width: 100%;
+  height: 180px;
+}
+
+.font_family_products {
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-bottom: 0;
+}
+
+.color_price_products {
+  color: #c61111;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.color_text_products {
+  color: #5a5a5a;
+  font-size: 15px;
+}
+
+.create_project_card {
+  height: 240px;
+}
+
+
+
+.create_project_card:hover {
+  border: 2px solid black;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label_form_create_project {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+#id_state, .update_client_project, .update_state_project {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#id_client {
+    width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.save_project {
+  padding: 10px 20px;
+  background-color: #62c6c8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.save_project:hover {
+  background-color: #80d5d7;
+}
+
+.mr-cards-projects {
+  margin-right: 80px;
+}
+
+.mt-cards-projects {
+  margin-top: 50px;
+}
+
+.img_projects_folder {
+  width: 80%;
+}
+
+.project_title {
+  font-size: 1.5rem;
+}
+
+.no-border {
+  border: 0;
+}
+
+.edit_project_href:hover {
+  color: black;
+}
+
+.filters_projects {
+  width: 200px;
+}
+
+.no-outline:focus {
+  box-shadow: unset;
+  border-color: #eef1f3;
+}
+
+.form-listing {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  background-position: right 12px center;
+  background-position: right .75rem center;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  color: var(--bs-body-color);
+  display: block;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: .375rem 2.25rem .375rem .75rem;
+  -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  width: 100%
+}
+
+#search-results {
+  display: contents;
+}
+
+.select_category {
+  position: absolute;
+  width: 225px;
+}
+
+.select_supplier {
+  position: absolute;
+  width: 200px;
+}

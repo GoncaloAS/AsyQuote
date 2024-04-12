@@ -1,0 +1,155 @@
+{% extends 'builder/builder_landing.html' %}
+{% load crispy_forms_filters %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        <div class="d-flex align-items-center position-fixed">
+          <div class="col-md-5">
+            <div class="dropdown">
+              <button class="dropbtn">Adicionar</button>
+              <div class="dropdown-content" id="quote-url-dropdown" data-quote-url="{% url 'save_quote' %}">
+                <a id="add-section"
+                   class="add-section" data-key="{{ project.key }}">Nova secção</a>
+                <a style="display: none"
+                   id="add-service" class="add-service" data-key="{{ project.key }}">Novo
+                  serviço</a>
+                <a style="display: none" id="add-price"
+                   class="add-price" data-key="{{ project.key }}">Novos preços</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex justify-content-end">
+            <div class="dropdown">
+              <button class="btn text-uppercase project-settings" type="button" id="dropdownMenuButton"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-gear"></i>
+              </button>
+              <div class="dropdown-menu dropdown-content">
+                <form id="deleteProjectForm" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" id="deleteProjectId" name="project_id">
+                </form>
+                <form id="updateProject" action="{% url 'update_project' project.pk %}" method="post"
+                      style="display: inline;">
+                  {% csrf_token %}
+                  <a class="dropdown-item" onclick="openUpdateModal2({{ project.pk }})">Editar</a>
+                </form>
+                <a class="dropdown-item" href="#" onclick="confirmDeleteProject({{ project.pk }})">Apagar</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-projects mb-5">
+          <form id="myForm" action="#" method="post">
+            {% for section in sections %}
+              <input type="text" name="section" placeholder="Nova secção">
+              {% for service in services %}
+                {% if service.section_key == section.section_count %}
+                  <div class="service-fields">
+                    <input class="services-form" type="text" name="service" placeholder="Novo serviço/produto">
+                    <input class="prices-form" type="text" name="quantity" placeholder="Quantidade">
+                  </div>
+                  {% for price in prices %}
+                    {% if price.services_key == service.service_count %}
+                      <div class="price-fields">
+                        <input class="prices-form" type="text" name="description" placeholder="Descrição despesas">
+                        <input class="prices-form color-cost" type="number" min="0" name="price" placeholder="Custo"
+                               id="input-custo-' + counter + '" onkeydown="preventNegativeInput(event, this);">
+                        <input class="prices-form color-cobrado" type="number" min="0" name="price"
+                               placeholder="Cobrado"
+                               id="input-cobrado-' + counter + '"
+                               onkeydown="preventNegativeInput(event, this); addPercentageCost(event, this)">
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+
+            {% csrf_token %}
+
+          </form>
+          <form id="notesQuote" action="#" method="post">
+            {% csrf_token %}
+            <label>Notas:</label>
+            <input type="text" placeholder="Insira as notas que deseja que o cliente veja no fim do orçamento...">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="staticProjectUpdate{{ project.pk }}" data-bs-backdrop="static"
+       data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Projeto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id='update_project_form' method="post" enctype="multipart/form-data"
+                action="{% url 'update_project' project.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project d-flex text-left"
+                     for="update_title{{ project.pk }}">Titulo:</label>
+              <input type="text" id="update_title{{ project.pk }}" name="update_title" value="{{ project.title }}">
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project d-flex text-left"
+                     for="update_address{{ project.pk }}">Morada:</label>
+              <input type="text" id="update_address{{ project.pk }}" name="update_address"
+                     value="{{ project.address }}">
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project d-flex text-left"
+                     for="update_state{{ project.pk }}">Estado:</label>
+              <select id="update_state{{ project.pk }}" name="update_state" class="update_state_project">
+                <option value="CONCLUÍDO" {% if project.state == "CONCLUÍDO" %} selected{% endif %}>Concluído</option>
+                <option value="PERDIDO" {% if project.state == "PERDIDO" %} selected{% endif %}>Perdido</option>
+                <option value="EM ESPERA" {% if project.state == "EM ESPERA" %} selected{% endif %}>Em Espera</option>
+                <option value="EM EXECUÇÃO" {% if project.state == "EM EXECUÇÃO" %} selected{% endif %}>Em execução
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project d-flex text-left"
+                     for="update_project_client{{ project.pk }}">Cliente:</label>
+              <select id="update_project_client{{ project.pk }}" name="update_project_client"
+                      class="update_client_project">
+                {% for client in clients %}
+                  <option value="{{ client.pk }}" {% if client.pk == project.client.pk %} selected {% endif %}>
+                    {{ client.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project d-flex text-left" for="update_image{{ project.pk }}">Imagem da
+                capa:</label>
+              <div class="custom-file">
+                <input type="file" id="update_image{{ project.pk }}" class="custom-file-input" name="update_image"
+                       accept=".png, .jpg, .jpeg"
+                       onchange="previewImage(this, '{{ project.pk }}')">
+                <label class="custom-file-label" for="update_image{{ project.pk }}">Escolha uma imagem</label>
+              </div>
+              <img id="imagePreview{{ project.pk }}" src="{{ project.image.url }}" alt="Image Preview"
+                   style="max-width: 200px; max-height: 200px; margin-top: 10px; ">
+            </div>
+
+            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

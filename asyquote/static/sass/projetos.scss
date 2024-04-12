@@ -1,0 +1,69 @@
+.table_field {
+  width: auto;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.table_style_data_projects {
+  border: 1px solid black;
+}
+
+.table_cell_hover:hover {
+  transition: 0.3s linear;
+  background: lightgrey;
+  cursor: pointer;
+}
+
+.project_state {
+  text-transform: capitalize;
+}
+
+.padding_left_projects {
+  padding-left: 100px;
+}
+
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+.custom-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.custom-file-input:focus ~ .custom-file-label,
+.custom-file-input.has-focus ~ .custom-file-label {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+}
+
+.color-cobrado {
+  color: green;
+}
+
+.color-cost {
+  color: red;
+}

@@ -8,19 +8,39 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from allauth.account.views import SignupView, LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+
+from asyquote.clients.views import client_list, create_client, update_client, delete_client, filter_clients
+from asyquote.products.views import ProductsPageView, NotFoundProductView, filter_products
+from asyquote.projects.views import project_list, create_project, edit_project, filter_projects, list_projects_table, \
+    download_excel, filter_projects_data, delete_project, update_project, save_quote_url
 from asyquote.users.views import send_email_template
-# from asyquote.products.views import update_discount
-from settings_conta.views import definicoes_view, CustomPasswordResetFromKeyView, Customemail_view
+from settings_conta.views import definicoes_view, CustomPasswordResetFromKeyView, CustomEmailView
 
 urlpatterns = [
                   path("users/", include("asyquote.users.urls", namespace="users")),
                   path("accounts/", include("allauth.urls")),
                   path('send_email_template/', send_email_template, name='send_email_template'),
-                  path('builder/', login_required(TemplateView.as_view(template_name='builder/builder_landing.html')),
-                       name='builder'),
+                  path('builder/products/', login_required(ProductsPageView.as_view()), name='products_page'),
+                  path('filter-products/', filter_products, name='filter_products'),
+                  path('404/products', NotFoundProductView.as_view(), name='404-products'),
+                  path('builder/projects/', project_list, name='project_list'),
+                  path('builder/clients/', client_list, name='client_list'),
+                  path('builder/projects/create/', create_project, name='create_project'),
+                  path('builder/projects/update/<int:project_id>/', update_project, name='update_project'),
+                  path('builder/projects/delete/<int:project_id>/', delete_project, name='delete_project'),
+                  path('builder/clients/create/', create_client, name='create_client'),
+                  path('builder/clients/update/<int:client_id>/', update_client, name='update_client'),
+                  path('builder/clients/delete/<int:client_id>/', delete_client, name='delete_client'),
+                  path('builder/projects/edit/<uuid:key>/', edit_project, name='edit_project'),
+                  path('savequote/', save_quote_url, name='save_quote'),
+                  path('filter_projects/', filter_projects, name='filter_projects'),
+                  path('filter_projects_data/', filter_projects_data, name='filter_projects_data'),
+                  path('filter_clients/', filter_clients, name='filter_clients'),
+                  path('builder/projects/list/', list_projects_table, name='list_projects_table'),
+                  path('builder/projects/list/download/', download_excel, name='download_excel'),
                   path('accounts/password/reset/key/<uidb36>/<key>/', CustomPasswordResetFromKeyView.as_view(),
                        name='account_reset_password_from_key'),
-                  path('email/', Customemail_view.as_view(), name='email'),
+                  path('email/', CustomEmailView.as_view(), name='email'),
                   path('builder/definicoes-conta/', definicoes_view, name='definicoes'),
                   # path('builder/produtos/update/<int:product_id>/', update_discount, name='update_discount'),
                   path('aceder-beta/', SignupView.as_view(), name='aceder-beta'),

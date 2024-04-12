@@ -1,0 +1,152 @@
+{% extends 'builder/builder_landing.html' %}
+{% load crispy_forms_filters %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        <div class="d-flex align-items-baseline justify-content-evenly">
+          <input id="searchClient" class="form-control mb-4 searchClient" type="search" name="searchClient"
+                 placeholder="Procure clientes pelo nome ou pelo NIF."
+                 hx-get="{% url 'filter_clients' %}"
+                 hx-trigger="input from input delay:300ms, change from keyup[keyCode===13 || keyCode === 8 || keyCode === 46]"
+                 hx-target="#client_list"
+                 onsubmit="return false">
+          <button class="button-19" role="button" data-bs-toggle="modal" data-bs-target="#staticClient">Adicionar
+          </button>
+        </div>
+      </div>
+      <div id="client_list" class="justify-content-center d-flex">
+        <div class="table-responsive">
+          <table class="mt-5 table_style_data_projects" style="overflow-x: auto;">
+            <tr>
+              <td class="table_field px-3">Nome</td>
+              <td class="table_field px-3">Email</td>
+              <td class="table_field px-3">Telemóvel</td>
+              <td class="table_field px-3">Morada</td>
+              <td class="table_field px-3">NIF</td>
+              <td class="table_field px-3">Valor</td>
+              <td class="table_field px-3">Ações</td>
+            </tr>
+            {% for client in clients %}
+              <tr>
+                <td id="name_updater" class="table_field px-3">{{ client.name }}</td>
+                <td id="email_updater" class="table_field px-3">{{ client.email }}</td>
+                <td id="phone_updater" class="table_field px-3">{{ client.phone }}</td>
+                <td id="phone_updater" class="table_field px-3">{{ client.address }}</td>
+                <td id="nif_updater" class="table_field px-3">{{ client.nif }}</td>
+                <td class="table_field px-3">{{ client.value }}</td>
+                <td class="table_field px-3">
+                  <form id="updateForm" action="{% url 'update_client' client.id %}" method="post"
+                        style="display: inline;">
+                    {% csrf_token %}
+                    <button type="button" class="button-21" onclick="openUpdateModal({{ client.id }})">Editar</button>
+                    {#                    onclick="openUpdateModal({{ client.id }})#}
+                  </form>
+                  <form id="deleteForm" action="{% url 'delete_client' 0 %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" id="deleteClientId" name="delete_client_id" value="">
+                    <button type="button" class="button-20" onclick="return confirmDeleteClient({{ client.id }})">
+                      Eliminar
+                    </button>
+                  </form>
+
+                  <div class="modal fade" id="staticClientUpdate{{ client.id }}" data-bs-backdrop="static"
+                       data-bs-keyboard="false" tabindex="-1"
+                       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Cliente</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form id='update_client_form' method="post"
+                                action="{% url 'update_client' client.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label class="label_form_create_project d-flex text-left"
+                                     for="update_name{{ client.id }}">Nome:</label>
+                              <input type="text" id="update_name{{ client.id }}" name="update_name"
+                                     value="{{ client.name }}">
+                            </div>
+                            <div class="form-group">
+                              <label class="label_form_create_project d-flex text-left"
+                                     for="update_email{{ client.id }}">Email:</label>
+                              <input type="email" id="update_email{{ client.id }}" name="update_email"
+                                     value="{{ client.email }}">
+                            </div>
+                            <div class="form-group">
+                              <label class="label_form_create_project d-flex text-left"
+                                     for="update_phone{{ client.id }}">Telemóvel:</label>
+                              <input type="text" id="update_phone{{ client.id }}" name="update_phone"
+                                     value="{{ client.phone }}">
+                            </div>
+                            <div class="form-group">
+                              <label class="label_form_create_project d-flex text-left"
+                                     for="update_address{{ client.id }}">Morada:</label>
+                              <input type="text" id="update_address{{ client.id }}" name="update_address"
+                                     value="{{ client.address }}">
+                            </div>
+                            <div class="form-group">
+                              <label class="label_form_create_project d-flex text-left" for="update_nif{{ client.id }}">NIF:</label>
+                              <input type="text" id="update_nif{{ client.id }}" name="update_nif"
+                                     value="{{ client.nif }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal fade" id="staticClient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Cliente</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id='create_client_form' method="post" action="{% url 'create_client' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_name">Nome:</label>
+                {{ form.name }}
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_title">Email:</label>
+                {{ form.email }}
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_address">Telemóvel:</label>
+                {{ form.phone }}
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_address">Morada:</label>
+                {{ form.address }}
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_client">NIF:</label>
+                {{ form.nif }}
+              </div>
+              <button type="submit" class="btn btn-primary save_project">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock content %}

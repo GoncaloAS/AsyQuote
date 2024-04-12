@@ -1,0 +1,121 @@
+.project-settings {
+  border-radius: 40px;
+  border: 1px solid black;
+  height: fit-content;
+}
+
+.project-settings:hover {
+  background: lightgrey;
+}
+
+.dropbtn {
+  background-color: #1aaab4;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: din-round, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 150px;
+  margin-left: 100px;
+}
+
+.dropbtn:after {
+  background-clip: padding-box;
+  background-color: #62c6c8;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.dropbtn:focus {
+  user-select: auto;
+}
+
+.dropbtn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.dropbtn:disabled {
+  cursor: auto;
+}
+
+.dropbtn:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  margin-left: 100px;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.form-projects {
+  width: 75%;
+  margin: auto;
+  margin-top: 50px;
+  padding-left: 200px;
+
+}
+
+.service-fields {
+  margin-left: 5%;
+  display: flex;
+}
+
+
+.price-fields {
+  display: flex;
+  margin-left: 10%;
+}

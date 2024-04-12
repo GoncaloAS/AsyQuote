@@ -1,0 +1,15 @@
+{% extends 'builder/builder_landing.html' %}
+{% load crispy_forms_filters %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load account %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="builder_area">
+    <div class="container">
+      <div class="row w-100">
+        {% include '404/404.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

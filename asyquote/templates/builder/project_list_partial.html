@@ -1,0 +1,21 @@
+{% load i18n static %}
+<div class="col-12 col-md-2 card create_project_card px-0 mr-cards-projects no-border justify-content-center"
+     id="project_add_more">
+  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <div>
+      <img src="{% static 'images/add_project.png' %}" alt="add_project" class="image_cards_projects mx-0 img-fluid">
+    </div>
+  </button>
+</div>
+{% for project in projects %}
+  <div
+    class="col-12 col-md-2 card create_project_card mr-cards-projects text-center justify-content-center no-border {% if forloop.counter >= 4 %}mt-cards-projects{% endif %}">
+    <a href="{% url 'edit_project' project.key %}" class="text-decoration-none color-black edit_project_href">
+      <div class="justify-content-center">
+        <img src="{% static 'images/folder_projects.png' %}" alt="Projetos" class="img-fluid img_projects_folder">
+        <h3 class="project_title">{{ project.title }}</h3>
+        <h5 class="project_client">{{ project.client }}</h5>
+      </div>
+    </a>
+  </div>
+{% endfor %}

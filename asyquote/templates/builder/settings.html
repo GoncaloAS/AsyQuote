@@ -10,22 +10,25 @@
       <div class="row w-100">
         <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
           <li class="nav-item" role="presentation">
-            <a class="nav-link active color_tabs_settings" id="ex-with-icons-tab-1" data-bs-toggle="tab"
-               href="#ex-with-icons-tabs-1"
-               role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true">
-
+            <a
+              class="nav-link active color_tabs_settings active"
+              id="ex-with-icons-tab-1" data-bs-toggle="tab"
+              href="#ex-with-icons-tabs-1"
+              role="tab" aria-controls="ex-with-icons-tabs-1" aria-selected="true">
               <i class="fa-solid fa-key px-2"></i>Palavra Passe
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link color_tabs_settings" id="ex-with-icons-tab-2" data-bs-toggle="tab"
+            <a class="nav-link color_tabs_settings"
+               id="ex-with-icons-tab-2" data-bs-toggle="tab"
                href="#ex-with-icons-tabs-2" role="tab"
                aria-controls="ex-with-icons-tabs-2" aria-selected="false">
               <i class="fa-solid fa-pencil px-2"></i>Preferências
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link color_tabs_settings" id="ex-with-icons-tab-3" data-bs-toggle="tab"
+            <a class="nav-link color_tabs_settings"
+               id="ex-with-icons-tab-3" data-bs-toggle="tab"
                href="#ex-with-icons-tabs-3" role="tab"
                aria-controls="ex-with-icons-tabs-3" aria-selected="false">
               <i class="fa-solid fa-envelope px-2"></i>E-mail
@@ -33,39 +36,46 @@
           </li>
         </ul>
         <div class="tab-content" id="ex-with-icons-content">
-          <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel"
+          <div class="tab-pane fade show active"
+               id="ex-with-icons-tabs-1" role="tabpanel"
                aria-labelledby="ex-with-icons-tab-1">
             <div class="card_settings mt-5 col-8 m-auto pb-5">
               <h1 class="m-auto d-flex justify-content-center pt-3">{% translate "Change Password" %}</h1>
-              <form method="post" action="{% url 'definicoes' %}" class="password_change padding_form_password_change">
+              <form id="password_change_form" method="post" action="{% url 'definicoes' %}"
+                    class="password_change padding_form_password_change">
                 {% csrf_token %}
                 {{ password_change_form|crispy }}
-                <button class="btn btn-primary btn_change_password" type="submit" name="password_change_submit">
+                <input type="hidden" name="form_type_password" id="form_type_password" value="password_change_submit">
+                <button class="btn btn-primary btn_change_password" type="submit">
                   {% translate "Change Password" %}
                 </button>
               </form>
             </div>
           </div>
-          <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
+          <div class="tab-pane fade" id="ex-with-icons-tabs-2"
+               role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
             <div class="card_settings mt-5 col-8 m-auto pb-5 padding_preferences_card">
               <h1 class="m-auto d-flex justify-content-center pt-3">{% translate "Preferências " %}</h1>
-              <form method="post" action="{% url 'definicoes' %}" class="marketing_preferences pt-4">
+              <form id="marketing_preferences_form" method="post" action="{% url 'definicoes' %}"
+                    class="marketing_preferences pt-4">
                 {% csrf_token %}
                 {{ marketing_preferences_form|crispy }}
-                <button class="btn btn-primary btn_change_password" type="submit" name="marketing_preferences_submit">
+                <input type="hidden" name="form_type_marketing" id="form_type_marketing"
+                       value="marketing_preferences_submit">
+                <button class="btn btn-primary btn_change_password" type="submit">
                   {% translate "Salvar preferências de marketing" %}
                 </button>
               </form>
             </div>
           </div>
-          <div class="tab-pane fade margin_top_change_email" id="ex-with-icons-tabs-3" role="tabpanel"
+          <div class="tab-pane fade margin_top_change_email {% if active_tab == 'tab3' %}show active{% endif %}"
+               id="ex-with-icons-tabs-3" role="tabpanel"
                aria-labelledby="ex-with-icons-tab-3">
             <div class="card_settings col-8 m-auto px-5">
-
               <h1 class="text-center pt-3">{% translate "E-mail" %}</h1>
               {% if user.emailaddress_set.all %}
                 <p>{% translate "Os seguintes e-mail estão associados com a sua conta:" %}</p>
-                <form action="{% url 'email' %}" class="email_list" method="post">
+                <form id="email_list_form" action="{% url 'email' %}" class="email_list" method="post">
                   {% csrf_token %}
                   <fieldset class="blockLabels">
                     {% for emailaddress in user.emailaddress_set.all %}
@@ -78,7 +88,7 @@
                                  {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{% endif %}
                                  value="{{ emailaddress.email }}"/>
                           {{ emailaddress.email }}
-                          <div class="d-flex">
+                          <div class="d-flex radio-label-width">
                             {% if emailaddress.verified %}
                               <span class="verified text_email_settings">{% translate "Verified" %}</span>
                             {% else %}
@@ -108,7 +118,7 @@
                 </p>
               {% endif %}
               <h2 class="text-center mt-5">{% translate "Adicionar e-mails" %}</h2>
-              <form method="post" action="{% url 'email' %}" class="add_email">
+              <form id="add_email_form" method="post" action="{% url 'email' %}" class="add_email">
                 {% csrf_token %}
                 {{ add_email_form|crispy }}
                 <button class="btn btn-primary add_email_settings" name="action_add"
@@ -120,22 +130,6 @@
       </div>
     </div>
   </div>
-  </div>
+  <script src="{% static 'js/settings_messages.js' %}" type="text/javascript"></script>
 {% endblock content %}
-{% block inline_javascript %}
-  {{ block.super }}
-  <script type="text/javascript">
-    window.addEventListener('DOMContentLoaded', function () {
-      const message = "{% translate 'Deseja mesmo remover este email da sua conta?' %}";
-      const actions = document.getElementsByName('action_remove');
-      if (actions.length) {
-        actions[0].addEventListener("click", function (e) {
-          if (!confirm(message)) {
-            e.preventDefault();
-          }
-        });
-      }
-      Array.from(document.getElementsByClassName('form-group')).forEach(x => x.classList.remove('row'));
-    });
-  </script>
-{% endblock inline_javascript %}
+

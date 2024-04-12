@@ -108,6 +108,8 @@ LOCAL_APPS = [
     "asyquote.users",
     "asyquote.landingpage",
     "asyquote.products",
+    "asyquote.projects",
+    "asyquote.clients",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
