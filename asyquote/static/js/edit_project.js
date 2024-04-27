@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let counter = 1;
     const saveQuoteUrl = $("#quote-url-dropdown").attr("data-quote-url");
+
     function saveQuote(action, key) {
         $.ajax({
             url: saveQuoteUrl,
@@ -169,6 +170,53 @@ function previewImageCreate(input) {
     }
 }
 
+function previewImageSupplier(input) {
+    var preview = document.getElementById('imagePreviewSupplier')
+    var label = document.querySelector('.custom-file-label-supplier');
+    preview.style.display = 'block';
+    var file = input.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+        const file_name = file.name
+        const maxLength = 50;
+        if (file_name.length > maxLength) {
+            label.textContent = file_name.substring(0, maxLength) + '...';
+        } else {
+            label.textContent = file_name;
+        }
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
+function previewImageSupplierUpdate(input, supplierId) {
+    var preview = document.getElementById('imagePreview' + supplierId);
+    var label = document.querySelector('.custom-file-label-update-supplier');
+    var file = input.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+        const file_name = file.name
+        const maxLength = 50;
+        if (file_name.length > maxLength) {
+            label.textContent = file_name.substring(0, maxLength) + '...';
+        } else {
+            label.textContent = file_name;
+        }
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}
+
 
 $(document).ready(function () {
     // Handle form submission via AJAX
@@ -204,6 +252,7 @@ $(document).ready(function () {
         });
     });
 });
+
 
 function scrollFormToBottom() {
     window.scrollBy(0, 10000);

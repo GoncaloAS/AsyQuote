@@ -7,7 +7,7 @@
 }
 
 .card.card_products {
-  width: 320px;
+  width: 300px;
   cursor: pointer;
   margin-bottom: 30px;
   padding: 0 !important;
@@ -21,7 +21,12 @@
 
 .image_cards_products {
   width: 100%;
-  height: 180px;
+  height: 250px;
+}
+
+.image_cards_add_products {
+  width: 100%;
+  height: 220px;
 }
 
 .font_family_products {
@@ -43,7 +48,6 @@
 .create_project_card {
   height: 240px;
 }
-
 
 
 .create_project_card:hover {
@@ -71,8 +75,16 @@ input[type="number"],
   box-sizing: border-box;
 }
 
+.selects-create-product select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
 #id_client {
-    width: 100%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -164,4 +176,175 @@ input[type="number"],
 .select_supplier {
   position: absolute;
   width: 200px;
+}
+
+.add-filters-product {
+  button {
+    background: white;
+    width: 100%;
+    border: 0;
+    color: #62c6c8;
+  }
+
+  button:hover {
+    text-decoration: underline;
+  }
+}
+
+.add-filters-product-2 {
+  button {
+    background: white;
+    width: 100%;
+    border: 0;
+    color: black;
+  }
+
+  button:hover {
+    text-decoration: underline;
+  }
+}
+.margin-left-row-products {
+  margin-left: 1%;
+}
+
+.product-info-modal {
+  .product-image-info {
+    width: 500px;
+  }
+
+  h3 {
+    font-family: 'Source Sans Pro', sans-serif;
+
+  }
+
+  .stores-info-product {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 5px;
+    height: 5rem;
+    align-content: center;
+  }
+}
+
+.supplier-info {
+  .supplier-link {
+    background-color: #71eaec;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .supplier-link:after {
+    background-clip: padding-box;
+    background-color: #63ccce;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+
+  .supplier-link:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+
+  .supplier-link:disabled {
+    cursor: auto;
+  }
+
+  .supplier-link:active {
+    border-width: 4px 0 0;
+    background: none;
+  }
+
+  a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+  }
+}
+
+
+// toogle css
+.editor_mode {
+
+  input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  label {
+    cursor: pointer;
+    width: 80px;
+    height: 35px;
+    background: grey;
+    border-radius: 100px;
+    position: relative;
+  }
+
+  label:after {
+    content: 'E';
+    text-align: center;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+
+  input:checked + label {
+    background: #62c6c8;
+  }
+
+  input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+  label:active:after {
+    width: 40px;
+  }
+
+}
+
+
+.excel_upload {
+  i {
+    font-size: 8rem;
+  }
 }

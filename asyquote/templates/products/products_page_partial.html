@@ -2,22 +2,66 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load account %}
 {% load crispy_forms_tags %}
+
 {% for product in products %}
-  <div class="col-md-4">
-    <a href="{{ product.URL }}" target="_blank"
-       class="card card_products margin_right_products_cards text-decoration-none">
-      <div>
-        {% image product.image width-320 height-180 as product_image %}
-        <img src="{{ product_image.url }}" alt="{{ product_image.alt }}" class="image_cards_products mx-0">
+  {% if forloop.counter == 1 %}
+    {% if user.is_superuser %}
+      <!-- Button to add more products (visible only to superusers) -->
+      <div
+        class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
+        id="product_add_more">
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticProductUpdate{{ product.id }}">
+          <div>
+            <img src="{% static 'images/add_project.png' %}" alt="add_project" class="image_cards_add_products mx-0">
+          </div>
+        </button>
       </div>
-      <div class="card-body">
-        <p class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
-        <p class="text-center font_family_products color_price_products">{{ product.price }}&nbsp;EUR</p>
+      <div
+        class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
+        id="product_excel_upload" style="display: none">
+        <button type="button" class="btn w-100 h-100">
+          <div class="excel_upload">
+            <i class="fa-regular fa-file-excel"></i>
+          </div>
+        </button>
       </div>
-    </a>
+    {% endif %}
+  {% endif %}
+  <div class="filtered_products">
+    <div class="col-12 col-md-3">
+      <a href="#" data-bs-toggle="modal" data-bs-target="#staticProductInfo" data-product-id="{{ product.id }}"
+         data-product-title="{{ product.title }}"
+         data-product-image="{{ product.image.url }}"
+         data-supplier-image="
+                  {% for supplier in product.suppliers.all %}
+                    {{ supplier.image_supplier.url }}
+                 {% endfor %}
+              "
+         data-product-price="
+              {% for link in product.links.all %}
+                {{ link.price }}
+              {% endfor %}"
+         data-product-links-url="
+              {% for link in product.links.all %}
+                {{ link.url }}
+              {% endfor %}"
+         class="card card_products margin_right_products_cards text-decoration-none">
+        <div>
+          <img src="{{ product.image.url }}" alt="{{ product.title }}" class="image_cards_products mx-0">
+        </div>
+        <div class="card-body">
+          <p class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
+          <p class="text-center font_family_products color_price_products">{{ product.minimum_price }}&nbsp;EUR</p>
+        </div>
+      </a>
+    </div>
   </div>
 {% empty %}
+  <!-- If there are no products, display a 404 error -->
   <div class="col-12">
     {% include '404/404_products.html' %}
   </div>
 {% endfor %}
+
+<!-- Include JavaScript file for creating product information modal -->
+<script src="{% static 'js/create_product.js' %}" type="text/javascript"></script>

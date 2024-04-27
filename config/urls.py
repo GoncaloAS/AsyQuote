@@ -10,7 +10,8 @@ from allauth.account.views import SignupView, LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
 from asyquote.clients.views import client_list, create_client, update_client, delete_client, filter_clients
-from asyquote.products.views import ProductsPageView, NotFoundProductView, filter_products
+from asyquote.products.views import ProductsPageView, NotFoundProductView, filter_products, create_product, \
+    create_category, create_supplier, update_supplier, update_category, update_product
 from asyquote.projects.views import project_list, create_project, edit_project, filter_projects, list_projects_table, \
     download_excel, filter_projects_data, delete_project, update_project, save_quote_url
 from asyquote.users.views import send_email_template
@@ -21,6 +22,12 @@ urlpatterns = [
                   path("accounts/", include("allauth.urls")),
                   path('send_email_template/', send_email_template, name='send_email_template'),
                   path('builder/products/', login_required(ProductsPageView.as_view()), name='products_page'),
+                  path('builder/products/create/', create_product, name='create-product'),
+                  path('builder/products/category/create/', create_category, name='create-category'),
+                  path('builder/products/supplier/create/', create_supplier, name='create-supplier'),
+                  path('builder/products/supplier/update/<int:supplier_id>', update_supplier, name='update-supplier'),
+                  path('builder/products/product/update/<int:product_id>', update_product, name='update-product'),
+                  path('builder/products/category/update/<int:category_id>', update_category, name='update-category'),
                   path('filter-products/', filter_products, name='filter_products'),
                   path('404/products', NotFoundProductView.as_view(), name='404-products'),
                   path('builder/projects/', project_list, name='project_list'),
@@ -33,6 +40,7 @@ urlpatterns = [
                   path('builder/clients/delete/<int:client_id>/', delete_client, name='delete_client'),
                   path('builder/projects/edit/<uuid:key>/', edit_project, name='edit_project'),
                   path('savequote/', save_quote_url, name='save_quote'),
+
                   path('filter_projects/', filter_projects, name='filter_projects'),
                   path('filter_projects_data/', filter_projects_data, name='filter_projects_data'),
                   path('filter_clients/', filter_clients, name='filter_clients'),

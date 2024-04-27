@@ -66,7 +66,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form method="post" action="{% url 'create_project' %}" enctype="multipart/form-data">
+              <form method="post" action="{% url 'create_project' %}" enctype="multipart/form-data" id="create_project_form_prevention">
                 {% csrf_token %}
                 <div class="form-group">
                   <label class="label_form_create_project" for="id_quote">Numero do Orçamento:</label>
@@ -96,7 +96,7 @@
                 </div>
                 <img id="imagePreviewCreate" src="" alt="Image Preview"
                      style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
-                <button type="submit" class="btn btn-primary save_project">Salvar</button>
+                <button type="submit" id="create_project_submit" class="btn btn-primary save_project">Salvar</button>
               </form>
             </div>
           </div>
@@ -104,4 +104,5 @@
       </div>
     </div>
   </div>
+  <script src="{% static 'js/create_project.js' %}" type="text/javascript"></script>
 {% endblock %}

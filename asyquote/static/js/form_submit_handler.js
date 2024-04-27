@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     // Handle form submission via AJAX
-    $('#create_client_form, #update_client_form, #delete_client_form').submit(function (event) {
+    $('#create_client_form, #update_client_form, #delete_client_form, #update_supplier_form, #update_category_form').submit(function (event) {
         event.preventDefault();
         var form = $(this);
         $.ajax({
