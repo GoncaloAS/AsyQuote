@@ -3,18 +3,17 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.snippets.models import register_snippet
 
 
-@register_snippet
 class Supplier(models.Model):
     name_supplier = models.CharField(max_length=255)
+    image_supplier = models.ImageField(upload_to='supplier_images/', verbose_name='supplier-image', null=True,
+                                       blank=True)
 
     def __str__(self):
         return self.name_supplier
 
 
-@register_snippet
 class Category(models.Model):
     name_category = models.CharField(max_length=255)
 
@@ -22,32 +21,23 @@ class Category(models.Model):
         return self.name_category
 
 
-class Products(Orderable):
-    page = ParentalKey("ProductsPage", related_name="products", blank=True, null=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Image'
-    )
-    title = models.CharField(max_length=255, blank=True, null=True)
-    price = models.CharField(blank=True, null=True)
-    discounts = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, default=0)
-    suppliers = ParentalManyToManyField(Supplier)
-    categories = ParentalManyToManyField(Category)
+class Links(models.Model):
+    url = models.URLField(max_length=255)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    price = models.DecimalField(decimal_places=2, max_digits=7, default='')
 
     def __str__(self):
-        return f"{self.title}"
+        return self.url
 
 
-class ProductsPage(RoutablePageMixin, Page):
-    max_count = 1
+class Products(models.Model):
+    id = models.AutoField(primary_key=True)
+    image = models.ImageField(upload_to='products_images/', verbose_name='Image-products', null=True, blank=True)
+    title = models.CharField(max_length=255, default='')
+    suppliers = models.ManyToManyField(Supplier)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE, default=1, null=True)
+    links = models.ManyToManyField(Links, blank=True)
 
-    content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [InlinePanel("products", label="products")],
-            heading="Products",
-        ),
-    ]
+    def minimum_price(self):
+        prices = [link.price for link in self.links.all()]
+        return min(prices, default=None)

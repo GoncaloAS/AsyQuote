@@ -40,12 +40,7 @@
                 <td id="nif_updater" class="table_field px-3">{{ client.nif }}</td>
                 <td class="table_field px-3">{{ client.value }}</td>
                 <td class="table_field px-3">
-                  <form id="updateForm" action="{% url 'update_client' client.id %}" method="post"
-                        style="display: inline;">
-                    {% csrf_token %}
                     <button type="button" class="button-21" onclick="openUpdateModal({{ client.id }})">Editar</button>
-                    {#                    onclick="openUpdateModal({{ client.id }})#}
-                  </form>
                   <form id="deleteForm" action="{% url 'delete_client' 0 %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <input type="hidden" id="deleteClientId" name="delete_client_id" value="">

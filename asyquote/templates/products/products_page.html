@@ -7,73 +7,426 @@
 {% block content %}
   <div class="builder_area">
     <div class="container">
-      <div class="row w-100">
-        <form class="d-flex" action="#" hx-get="{% url 'filter_products' %}"
+      <div class="row w-100 margin-left-row-products">
+
+        <form class="d-flex px-0" action="#" hx-get="{% url 'filter_products' %}"
               hx-trigger="input from input delay:300ms, change from .category_radio, keyup[keyCode===13 || keyCode === 8 || keyCode === 46]"
               hx-target="#search-results" onsubmit="return false">
-          <div class="col-md-7 px-0">
+          <div class="col-md-6 px-0">
             <input id="searchInput" class="form-control mb-4" type="search" name="searchInput"
                    placeholder="Procure produtos pelo nome...">
           </div>
-          <div class="col-md-5 d-flex" style="position: relative; z-index: 100;">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" style="margin-inline: 20px;" type="button" id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="col-md-4 d-flex" style="position: relative; z-index: 100;">
+            {# Create Supplier #}
+            <div class="dropdown" id="createSupplierDropdown">
+              <button class="btn btn-secondary dropdown-toggle" style="margin-inline: 20px;" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Selecione o Fornecedor
               </button>
-
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% if user.is_superuser %}
+                  <div class="add-filters-product">
+                    <button data-bs-toggle="modal" data-bs-target="#staticSupplierCreate">
+                      Adicionar Fornecedor
+                    </button>
+                  </div>
+                {% endif %}
                 {% for supplier in all_suppliers %}
-                  <li>
-                    <input type="checkbox" name="name_supplier" id="supplier_checkbox{{ forloop.counter }}"
-                           class="text-center"
-                           value="{{ supplier.id }}">
-                    <label for="supplier_checkbox{{ forloop.counter }}">{{ supplier.name_supplier }}</label>
-                    </input>
-                  </li>
+                  <div class="form-check px-0">
+                    <li class="px-3">
+                      <input type="checkbox" name="name_supplier" id="supplier_checkbox{{ forloop.counter }}"
+                             class="text-center"
+                             value="{{ supplier.id }}">
+                      <label for="supplier_checkbox{{ forloop.counter }}">{{ supplier.name_supplier }}</label>
+                    </li>
+                  </div>
                 {% endfor %}
               </ul>
             </div>
-            <div class="dropdown">
+
+            {# Update Supplier#}
+            <div class="dropdown" id="updateSupplierDropdown" style="display: none">
+              <button class="btn btn-secondary dropdown-toggle" style="margin-inline: 20px;" type="button"
+                      id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione o Fornecedor
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                {% for supplier in all_suppliers %}
+                  <div class="add-filters-product-2 form-check px-0">
+                    <li class="px-3">
+                      <button data-bs-toggle="modal"
+                              data-bs-target="#staticSupplierUpdate{{ supplier.id }}">{{ supplier.name_supplier }}</button>
+                    </li>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+
+            {# Create Category #}
+            <div class="dropdown" id="createCategoryDropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione as Categorias
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                {% if user.is_superuser %}
+                  <div class="add-filters-product">
+                    <button data-bs-toggle="modal" data-bs-target="#staticCategoryCreate">
+                      Adicionar Categoria
+                    </button>
+                  </div>
+                {% endif %}
+                {% for category in all_categorys %}
+                  <div class="form-check px-0">
+                    <li class="px-3">
+                      <input name="name_category" id="category_radio{{ forloop.counter }}" type="checkbox"
+                             class="text-center category_radio" value="{{ category.id }}">
+                      <label for="category_radio{{ forloop.counter }}">{{ category.name_category }}</label>
+                    </li>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+
+            {# Update Category #}
+            <div class="dropdown" id="updateCategoryDropdown" style="display: none">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
                       data-bs-toggle="dropdown" aria-expanded="false">
                 Selecione as Categorias
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 {% for category in all_categorys %}
-                  <div class="form-check">
-                    <li>
-                      <input name="name_category" id="category_radio{{ forloop.counter }}" type="radio"
-                             class="text-center category_radio" value="{{ category.id }}">
-                      <label for="category_radio{{ forloop.counter }}">{{ category.name_category }}</label>
-                      </input>
+                  <div class="add-filters-product-2 form-check px-0">
+                    <li class="px-3">
+                      <button data-bs-toggle="modal" data-bs-target="#staticCategoryUpdate{{ category.id }}">{{ category.name_category }}</button>
                     </li>
                   </div>
                 {% endfor %}
               </ul>
             </div>
+
           </div>
+          <div class="d-flex col-md-2 editor_mode px-4">
+            <input type="checkbox" id="switch" name="switch" data-triggered="false"/>
+            <label for="switch"></label>
+          </div>
+
         </form>
         <div id="search-results">
-          {% for product in products %}
-            <div class="col-md-4">
-              <a href="{{ product.URL }}" target="_blank"
-                 class="card card_products margin_right_products_cards text-decoration-none">
+          {% if user.is_superuser %}
+            <div
+              class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
+              id="product_add_more">
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticProductCreate">
                 <div>
-                  {% image product.image width-320 height-180 as product_image %}
-                  <img src="{{ product_image.url }}" alt="{{ product_image.alt }}" class="image_cards_products mx-0">
+                  <img src="{% static 'images/add_project.png' %}" alt="add_project"
+                       class="image_cards_add_products mx-0">
                 </div>
-                <div class="card-body">
-                  <p class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
-                  <p class="text-center font_family_products color_price_products">{{ product.price }}&nbsp;EUR</p>
-                </div>
-              </a>
+              </button>
             </div>
-          {% empty %}
-            <a href="{% url '404-products' %}"></a>
+
+            <div
+              class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
+              id="product_excel_upload" style="display: none">
+              <button type="button" class="btn w-100 h-100">
+                <div class="excel_upload">
+                  <i class="fa-regular fa-file-excel"></i>
+                </div>
+              </button>
+            </div>
+          {% endif %}
+
+          {% for product in products %}
+            <div class="filtered_products">
+              <div class="col-12 col-md-3">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#staticProductInfo"
+                   data-product-id="{{ product.id }}"
+                   data-product-title="{{ product.title }}"
+                   data-product-image="{{ product.image.url }}"
+                   data-supplier-image="
+                  {% for supplier in product.suppliers.all %}
+                    {{ supplier.image_supplier.url }}
+                 {% endfor %}
+              "
+                   data-product-price="
+              {% for link in product.links.all %}
+                {{ link.price }}
+              {% endfor %}"
+                   data-product-links-url="
+              {% for link in product.links.all %}
+                {{ link.url }}
+              {% endfor %}"
+                   class="card card_products margin_right_products_cards text-decoration-none">
+                  <div>
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="image_cards_products mx-0">
+                  </div>
+                  <div class="card-body">
+                    <p
+                      class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
+                    <p
+                      class="text-center font_family_products color_price_products">{{ product.minimum_price }}&nbsp;EUR</p>
+
+                  </div>
+                </a>
+              </div>
+            </div>
           {% endfor %}
         </div>
       </div>
     </div>
   </div>
+  {# modal product info #}
+  <div class="modal fade" id="staticProductInfo" data-identifier="productinfo-modal" data-bs-backdrop="static"
+       data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Informação do Produto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {#  modal product creation #}
+  <div class="modal fade" id="staticProductCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Produto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id='create_products_form' method="post" action="{% url 'create-product' %}"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project image-file-uploader" for="id_image">Imagem:</label><br>
+              <div class="custom-file">
+                <input type="file" id="image_create_uploader_products" name="image" class="custom-file-input"
+                       accept=".png, .jpg, .jpeg" required
+                       onchange="previewImageCreate(this)">
+                <label class="custom-file-label" for="id_image">Escolha uma imagem</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_title">Titulo:</label>
+              {{ form.title }}
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_categories">Categoria:</label>
+              <div class="selects-create-product">
+                {{ form.categories }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_suppliers">Fornecedores:</label>
+              <div class="selects-create-product">
+                {{ form.suppliers }}
+              </div>
+            </div>
+
+            <div id="supplierLinkFields" class="form-group" style="display: none;">
+              <!-- Dynamic fields for supplier links will be inserted here -->
+            </div>
+            <img id="imagePreviewCreate" src="" alt="Image Preview"
+                 style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
+            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# modal supplier creation #}
+  <div class="modal fade" id="staticSupplierCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Fornecedor</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id='create_category_form' method="post" action="{% url 'create-supplier' %}"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project image-file-uploader" for="id_image">Imagem:</label><br>
+              <div class="custom-file">
+                <input type="file" id="image_supplier" name="image" class="custom-file-input"
+                       accept=".png, .jpg, .jpeg" required
+                       onchange="previewImageSupplier(this)">
+                <label class="custom-file-label-supplier" for="id_image">Escolha uma imagem</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_name_category">Fornecedor:</label>
+              {{ form_supplier.name_supplier }}
+            </div>
+            <img id="imagePreviewSupplier" src="" alt="Image Preview"
+                 style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
+            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {#  modal category creation#}
+  <div class="modal fade" id="staticCategoryCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Categoria</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id='create_category_form' method="post" action="{% url 'create-category' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_name_category">Categoria:</label>
+              {{ form_categories.name_category }}
+            </div>
+            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% for supplier in all_suppliers %}
+    <div class="modal fade" id="staticSupplierUpdate{{ supplier.id }}" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Fornecedor</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="update_supplier_form" method="post" action="{% url 'update-supplier' supplier.id %}"
+                  enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="label_form_create_project d-flex text-left"
+                       for="update_supplier_name{{ supplier.id }}">Nome:</label>
+                <input type="text" id="update_supplier_name{{ supplier.id }}" name="update_supplier_name"
+                       value="{{ supplier.name_supplier }}" required>
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project d-flex text-left" for="update_supplier_image{{ supplier.pk }}">Imagem
+                  do
+                  fornecedor:</label>
+                <div class="custom-file">
+                  <input type="file" id="update_supplier_image{{ supplier.pk }}" class="custom-file-input"
+                         name="update_supplier_image"
+                         accept=".png, .jpg, .jpeg"
+                         onchange="previewImageSupplierUpdate(this, '{{ supplier.pk }}')">
+                  <label class="custom-file-label custom-file-label-update-supplier"
+                         for="update_supplier_image{{ supplier.pk }}">Escolha uma imagem</label>
+                </div>
+                <img id="imagePreview{{ supplier.pk }}" src="{{ supplier.image_supplier.url }}" alt="Image Preview"
+                     style="max-width: 200px; max-height: 200px; margin-top: 10px; ">
+              </div>
+              <button type="submit" class="btn btn-primary save_project">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  {% for category in all_categorys %}
+    <div class="modal fade" id="staticCategoryUpdate{{ category.id }}" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Categoria</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="update_category_form" method="post" action="{% url 'update-category' category.id %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="label_form_create_project d-flex text-left"
+                       for="update_category_name{{ category.id }}">Nome:</label>
+                <input type="text" id="update_category_name{{ category.id }}" name="update_category_name"
+                       value="{{ category.name_category }}" required>
+              </div>
+              <button type="submit" class="btn btn-primary save_project">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  {% for product in products %}
+
+  <div class="modal fade" id="staticProductUpdate{{ product.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Produto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id='create_products_form' method="post" action="{% url 'update-product' product.id %}"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project image-file-uploader" for="id_image">Imagem:</label><br>
+              <div class="custom-file">
+                <input type="file" id="image_create_uploader_products" name="image" class="custom-file-input"
+                       accept=".png, .jpg, .jpeg" required
+                       onchange="previewImageCreate(this)">
+                <label class="custom-file-label" for="id_image">Escolha uma imagem</label>
+              </div>
+            </div>
+            <div class="form-group">
+                <label class="label_form_create_project d-flex text-left"
+                       for="update_product_title{{ product.id }}">Titulo:</label>
+                <input type="text" id="update_product_title{{ product.id }}" name="update_product_title"
+                       value="{{ product.title }}" required>
+
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_categories">Categoria:</label>
+              <div class="selects-create-product">
+                {{ form.categories }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label_form_create_project" for="id_suppliers">Fornecedores:</label>
+              <div class="selects-create-product">
+                {{ form.suppliers }}
+              </div>
+            </div>
+
+            <div id="supplierLinkFields" class="form-group" style="display: none;">
+              <!-- Dynamic fields for supplier links will be inserted here -->
+            </div>
+            <img id="imagePreviewCreate" src="" alt="Image Preview"
+                 style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
+            <button type="submit" class="btn btn-primary save_project">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {#  javascript file to create product #}
+  <script src="{% static 'js/create_product.js' %}" type="text/javascript"></script>
 {% endblock content %}
