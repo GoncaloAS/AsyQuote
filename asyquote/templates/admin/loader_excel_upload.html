@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Send Email</title>
+  <title>Upload Excel</title>
 
   <style>
     :root {
@@ -133,19 +133,5 @@
 <body>
 
 <div class="hourglass"></div>
-
-<script>
-  var params = new URLSearchParams(window.location.search);
-  var emailList = params.get('email_list');
-  var mailtoLink = `mailto:${encodeURIComponent('REDACTED-EMAIL-ADDRESS')}?bcc=${encodeURIComponent(emailList)}`;
-  setTimeout(function () {
-    window.location.href = mailtoLink;
-    setTimeout(function () {
-      if (document.referrer !== window.location.href) {
-        window.location.href = document.referrer;
-      }
-    }, 1000);
-  }, 3000);
-</script>
 </body>
 </html>

@@ -2,9 +2,10 @@
 
 $(document).ready(function () {
     // Handle form submission via AJAX
-    $('#create_client_form, #update_client_form, #delete_client_form, #update_supplier_form, #update_category_form').submit(function (event) {
+    $('#create_client_form, #update_client_form, #delete_client_form').submit(function (event) {
         event.preventDefault();
         var form = $(this);
+        console.log(form)
         $.ajax({
             type: form.attr('method'),
             url: form.attr('action'),
@@ -44,7 +45,7 @@ function confirmDeleteClient(clientId) {
 
     iziToast.question({
         title: 'Confirme',
-        message: 'De certeza que pretende eliminar este cliente?<br>Esta ação eliminará o cliente dos registros e todos os projetos associados a este cliente.',
+        message: 'De certeza que pretende eliminar este cliente?',
         position: 'topCenter',
         buttons: [
             ['<button>Confirmar</button>', function (instance, toast) {
@@ -59,9 +60,77 @@ function confirmDeleteClient(clientId) {
             }]
         ],
     });
-    return false; // Prevent default action
+    return false;
 }
 
+function confirmDeleteProduct(productId) {
+    document.getElementById('deleteProductId').value = productId;
+
+    iziToast.question({
+        title: 'Confirme',
+        message: 'De certeza que pretende eliminar este produto?',
+        position: 'topCenter',
+        buttons: [
+            ['<button>Confirmar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+
+                // Submit the form
+                document.getElementById('deleteProductForm').action = `/builder/products/delete/${productId}/`;
+                document.getElementById('deleteProductForm').submit();
+            }],
+            ['<button>Cancelar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+            }]
+        ],
+    });
+    return false;
+}
+
+function confirmDeleteCategory(categoryId) {
+    document.getElementById('deleteCategoryId').value = categoryId;
+
+    iziToast.question({
+        title: 'Confirme',
+        message: 'De certeza que pretende eliminar esta categoria?',
+        position: 'topCenter',
+        buttons: [
+            ['<button>Confirmar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+
+                // Submit the form
+                document.getElementById('deleteCategoryForm').action = `/builder/products/category/delete/${categoryId}/`;
+                document.getElementById('deleteCategoryForm').submit();
+            }],
+            ['<button>Cancelar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+            }]
+        ],
+    });
+    return false;
+}
+
+function confirmDeleteSupplier(supplierId) {
+    document.getElementById('deleteSupplierId').value = supplierId;
+
+    iziToast.question({
+        title: 'Confirme',
+        message: 'De certeza que pretende eliminar este fornecedor?',
+        position: 'topCenter',
+        buttons: [
+            ['<button>Confirmar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+
+                // Submit the form
+                document.getElementById('deleteSupplierForm').action = `/builder/products/supplier/delete/${supplierId}/`;
+                document.getElementById('deleteSupplierForm').submit();
+            }],
+            ['<button>Cancelar</button>', function (instance, toast) {
+                instance.hide({transitionOut: 'fadeOut'}, toast, 'button');
+            }]
+        ],
+    });
+    return false;
+}
 
 
 function openUpdateModal(clientId) {

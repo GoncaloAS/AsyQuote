@@ -2,15 +2,11 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load account %}
 {% load crispy_forms_tags %}
-
-{% for product in products %}
-  {% if forloop.counter == 1 %}
-    {% if user.is_superuser %}
-      <!-- Button to add more products (visible only to superusers) -->
+{% if user.is_superuser %}
       <div
         class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
         id="product_add_more">
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticProductUpdate{{ product.id }}">
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticProductCreate">
           <div>
             <img src="{% static 'images/add_project.png' %}" alt="add_project" class="image_cards_add_products mx-0">
           </div>
@@ -19,14 +15,14 @@
       <div
         class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
         id="product_excel_upload" style="display: none">
-        <button type="button" class="btn w-100 h-100">
+        <button type="button" class="btn w-100 h-100" data-bs-toggle="modal" data-bs-target="#staticExcelUpload">
           <div class="excel_upload">
             <i class="fa-regular fa-file-excel"></i>
           </div>
         </button>
       </div>
     {% endif %}
-  {% endif %}
+{% for product in products %}
   <div class="filtered_products">
     <div class="col-12 col-md-3">
       <a href="#" data-bs-toggle="modal" data-bs-target="#staticProductInfo" data-product-id="{{ product.id }}"
@@ -58,9 +54,11 @@
   </div>
 {% empty %}
   <!-- If there are no products, display a 404 error -->
+  {% if not user.is_superuser %}
   <div class="col-12">
     {% include '404/404_products.html' %}
   </div>
+  {% endif %}
 {% endfor %}
 
 <!-- Include JavaScript file for creating product information modal -->

@@ -1,21 +1,32 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.views.generic import ListView
+
 from .forms import ClientForm
 from .models import Client
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import RequestContext
+from ..projects.models import Project
+from django.contrib import messages
 
 
+class ClientListView(LoginRequiredMixin, ListView):
+    template_name = 'clients/client_page.html'
+    model = Client
+    paginate_by = 7
+    context_object_name = 'clients'
 
-@login_required
-def client_list(request):
-    clients = Client.objects.filter(user=request.user)
-    form = ClientForm(user=request.user)
-    return render(request, 'clients/client_page.html', {'clients': clients, 'form': form})
+    def get_queryset(self):
+        return Client.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ClientForm(user=self.request.user)
+        return context
 
 
 def create_client(request):
@@ -62,6 +73,10 @@ def update_client(request, client_id):
 
         if len(updated_nif) != 9:
             return JsonResponse({'error': 'O NIF deve ter exatamente 9 dígitos.'})
+        else:
+            contains_letters = any(char.isalpha() for char in updated_nif)
+            if contains_letters:
+                return JsonResponse({'error': 'O NIF não deve conter letras.'})
         client.name = updated_name
         client.email = updated_email
         client.phone = updated_phone
@@ -71,16 +86,24 @@ def update_client(request, client_id):
 
         return JsonResponse({'success': 'Informações atualizadas com sucesso'})
     else:
-        return JsonResponse({'error': 'Informação errada'})
+        return JsonResponse({'error': 'Erro ao atualizar o campo. Tente novamente.'})
 
 
 def delete_client(request, client_id):
     client = get_object_or_404(Client, id=client_id)
-    if request.method == 'POST':
+    projects = Project.objects.filter(user=request.user)
+    flag = 0
+    for project in projects:
+        if project.client.id == client.id:
+            flag = 1
+            break
+    if request.method == 'POST' and flag == 0:
         client.delete()
         return redirect('client_list')
-    clients = Client.objects.filter(user=request.user)
-    return render(request, 'clients/client_page.html', {'clients': clients})
+    else:
+        messages.error(request,
+                       "Este cliente tem projetos associados. Apague primeiro os projetos para conseguir apagar o cliente.")
+    return redirect('client_list')
 
 
 def filter_clients(request):
@@ -88,6 +111,7 @@ def filter_clients(request):
     clients = Client.objects.filter(user=request.user)
     if search_query:
         clients = clients.filter(Q(name__icontains=search_query) | Q(nif__icontains=search_query))
+    else:
+        clients = Client.objects.filter(user=request.user)[:7]
+
     return render(request, 'clients/client_page_partial.html', {'clients': clients})
-
-

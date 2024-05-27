@@ -38,9 +38,9 @@
                 <td id="phone_updater" class="table_field px-3">{{ client.phone }}</td>
                 <td id="phone_updater" class="table_field px-3">{{ client.address }}</td>
                 <td id="nif_updater" class="table_field px-3">{{ client.nif }}</td>
-                <td class="table_field px-3">{{ client.value }}</td>
+                <td class="table_field px-3">{{ client.total_charged_amount }}</td>
                 <td class="table_field px-3">
-                    <button type="button" class="button-21" onclick="openUpdateModal({{ client.id }})">Editar</button>
+                  <button type="button" class="button-21" onclick="openUpdateModal({{ client.id }})">Editar</button>
                   <form id="deleteForm" action="{% url 'delete_client' 0 %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <input type="hidden" id="deleteClientId" name="delete_client_id" value="">
@@ -103,7 +103,25 @@
           </table>
         </div>
       </div>
+      <div class="pagination justify-content-end">
+    <span class="step-links d-flex">
+        {% if page_obj.has_previous %}
+          <div class="previous_page_client ">
+          <a href="?page={{ page_obj.previous_page_number }}" class="previous_client_button ">
+            <div class="before_arrow"></div>
+          </a>
+          </div>
+        {% endif %}
 
+      {% if page_obj.has_next %}
+        <div class="next_page_client">
+        <a href="?page={{ page_obj.next_page_number }}" class="next_client_button">
+            <div class="after_arrow"></div>
+          </a>
+        </div>
+      {% endif %}
+    </span>
+      </div>
     </div>
     <div class="modal fade" id="staticClient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">

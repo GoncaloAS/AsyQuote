@@ -5,18 +5,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="builder_area">
+  <div class="builder_area builder_area_margin">
     <div class="container">
       <div class="row w-100 margin-left-row-products">
 
-        <form class="d-flex px-0" action="#" hx-get="{% url 'filter_products' %}"
+        <form class="d-flex px-0 mobile-product-form" action="#"
+              hx-get="{% url 'filter_products' %}?page={{ page_obj.number }}"
               hx-trigger="input from input delay:300ms, change from .category_radio, keyup[keyCode===13 || keyCode === 8 || keyCode === 46]"
               hx-target="#search-results" onsubmit="return false">
-          <div class="col-md-6 px-0">
+          <div class="col-12 col-lg-6 px-0">
             <input id="searchInput" class="form-control mb-4" type="search" name="searchInput"
                    placeholder="Procure produtos pelo nome...">
           </div>
-          <div class="col-md-4 d-flex" style="position: relative; z-index: 100;">
+          <div class="col-12 col-md-4 d-flex filters-products-align">
             {# Create Supplier #}
             <div class="dropdown" id="createSupplierDropdown">
               <button class="btn btn-secondary dropdown-toggle" style="margin-inline: 20px;" type="button"
@@ -80,7 +81,7 @@
                   <div class="form-check px-0">
                     <li class="px-3">
                       <input name="name_category" id="category_radio{{ forloop.counter }}" type="checkbox"
-                             class="text-center category_radio" value="{{ category.id }}">
+                             class="text-center category_radio" value="{{ category.pk }}">
                       <label for="category_radio{{ forloop.counter }}">{{ category.name_category }}</label>
                     </li>
                   </div>
@@ -98,7 +99,8 @@
                 {% for category in all_categorys %}
                   <div class="add-filters-product-2 form-check px-0">
                     <li class="px-3">
-                      <button data-bs-toggle="modal" data-bs-target="#staticCategoryUpdate{{ category.id }}">{{ category.name_category }}</button>
+                      <button data-bs-toggle="modal"
+                              data-bs-target="#staticCategoryUpdate{{ category.id }}">{{ category.name_category }}</button>
                     </li>
                   </div>
                 {% endfor %}
@@ -106,12 +108,18 @@
             </div>
 
           </div>
-          <div class="d-flex col-md-2 editor_mode px-4">
-            <input type="checkbox" id="switch" name="switch" data-triggered="false"/>
-            <label for="switch"></label>
-          </div>
-
+          {% if user.is_superuser %}
+            <div class="d-flex col-md-2 editor_mode px-4">
+              <input type="checkbox" id="switch" name="switch" data-triggered="false"/>
+              <label for="switch"></label>
+            </div>
+          {% endif %}
         </form>
+        <div id="excel_preloader_div" class="w-100 justify-content-center d-flex">
+          <img src="{% static 'images/Spinner-1s-200px.svg' %}"
+               alt="preloader_excel"  id="excel_preloader_img" class="preloader_excel mt-5" style="display: none">
+        </div>
+
         <div id="search-results">
           {% if user.is_superuser %}
             <div
@@ -128,14 +136,13 @@
             <div
               class="col-12 col-md-3 justify-content-center align-items-center card card_products margin_right_products_cards"
               id="product_excel_upload" style="display: none">
-              <button type="button" class="btn w-100 h-100">
+              <button type="button" class="btn w-100 h-100" data-bs-toggle="modal" data-bs-target="#staticExcelUpload">
                 <div class="excel_upload">
                   <i class="fa-regular fa-file-excel"></i>
                 </div>
               </button>
             </div>
           {% endif %}
-
           {% for product in products %}
             <div class="filtered_products">
               <div class="col-12 col-md-3">
@@ -171,6 +178,25 @@
               </div>
             </div>
           {% endfor %}
+        </div>
+        <div class="pagination justify-content-end">
+    <span class="step-links d-flex">
+        {% if page_obj.has_previous %}
+          <div class="previous_page_client ">
+          <a href="?page={{ page_obj.previous_page_number }}" class="previous_client_button ">
+            <div class="before_arrow"></div>
+          </a>
+          </div>
+        {% endif %}
+
+      {% if page_obj.has_next %}
+        <div class="next_page_client">
+        <a href="?page={{ page_obj.next_page_number }}" class="next_client_button">
+            <div class="after_arrow"></div>
+          </a>
+        </div>
+      {% endif %}
+    </span>
         </div>
       </div>
     </div>
@@ -301,6 +327,38 @@
     </div>
   </div>
 
+  {#  modal excel upload #}
+  <div class="modal fade" id="staticExcelUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Upload de Excel</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form id='excel_upload_form' method="post" action="{% url 'upload-excel' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label_form_create_project image-file-uploader" for="id_excel_file">Excel:</label><br>
+              <div class="custom-file">
+                <input type="file" id="excel_create_uploader_products" name="excel_file" class="custom-file-input"
+                       accept=".xlsx" required>
+                <label class="custom-file-label" for="id_excel_file">Escolha um ficheiro Excel</label>
+              </div>
+              <button type="submit" class="btn btn-primary save_project mt-3" onclick="HideFormExcel()">Submeter
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {#  modal supplier update #}
   {% for supplier in all_suppliers %}
     <div class="modal fade" id="staticSupplierUpdate{{ supplier.id }}" data-bs-backdrop="static"
          data-bs-keyboard="false" tabindex="-1"
@@ -327,7 +385,7 @@
                   fornecedor:</label>
                 <div class="custom-file">
                   <input type="file" id="update_supplier_image{{ supplier.pk }}" class="custom-file-input"
-                         name="update_supplier_image"
+                         name="update_supplier_image{{ supplier.pk }}"
                          accept=".png, .jpg, .jpeg"
                          onchange="previewImageSupplierUpdate(this, '{{ supplier.pk }}')">
                   <label class="custom-file-label custom-file-label-update-supplier"
@@ -337,6 +395,13 @@
                      style="max-width: 200px; max-height: 200px; margin-top: 10px; ">
               </div>
               <button type="submit" class="btn btn-primary save_project">Salvar</button>
+            </form>
+            <form id="deleteSupplierForm" action="{% url 'delete-supplier' 0 %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <input type="hidden" id="deleteSupplierId" name="delete_supplier_id" value="">
+              <button type="submit" class="btn btn-primary delete_product mt-3"
+                      onclick="return confirmDeleteSupplier({{ supplier.id }})">Eliminar
+              </button>
             </form>
           </div>
         </div>
@@ -365,6 +430,13 @@
               </div>
               <button type="submit" class="btn btn-primary save_project">Salvar</button>
             </form>
+            <form id="deleteCategoryForm" action="{% url 'delete-category' 0 %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <input type="hidden" id="deleteCategoryId" name="delete_category_id" value="">
+              <button type="submit" class="btn btn-primary delete_product mt-3"
+                      onclick="return confirmDeleteCategory({{ category.id }})">Eliminar
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -373,58 +445,97 @@
 
   {% for product in products %}
 
-  <div class="modal fade" id="staticProductUpdate{{ product.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-       aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Produto</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id='create_products_form' method="post" action="{% url 'update-product' product.id %}"
-                enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-              <label class="label_form_create_project image-file-uploader" for="id_image">Imagem:</label><br>
-              <div class="custom-file">
-                <input type="file" id="image_create_uploader_products" name="image" class="custom-file-input"
-                       accept=".png, .jpg, .jpeg" required
-                       onchange="previewImageCreate(this)">
-                <label class="custom-file-label" for="id_image">Escolha uma imagem</label>
+    <div class="modal fade" id="staticProductUpdate{{ product.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Produto</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id='update_products_form' method="post" action="{% url 'update-product' product.id %}"
+                  enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="label_form_create_project image-file-uploader" for="update_product_image{{ product.id }}">Imagem:</label><br>
+                <div class="custom-file">
+                  <input type="file" id="update_product_image_{ product.id }}"
+                         name="update_product_image_{{ product.id }}"
+                         class="custom-file-input"
+                         accept=".png, .jpg, .jpeg"
+                         onchange="previewImageProductUpdate(this, '{{ product.id }}')">
+                  <label class="custom-file-label" id="product-update-image-label{{ product.id }}"
+                         for="update_product_image_{{ product.id }}">Escolha uma imagem</label>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
+              <div class="form-group">
                 <label class="label_form_create_project d-flex text-left"
                        for="update_product_title{{ product.id }}">Titulo:</label>
                 <input type="text" id="update_product_title{{ product.id }}" name="update_product_title"
                        value="{{ product.title }}" required>
-
-            </div>
-            <div class="form-group">
-              <label class="label_form_create_project" for="id_categories">Categoria:</label>
-              <div class="selects-create-product">
-                {{ form.categories }}
               </div>
-            </div>
-            <div class="form-group">
-              <label class="label_form_create_project" for="id_suppliers">Fornecedores:</label>
-              <div class="selects-create-product">
-                {{ form.suppliers }}
-              </div>
-            </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_categories{{ product.id }}">Categoria:</label>
+                <div class="selects-create-product">
+                  <select name="categories" id="id_categories{{ product.id }}">
 
-            <div id="supplierLinkFields" class="form-group" style="display: none;">
-              <!-- Dynamic fields for supplier links will be inserted here -->
-            </div>
-            <img id="imagePreviewCreate" src="" alt="Image Preview"
-                 style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px; display: none">
-            <button type="submit" class="btn btn-primary save_project">Salvar</button>
-          </form>
+                    {% for category in all_categorys %}
+                      <option value="{{ category.pk }}"
+                              {% if category == product.categories %}selected{% endif %}>{{ category.name_category }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label_form_create_project" for="id_suppliers">Fornecedores:</label>
+                <div class="selects-create-product">
+                  <select name="suppliers" id="id_suppliers{{ product.id }}" multiple
+                          onchange="handleSuppliersChange({{ product.id }})" required>
+                    {% for supplier in all_suppliers %}
+                      <option value="{{ supplier.pk }}"
+                              {% if supplier in product.suppliers.all %}selected{% endif %}>{{ supplier.name_supplier }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-group" id="linksFormGroup{{ product.id }}">
+                {% for link in product.links.all %}
+                  <label class="label_form_create_project" for="id_supplierLink_{{ link.supplier.id }}">Link do
+                    Fornecedor
+                    ({{ link.supplier.name_supplier }})</label>
+                  <input type="text" id="id_supplierLink_{{ link.supplier.id }}"
+                         name="supplierLink_{{ link.supplier.id }}"
+                         class="form-control" required value="{{ link.url }}">
+                  <label class="label_form_create_project" for="id_supplierPrice_{{ link.supplier.id }}">Preço do
+                    Fornecedor
+                    ({{ link.supplier.name_supplier }}):</label>
+                  <input type="text" id="id_supplierPrice_{{ link.supplier.id }}"
+                         name="supplierPrice_{{ link.supplier.id }}"
+                         class="form-control" required value="{{ link.price }}">
+                {% endfor %}
+              </div>
+              <div id="supplierLinkFields{{ product.id }}" class="form-group" style="display:none;">
+
+              </div>
+              <img id="imagePreviewProduct{{ product.id }}" src="{{ product.image.url }}" alt="{{ product.image.alt }}"
+                   style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px;">
+              <button type="submit" class="btn btn-primary save_project">Salvar</button>
+            </form>
+            <form id="deleteProductForm" action="{% url 'delete-product' 0 %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <input type="hidden" id="deleteProductId" name="delete_product_id" value="">
+              <button type="submit" class="btn btn-primary delete_product mt-3"
+                      onclick="return confirmDeleteProduct({{ product.id }})">Eliminar
+              </button>
+            </form>
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
   {% endfor %}
 
   {#  javascript file to create product #}

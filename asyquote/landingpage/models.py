@@ -14,8 +14,6 @@ from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 
 
-
-
 @register_snippet
 class CustomImage(Orderable):
     images_cards = models.ForeignKey(
@@ -35,6 +33,9 @@ class CustomImage(Orderable):
 class AdditionalInformation(models.Model):
     additional_information_text = models.CharField(max_length=255, blank=True, null=True)
     additional_information_href = models.CharField(max_length=255, blank=True, null=True)
+
+
+
 
 
 @register_snippet
@@ -141,7 +142,6 @@ class Homepage(RoutablePageMixin, Page):
     )
     hero_title = models.CharField(max_length=255, null=True, blank=True)
     hero_paragraph = RichTextField(max_length=255, null=True, blank=True)
-
     # uses section
     uses_title = models.CharField(max_length=255, null=True, blank=True)
     uses_image = StreamField([

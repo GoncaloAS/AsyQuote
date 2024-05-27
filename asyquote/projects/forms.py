@@ -1,5 +1,6 @@
 from django import forms
 from .models import Project
+from ..clients.models import Client
 
 
 class ProjectForm(forms.ModelForm):
@@ -26,4 +27,5 @@ class ProjectForm(forms.ModelForm):
             self.fields['quote_number'].initial = next_quote_number
             self.fields['quote_number'].widget.attrs['readonly'] = True
             self.fields['quote_number'].widget.attrs['placeholder'] = f'Próximo número disponível: {next_quote_number}'
+            self.fields['client'].queryset = Client.objects.filter(user=user)
 

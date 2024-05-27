@@ -1,0 +1,96 @@
+{% load i18n static %}
+
+
+<form id="myForm" action="#" method="post" data-quote-url="{% url 'save_quote_data' %}"
+                  data-product-url="{% url 'filter_edit_products' %}"
+                  data-key="{{ project.key }}">
+              {% for section in sections %}
+                {% if section.visible == True %}
+                  <div class="section-wrapper" data-section-identifier="{{ section.section_count }}">
+                  <div class="section-fields d-flex align-items-center">
+                    <a class="cursor-pointer"
+                       onclick="deleteSection({{ section.section_count }})"><i
+                      class="fa-solid fa-trash text-danger mx-2"></i></a>
+                    <a class="cursor-pointer"
+                       onclick="eraseSection({{ forloop.counter }})"><i
+                      class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                    <a class="cursor-pointer"
+                       onclick="addSection({{ section.section_count }})"><i
+                      class="fa-solid fa-plus mx-2 text-success"></i></a>
+                    <input id="input-section-{{ forloop.counter }}" type="text" name="section" placeholder="Nova secção"
+                           data-section-identifier="{{ section.section_count }}"
+                           value="{% if section.name %}{{ section.name }}{% endif %}"
+                           autocomplete="off">
+                  </div>
+                {% endif %}
+              {% for service in services %}
+                {% if service.section_key == section.section_count and service.visible == True and section.visible == True %}
+                  <div class="service-fields align-items-center">
+                    <div class="icons-quotes d-flex">
+                      <a class="cursor-pointer"
+                         onclick="deleteService({{ service.section_key }}, {{ service.service_count }})"><i
+                        class="fa-solid fa-trash text-danger mx-2"></i></a>
+                      <a class="cursor-pointer" onclick="eraseService({{ forloop.counter }})"><i
+                        class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                      <a href="#"><i class="fa-solid fa-plus mx-2 text-success"></i></a>
+                    </div>
+                    <div class="product-search-container">
+                      <input id="input-service-{{ forloop.counter }}" class="services-form" type="text" name="service"
+                             placeholder="Novo serviço/produto" data-form-type="services"
+                             data-section-identifier="{{ service.section_key }}"
+                             data-service-identifier="{{ service.service_count }}"
+                             value="{% if service.name %}{{ service.name }}{% endif %}"
+                             data-service-id-count="{{ forloop.counter }}"
+                             autocomplete="off">
+
+                    </div>
+                    <input id="input-quantity-{{ forloop.counter }}" class="prices-form" type="text" name="quantity"
+                           placeholder="Quantidade" data-form-type="quantities"
+                           data-section-identifier="{{ service.section_key }}"
+                           data-service-identifier="{{ service.service_count }}"
+                           value="{% if service.quantity %}{{ service.quantity }}{% endif %}"
+                           autocomplete="off">
+                  </div>
+                  {% for price in prices %}
+                    {% if price.services_key == service.service_count and price.section_key == section.section_count and service.visible == True and section.visible == True and price.visible == True %}
+                      <div class="price-fields align-items-center">
+                        <a class="cursor-pointer"
+                           onclick="deletePrice({{ price.section_key }}, {{ service.service_count }}, {{ price.prices_count }})"><i
+                          class="fa-solid fa-trash text-danger mx-2"></i></a>
+                        <a class="cursor-pointer" onclick="erasePrice({{ forloop.counter }})"><i
+                          class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                        <a href="#"><i class="fa-solid fa-plus mx-2 text-success"></i></a>
+                        <input id="input-descricao-{{ forloop.counter }}" class="prices-form" type="text"
+                               name="description" data-form-type="description"
+                               placeholder="Descrição despesas"
+                               value="{% if price.description %}{{ price.description }}{% endif %}"
+                               data-section-identifier="{{ price.section_key }}"
+                               data-price-identifier="{{ price.prices_count }}"
+                               data-service-identifier="{{ service.service_count }}"
+                               autocomplete="off">
+                        <input class="prices-form color-cost" type="text" name="price" placeholder="Custo"
+                               id="input-custo-{{ forloop.counter }}" onkeydown="preventNegativeInput(event, this);"
+                               data-form-type="cost"
+                               data-section-identifier="{{ price.section_key }}"
+                               data-price-identifier="{{ price.prices_count }}"
+                               data-service-identifier="{{ service.service_count }}"
+                               value="{% if price.cost %}{{ price.cost }}{% endif %}"
+                               autocomplete="off">
+                        <input class="prices-form color-cobrado" type="text" min="1" name="price"
+                               placeholder="Cobrado"
+                               id="input-cobrado-{{ forloop.counter }}"
+                               onkeydown="preventNegativeInput(event, this); addPercentageCost(event, this)"
+                               data-form-type="charged" value="{% if price.charged %}{{ price.charged }}{% endif %}"
+                               data-section-identifier="{{ price.section_key }}"
+                               data-price-identifier="{{ price.prices_count }}"
+                               data-service-identifier="{{ service.service_count }}"
+                               autocomplete="off">
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+              </div>
+              {% endfor %}
+              {% csrf_token %}
+            </form>

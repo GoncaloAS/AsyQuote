@@ -1,0 +1,26 @@
+{% load i18n static %}
+<div class="filtered_products product-search-div mx-0 mt-5">
+  <div class="stores-info-product mt-4 product-results-div" style="height: 400px; overflow-y: auto">
+    {% if filtered_products %}
+      {% for product in filtered_products %}
+        <div class="d-flex align-items-center mb-2 px-3 justify-content-between" title="{{ product.title }}">
+          <div class="mr-3">
+            <img src="{{ product.image.url }}" alt="product-image" class="supplier-image" style="width: 60px;">
+          </div>
+          <div class="mr-3">
+            <p>{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
+          </div>
+          <div class="supplier-info d-flex">
+            <a href="{{ product.minimum_price_info.2 }}" target="_blank">
+              <button class="supplier-link">
+                Ver na
+                loja
+              </button>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
