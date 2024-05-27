@@ -8,22 +8,22 @@
   <div class="builder_area">
     <div class="container">
       <div class="row w-100">
-        <div class="d-flex align-items-center position-fixed">
-          <div class="col-md-5">
-            <div class="dropdown">
-              <button class="dropbtn">Adicionar</button>
-              <div class="dropdown-content" id="quote-url-dropdown" data-quote-url="{% url 'save_quote' %}">
-                <a id="add-section"
-                   class="add-section" data-key="{{ project.key }}">Nova secção</a>
-                <a style="display: none"
-                   id="add-service" class="add-service" data-key="{{ project.key }}">Novo
-                  serviço</a>
-                <a style="display: none" id="add-price"
-                   class="add-price" data-key="{{ project.key }}">Novos preços</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 d-flex justify-content-end">
+        <div class="d-flex align-items-center position-fixed project-menu">
+          {#                    <div class="col-md-5">#}
+          {#                      <div class="dropdown">#}
+          {#                        <button class="dropbtn">Adicionar</button>#}
+          {#                        <div class="dropdown-content" id="quote-url-dropdown" data-quote-url="{% url 'save_quote' %}">#}
+          {#                          <a id="add-section"#}
+          {#                             class="add-section" data-key="{{ project.key }}">Nova secção</a>#}
+          {#                          <a#}
+          {#                            id="add-service" class="add-service" data-key="{{ project.key }}">Novo#}
+          {#                            serviço</a>#}
+          {#                          <a id="add-price"#}
+          {#                             class="add-price" data-key="{{ project.key }}">Novos preços</a>#}
+          {#                        </div>#}
+          {#                      </div>#}
+          {#                    </div>#}
+          <div class="col-md-12 d-flex mx-5">
             <div class="dropdown">
               <button class="btn text-uppercase project-settings" type="button" id="dropdownMenuButton"
                       data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,53 +34,165 @@
                   {% csrf_token %}
                   <input type="hidden" id="deleteProjectId" name="project_id">
                 </form>
+                <form id="download_project_quote" action="{% url 'download_project_quote' project.key %}" method="post"
+                      style="display: inline;">
+                  {% csrf_token %}
+                  <a class="dropdown-item cursor-pointer" onclick="submitProjectDownload()">Download do Orçamento</a>
+                </form>
                 <form id="updateProject" action="{% url 'update_project' project.pk %}" method="post"
                       style="display: inline;">
                   {% csrf_token %}
-                  <a class="dropdown-item" onclick="openUpdateModal2({{ project.pk }})">Editar</a>
+                  <a class="dropdown-item cursor-pointer" onclick="openUpdateModal2({{ project.pk }})">Editar</a>
                 </form>
-                <a class="dropdown-item" href="#" onclick="confirmDeleteProject({{ project.pk }})">Apagar</a>
+                <a class="dropdown-item" onclick="confirmDeleteProject('{{ project.key }}')">Apagar</a>
+
               </div>
             </div>
           </div>
 
         </div>
+        <div class="col-12 d-flex">
 
-        <div class="form-projects mb-5">
-          <form id="myForm" action="#" method="post">
-            {% for section in sections %}
-              <input type="text" name="section" placeholder="Nova secção">
-              {% for service in services %}
-                {% if service.section_key == section.section_count %}
-                  <div class="service-fields">
-                    <input class="services-form" type="text" name="service" placeholder="Novo serviço/produto">
-                    <input class="prices-form" type="text" name="quantity" placeholder="Quantidade">
+          <div class="product-search-results">
+            <div id="product-results-form" class="product-search-div">
+              <form id="product-search-form" action="#" method="post">
+                <div class="form-group">
+                  <input type="text" class="search_products" placeholder="Procure um produto/serviço">
+                </div>
+              </form>
+            </div>
+            <div id="product-results" class="product-search-div">
+
+            </div>
+
+          </div>
+          <div class="form-projects mb-5">
+
+            <form id="myForm" action="#" method="post" data-quote-url="{% url 'save_quote_data' %}"
+                  data-product-url="{% url 'filter_edit_products' %}" data-delete-url="{% url 'delete_fields_quote' %}"
+                  create-field-url="{% url 'create_fields_quote' %}"
+                  data-key="{{ project.key }}">
+              {% for section in sections %}
+                {% if section.visible == True %}
+                  <div class="section-wrapper" data-section-identifier="{{ section.section_count }}">
+                    <div class="section-fields d-flex align-items-center">
+                      <a class="cursor-pointer"
+                         onclick="deleteSection({{ section.section_count }})"><i
+                        class="fa-solid fa-trash text-danger mx-2"></i></a>
+                      <a class="cursor-pointer"
+                         onclick="eraseSection({{ forloop.counter }})"><i
+                        class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                      <a class="cursor-pointer"
+                         onclick="addSection({{ section.section_count }})"><i
+                        class="fa-solid fa-plus mx-2 text-success"></i></a>
+                      <input id="input-section-{{ forloop.counter }}" type="text" name="section"
+                             placeholder="Nova secção"
+                             data-section-identifier="{{ section.section_count }}"
+                             value="{% if section.name %}{{ section.name }}{% endif %}"
+                             autocomplete="off">
+                    </div>
+
+                    {% for service in services %}
+                      {% if service.section_key == section.section_count and service.visible == True and section.visible == True %}
+                        <div class="service-wrapper" data-section-identifier="{{ service.section_key }}"
+                             data-service-identifier="{{ service.service_count }}">
+                          <div class="service-fields align-items-center">
+                            <div class="icons-quotes d-flex">
+                              <a class="cursor-pointer"
+                                 onclick="deleteService({{ service.section_key }}, {{ service.service_count }})"><i
+                                class="fa-solid fa-trash text-danger mx-2"></i></a>
+                              <a class="cursor-pointer" onclick="eraseService({{ forloop.counter }})"><i
+                                class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                              <a class="cursor-pointer" onclick="addService({{ service.section_key }}, {{ service.service_count }})"><i
+                                class="fa-solid fa-plus mx-2 text-success"></i></a>
+                            </div>
+                            <div class="product-search-container">
+                              <input id="input-service-{{ forloop.counter }}" class="services-form" type="text"
+                                     name="service"
+                                     placeholder="Novo serviço/produto" data-form-type="services"
+                                     data-section-identifier="{{ service.section_key }}"
+                                     data-service-identifier="{{ service.service_count }}"
+                                     value="{% if service.name %}{{ service.name }}{% endif %}"
+                                     data-service-id-count="{{ forloop.counter }}"
+                                     autocomplete="off">
+
+                            </div>
+                            <input id="input-quantity-{{ forloop.counter }}" class="prices-form" type="text"
+                                   name="quantity"
+                                   placeholder="Quantidade" data-form-type="quantities"
+                                   data-section-identifier="{{ service.section_key }}"
+                                   data-service-identifier="{{ service.service_count }}"
+                                   value="{% if service.quantity %}{{ service.quantity }}{% endif %}"
+                                   autocomplete="off">
+                          </div>
+                          {% for price in prices %}
+                            {% if price.services_key == service.service_count and price.section_key == section.section_count and service.visible == True and section.visible == True and price.visible == True %}
+                              <div class="price-wrapper" data-section-identifier="{{ price.section_key }}"
+                                   data-price-identifier="{{ price.prices_count }}"
+                                   data-service-identifier="{{ service.service_count }}">
+                                <div class="price-fields align-items-center">
+                                  <a class="cursor-pointer"
+                                     onclick="deletePrice({{ price.section_key }}, {{ service.service_count }}, {{ price.prices_count }})"><i
+                                    class="fa-solid fa-trash text-danger mx-2"></i></a>
+                                  <a class="cursor-pointer" onclick="erasePrice({{ forloop.counter }})"><i
+                                    class="fa-solid fa-eraser text-warning mx-2"></i></a>
+                                  <a href="#"><i class="fa-solid fa-plus mx-2 text-success"></i></a>
+                                  <input id="input-descricao-{{ forloop.counter }}"
+                                         class="prices-form prices-div-margin" type="text"
+                                         name="description" data-form-type="description"
+                                         placeholder="Descrição despesas"
+                                         value="{% if price.description %}{{ price.description }}{% endif %}"
+                                         data-section-identifier="{{ price.section_key }}"
+                                         data-price-identifier="{{ price.prices_count }}"
+                                         data-service-identifier="{{ service.service_count }}"
+                                         autocomplete="off">
+                                  <input class="prices-form color-cost" type="text" name="price" placeholder="Custo"
+                                         id="input-custo-{{ forloop.counter }}"
+                                         onkeydown="preventNegativeInput(event, this);"
+                                         data-form-type="cost"
+                                         data-section-identifier="{{ price.section_key }}"
+                                         data-price-identifier="{{ price.prices_count }}"
+                                         data-service-identifier="{{ service.service_count }}"
+                                         value="{% if price.cost %}{{ price.cost }}{% endif %}"
+                                         autocomplete="off">
+                                  <input class="prices-form color-cobrado" type="text" min="1" name="price"
+                                         placeholder="Cobrado"
+                                         id="input-cobrado-{{ forloop.counter }}"
+                                         onkeydown="preventNegativeInput(event, this); addPercentageCost(event, this)"
+                                         data-form-type="charged"
+                                         value="{% if price.charged %}{{ price.charged }}{% endif %}"
+                                         data-section-identifier="{{ price.section_key }}"
+                                         data-price-identifier="{{ price.prices_count }}"
+                                         data-service-identifier="{{ service.service_count }}"
+                                         autocomplete="off">
+                                </div>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
                   </div>
-                  {% for price in prices %}
-                    {% if price.services_key == service.service_count %}
-                      <div class="price-fields">
-                        <input class="prices-form" type="text" name="description" placeholder="Descrição despesas">
-                        <input class="prices-form color-cost" type="number" min="0" name="price" placeholder="Custo"
-                               id="input-custo-' + counter + '" onkeydown="preventNegativeInput(event, this);">
-                        <input class="prices-form color-cobrado" type="number" min="0" name="price"
-                               placeholder="Cobrado"
-                               id="input-cobrado-' + counter + '"
-                               onkeydown="preventNegativeInput(event, this); addPercentageCost(event, this)">
-                      </div>
-                    {% endif %}
-                  {% endfor %}
                 {% endif %}
               {% endfor %}
-            {% endfor %}
-            {% csrf_token %}
-          </form>
+              {% csrf_token %}
+            </form>
 
-          <form id="notesQuote" action="#" method="post">
-            {% csrf_token %}
-            <label>Notas:</label>
-            <input type="text" placeholder="Insira as notas que deseja que o cliente veja no fim do orçamento...">
-          </form>
+            <form id="notesQuote" action="#" method="post">
+              {% csrf_token %}
+              <div class="notes-wrapper">
+                {% for note in notes %}
+                  <label>Notas:</label>
+                  <input {% if note.notes %}value="{{ note.notes }}"{% endif %} data-form-type="notes" type="text"
+                         placeholder="Insira as notas que deseja que o cliente veja no fim do orçamento...">
+                {% endfor %}
+
+              </div>
+            </form>
+          </div>
         </div>
+
+
       </div>
     </div>
   </div>
@@ -131,18 +243,6 @@
                 {% endfor %}
               </select>
             </div>
-            <div class="form-group">
-              <label class="label_form_create_project d-flex text-left" for="update_image{{ project.pk }}">Imagem da
-                capa:</label>
-              <div class="custom-file">
-                <input type="file" id="update_image{{ project.pk }}" class="custom-file-input" name="update_image"
-                       accept=".png, .jpg, .jpeg"
-                       onchange="previewImage(this, '{{ project.pk }}')">
-                <label class="custom-file-label" for="update_image{{ project.pk }}">Escolha uma imagem</label>
-              </div>
-              <img id="imagePreview{{ project.pk }}" src="{{ project.image.url }}" alt="Image Preview"
-                   style="max-width: 200px; max-height: 200px; margin-top: 10px; ">
-            </div>
 
             <button type="submit" class="btn btn-primary save_project">Salvar</button>
           </form>
@@ -151,4 +251,5 @@
       </div>
     </div>
   </div>
+
 {% endblock %}

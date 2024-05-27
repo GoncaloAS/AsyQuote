@@ -40,8 +40,8 @@ def send_review_email_action(modeladmin, request, queryset):
     return HttpResponseRedirect(f'{redirect_url}?email_list={email_list}')
 
 
-send_marketing_email_action.short_description = "Send marketing email to selected users"
-send_review_email_action.short_description = "Send review email to selected users"
+send_marketing_email_action.short_description = "Mandar e-mail de marketing para os utilizadores selecionados"
+send_review_email_action.short_description = "Mandar e-mail de satisfação para os utilizadores selecionados"
 
 
 @admin.register(User)
@@ -51,7 +51,6 @@ class CustomUserAdmin(auth_admin.UserAdmin):
     fieldsets = (
         (_("Preferências Usuário"), {"fields": ("receive_email", "development_help")}),
         (_("Personal info"), {"fields": ("username", "email", "password")}),
-        (_("Ativação Conta"), {"fields": ["acount"]}),
         (
             _("Permissions"),
             {

@@ -31,13 +31,17 @@ async def fetch(session, url, headers):
                 return await response.text()
         except aiohttp.client_exceptions.ServerDisconnectedError:
             retry_count += 1
-            await asyncio.sleep(2 ** retry_count)  # You can adjust the sleep duration if needed
+            await asyncio.sleep(2 ** retry_count)
 
     raise RuntimeError(f"Exceeded retry limit ({retry_limit}) for {url}")
 
 
 def save_to_excel(product_titles, product_hrefs, product_prices, category_name, imagem_products):
-    data = {'Title': product_titles, 'Href': product_hrefs, 'Price': product_prices, 'imagem': imagem_products}
+    num_products = len(product_titles)
+    category_names = [category_name] * num_products
+    suppliers = ['Casa Peixoto'] * num_products
+    data = {'Title': product_titles, 'Href': product_hrefs, 'Price': product_prices, 'imagem': imagem_products,
+            'Category': category_names, 'Supplier': suppliers}
     df = pd.DataFrame(data)
     filename = f'{category_name}_products.xlsx'
     df.to_excel(filename, sheet_name='products', index=False)
@@ -167,7 +171,7 @@ def main():
                 if first_a_tag:
                     category_url = first_a_tag.get('href')
 
-                    if start_processing or category_url.startswith('https://casapeixoto.pt/712-lar-e-iluminacao'):
+                    if start_processing or category_url.startswith('https://casapeixoto.pt/745-jardim'):
                         start_processing = True
                         print(f"Processing category URL: {category_url}")
                         data.append({'Category': category_url})

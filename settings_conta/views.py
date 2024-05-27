@@ -25,9 +25,16 @@ def definicoes_view(request):
                 return JsonResponse({'success': True, 'message': 'Palavra passe mudada com sucesso'})
 
             else:
+                errors_message = ""
+                if password_change_form.errors:
+                    for errors in password_change_form.errors.values():
+                        errors_message += f"{errors[0]}."
+                        break
                 return JsonResponse(
-                    {'error': False,
-                     'message': 'Erro ao mudar a palavra passe. Verifique se prencheu os campos corretamente.'})
+                    {'error': True,
+                     'message': errors_message})
+
+
 
 
         elif request.POST.get('form_type_marketing') == 'marketing_preferences_submit':
@@ -52,7 +59,7 @@ class CustomConfirmEmailView(ConfirmEmailView):
 class CustomPasswordResetFromKeyView(PasswordResetFromKeyView):
     def form_valid(self, form):
         response = super().form_valid(form)
-        return redirect(f'{self.request.path}login')
+        return redirect('../../../../../../../login')
 
 
 class CustomEmailView(EmailView):

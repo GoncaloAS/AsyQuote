@@ -4,7 +4,7 @@
 }
 
 .sidebar_index {
-  z-index: 2;
+  z-index: 3;
 }
 
 .card_password {
@@ -119,4 +119,32 @@
 
 .radio-label-width {
   width: 300px;
+}
+
+@media (max-width: 1200px) {
+  .width_buttons_email {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .padding_preferences_card {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #ex-with-icons-tabs-2 {
+    margin-top: 0;
+  }
+  #ex-with-icons-tabs-1 {
+    margin-top: 0;
+  }
+
+
+}
+
+@media (max-width: 360px) {
+  .card_settings {
+    padding: 10px 10px !important;
+  }
 }

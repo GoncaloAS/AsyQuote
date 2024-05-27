@@ -39,3 +39,7 @@ class SupplierForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name_supplier'].widget.attrs['placeholder'] = 'Insira o nome do fornecedor...'
         self.fields['image_supplier'].widget.attrs['placeholder'] = 'Insira a imagem do fornecedor...'
+
+
+class UploadExcelForm(forms.Form):
+    excel_file = forms.FileField(label='Upload Excel File')

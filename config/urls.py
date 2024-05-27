@@ -9,11 +9,14 @@ from wagtail import urls as wagtail_urls
 from allauth.account.views import SignupView, LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 
-from asyquote.clients.views import client_list, create_client, update_client, delete_client, filter_clients
-from asyquote.products.views import ProductsPageView, NotFoundProductView, filter_products, create_product, \
-    create_category, create_supplier, update_supplier, update_category, update_product
+from asyquote.clients.views import create_client, update_client, delete_client, filter_clients, \
+    ClientListView
+from asyquote.products.views import ProductsListView, NotFoundProductView, filter_products, create_product, \
+    create_category, create_supplier, update_supplier, update_category, update_product, delete_product, delete_category, \
+    delete_supplier, upload_excel
 from asyquote.projects.views import project_list, create_project, edit_project, filter_projects, list_projects_table, \
-    download_excel, filter_projects_data, delete_project, update_project, save_quote_url
+    download_excel, filter_projects_data, delete_project, update_project, save_quote_url, save_quote_data, \
+    filter_edit_products, download_project_quote, delete_fields_quote, create_fields_quote
 from asyquote.users.views import send_email_template
 from settings_conta.views import definicoes_view, CustomPasswordResetFromKeyView, CustomEmailView
 
@@ -21,26 +24,35 @@ urlpatterns = [
                   path("users/", include("asyquote.users.urls", namespace="users")),
                   path("accounts/", include("allauth.urls")),
                   path('send_email_template/', send_email_template, name='send_email_template'),
-                  path('builder/products/', login_required(ProductsPageView.as_view()), name='products_page'),
+                  path('builder/products/', login_required(ProductsListView.as_view()), name='products_page'),
                   path('builder/products/create/', create_product, name='create-product'),
                   path('builder/products/category/create/', create_category, name='create-category'),
                   path('builder/products/supplier/create/', create_supplier, name='create-supplier'),
                   path('builder/products/supplier/update/<int:supplier_id>', update_supplier, name='update-supplier'),
                   path('builder/products/product/update/<int:product_id>', update_product, name='update-product'),
                   path('builder/products/category/update/<int:category_id>', update_category, name='update-category'),
+                  path('builder/products/delete/<int:product_id>/', delete_product, name='delete-product'),
+                  path('builder/products/category/delete/<int:category_id>/', delete_category, name='delete-category'),
+                  path('builder/products/supplier/delete/<int:supplier_id>/', delete_supplier, name='delete-supplier'),
+                  path('builder/products/excel_upload/', upload_excel, name='upload-excel'),
                   path('filter-products/', filter_products, name='filter_products'),
+                  path('filter-edit-products/', filter_edit_products, name='filter_edit_products'),
                   path('404/products', NotFoundProductView.as_view(), name='404-products'),
                   path('builder/projects/', project_list, name='project_list'),
-                  path('builder/clients/', client_list, name='client_list'),
+                  path('builder/clients/', ClientListView.as_view(), name='client_list'),
                   path('builder/projects/create/', create_project, name='create_project'),
                   path('builder/projects/update/<int:project_id>/', update_project, name='update_project'),
-                  path('builder/projects/delete/<int:project_id>/', delete_project, name='delete_project'),
+                  path('builder/projects/delete/<uuid:key>/', delete_project, name='delete_project'),
                   path('builder/clients/create/', create_client, name='create_client'),
                   path('builder/clients/update/<int:client_id>/', update_client, name='update_client'),
                   path('builder/clients/delete/<int:client_id>/', delete_client, name='delete_client'),
                   path('builder/projects/edit/<uuid:key>/', edit_project, name='edit_project'),
                   path('savequote/', save_quote_url, name='save_quote'),
-
+                  path('savequotedata/', save_quote_data, name='save_quote_data'),
+                  path('delete_fields_quote', delete_fields_quote, name='delete_fields_quote'),
+                  path('create_fields_quote', create_fields_quote, name='create_fields_quote'),
+                  path('download_project_quote/<uuid:project_key>/', download_project_quote,
+                       name='download_project_quote'),
                   path('filter_projects/', filter_projects, name='filter_projects'),
                   path('filter_projects_data/', filter_projects_data, name='filter_projects_data'),
                   path('filter_clients/', filter_clients, name='filter_clients'),

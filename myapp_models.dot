@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2024-03-02 16:13
+  // Created: 2024-05-13 14:26
   // Cli Options: -a --dot -o myapp_models.dot
 
   fontname = "Roboto"
@@ -995,56 +995,6 @@ digraph model_graph {
     color=olivedrab4
     style="rounded"
   
-    wagtail_images_models_AbstractRendition [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      AbstractRendition
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">file</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">WagtailImageField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">filter_spec</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">focal_point_key</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">height</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">IntegerField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">width</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">IntegerField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
     wagtail_images_models_AbstractImage [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
@@ -1145,6 +1095,56 @@ digraph model_graph {
       <FONT FACE="Roboto">title</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">width</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">IntegerField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    wagtail_images_models_AbstractRendition [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      AbstractRendition
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">file</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">WagtailImageField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">filter_spec</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">focal_point_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">height</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">IntegerField</FONT>
       </TD></TR>
     
     
@@ -1667,12 +1667,146 @@ digraph model_graph {
       </TABLE>
       >]
   
+    wagtail_models_audit_log_BaseLogEntry [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      BaseLogEntry
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>content_type</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>revision</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (None)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>user</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (None)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">action</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">content_changed</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">data</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">JSONField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">deleted</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">label</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">TextField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">timestamp</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">DateTimeField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">uuid</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">UUIDField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
     modelcluster_models_ClusterableModel [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
       ClusterableModel
       </B></FONT></TD></TR>
+    
+      </TABLE>
+      >]
+  
+    wagtail_models_view_restrictions_BaseViewRestriction [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      BaseViewRestriction
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">password</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">restriction_type</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    wagtail_models_Orderable [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      Orderable
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">sort_order</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">IntegerField</FONT>
+      </TD></TR>
+    
     
       </TABLE>
       >]
@@ -1817,140 +1951,6 @@ digraph model_graph {
       <FONT FACE="Roboto"><I>translation_key</I></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto"><I>UUIDField</I></FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
-    wagtail_models_Orderable [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      Orderable
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">sort_order</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">IntegerField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
-    wagtail_models_view_restrictions_BaseViewRestriction [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      BaseViewRestriction
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">password</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">restriction_type</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
-    wagtail_models_audit_log_BaseLogEntry [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      BaseLogEntry
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>content_type</B></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>revision</B></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (None)</B></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>user</B></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (None)</B></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">action</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">content_changed</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">BooleanField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">data</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">JSONField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">deleted</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">BooleanField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">label</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">TextField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">timestamp</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">DateTimeField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">uuid</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">UUIDField</FONT>
       </TD></TR>
     
     
@@ -3465,6 +3465,32 @@ digraph model_graph {
     color=olivedrab4
     style="rounded"
   
+    taggit_models_GenericTaggedItemBase [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      GenericTaggedItemBase<BR/>&lt;<FONT FACE="Roboto"><I>CommonGenericTaggedItemBase</I></FONT>&gt;
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><I><B>content_type</B></I></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><I><B>ForeignKey (id)</B></I></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">object_id</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">IntegerField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
     taggit_models_TaggedItemBase [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
@@ -3503,32 +3529,6 @@ digraph model_graph {
       <FONT FACE="Roboto">slug</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">SlugField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
-    taggit_models_GenericTaggedItemBase [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      GenericTaggedItemBase<BR/>&lt;<FONT FACE="Roboto"><I>CommonGenericTaggedItemBase</I></FONT>&gt;
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><I><B>content_type</B></I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><I><B>ForeignKey (id)</B></I></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">object_id</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">IntegerField</FONT>
       </TD></TR>
     
     
@@ -3717,6 +3717,56 @@ digraph model_graph {
       </TABLE>
       >]
   
+    wagtailmenus_models_menus_AbstractFlatMenu [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      AbstractFlatMenu<BR/>&lt;<FONT FACE="Roboto"><I>MenuWithMenuItems</I></FONT>&gt;
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>site</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">handle</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">SlugField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">heading</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">max_levels</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">PositiveSmallIntegerField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">title</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
     wagtailmenus_models_menuitems_AbstractMainMenuItem [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
@@ -3777,56 +3827,6 @@ digraph model_graph {
       <FONT COLOR="#7B7B7B" FACE="Roboto"><I>url_append</I></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto"><I>CharField</I></FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
-    wagtailmenus_models_menus_AbstractFlatMenu [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      AbstractFlatMenu<BR/>&lt;<FONT FACE="Roboto"><I>MenuWithMenuItems</I></FONT>&gt;
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><B>site</B></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">handle</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">SlugField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">heading</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">max_levels</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">PositiveSmallIntegerField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">title</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
@@ -4536,14 +4536,6 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">acount</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">BooleanField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto"><I>date_joined</I></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto"><I>DateTimeField</I></FONT>
@@ -5183,24 +5175,6 @@ digraph model_graph {
     color=olivedrab4
     style="rounded"
   
-    wagtail_models_Orderable [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      Orderable
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">sort_order</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">IntegerField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
-  
     asyquote_products_models_Supplier [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
@@ -5213,6 +5187,14 @@ digraph model_graph {
       <FONT FACE="Roboto"><B>id</B></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">image_supplier</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
       </TD></TR>
     
     
@@ -5253,11 +5235,11 @@ digraph model_graph {
       </TABLE>
       >]
   
-    asyquote_products_models_Products [label=<
+    asyquote_products_models_Links [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      Products<BR/>&lt;<FONT FACE="Roboto"><I>Orderable</I></FONT>&gt;
+      Links
       </B></FONT></TD></TR>
     
     
@@ -5270,67 +5252,67 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>image</B></FONT>
+      <FONT FACE="Roboto"><B>supplier</B></FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>page</B></FONT>
+      <FONT FACE="Roboto">price</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ParentalKey (page_ptr)</B></FONT>
+      <FONT FACE="Roboto">DecimalField</FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">discounts</FONT>
+      <FONT FACE="Roboto">url</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">price</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>sort_order</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>IntegerField</I></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">title</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      <FONT FACE="Roboto">URLField</FONT>
       </TD></TR>
     
     
       </TABLE>
       >]
   
-    asyquote_products_models_ProductsPage [label=<
+    asyquote_products_models_Products [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      ProductsPage
+      Products
       </B></FONT></TD></TR>
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><B>page_ptr</B></FONT>
+      <FONT FACE="Roboto"><B>id</B></FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><B>OneToOneField (id)</B></FONT>
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>categories</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">image</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">title</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
@@ -5400,6 +5382,14 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">image</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto">key</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">UUIDField</FONT>
@@ -5435,6 +5425,254 @@ digraph model_graph {
       <FONT COLOR="#7B7B7B" FACE="Roboto">value</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    asyquote_projects_models_SectionQuote [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      SectionQuote
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>id</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">name</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">project_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">UUIDField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">section_count</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">visible</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    asyquote_projects_models_ServicesQuote [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      ServicesQuote
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>id</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">name</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">project_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">UUIDField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">quantity</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">section_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">service_count</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">visible</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    asyquote_projects_models_PricesQuote [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      PricesQuote
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>id</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">charged</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">cost</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">description</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">prices_count</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">profit_money</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">profit_percentage</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">project_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">UUIDField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">section_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">services_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">visible</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    asyquote_projects_models_Notes [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      Notes
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>id</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">notes</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">project_key</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">UUIDField</FONT>
       </TD></TR>
     
     
@@ -5480,6 +5718,14 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">address</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto">email</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">EmailField</FONT>
@@ -5498,7 +5744,7 @@ digraph model_graph {
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto">nif</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">DecimalField</FONT>
+      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
@@ -5514,7 +5760,7 @@ digraph model_graph {
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT COLOR="#7B7B7B" FACE="Roboto">value</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
@@ -5662,6 +5908,15 @@ digraph model_graph {
   treebeard_mp_tree_MP_Node -> treebeard_models_Node
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
+  wagtail_models_audit_log_BaseLogEntry -> django_contrib_contenttypes_models_ContentType
+  [label=" content_type (+)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  wagtail_models_audit_log_BaseLogEntry -> asyquote_users_models_User
+  [label=" user (+)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  wagtail_models_audit_log_BaseLogEntry -> wagtail_models_Revision
+  [label=" revision (+)"] [arrowhead=none, arrowtail=dot, dir=both];
+
   wagtail_models_AbstractPage -> wagtail_models_i18n_Locale
   [label=" locale (+)"] [arrowhead=none, arrowtail=dot, dir=both];
 
@@ -5712,15 +5967,6 @@ digraph model_graph {
 
   wagtail_models_AbstractPage -> treebeard_mp_tree_MP_Node
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
-
-  wagtail_models_audit_log_BaseLogEntry -> django_contrib_contenttypes_models_ContentType
-  [label=" content_type (+)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  wagtail_models_audit_log_BaseLogEntry -> asyquote_users_models_User
-  [label=" user (+)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-  wagtail_models_audit_log_BaseLogEntry -> wagtail_models_Revision
-  [label=" revision (+)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   wagtail_models_sites_Site -> wagtail_models_Page
   [label=" root_page (sites_rooted_here)"] [arrowhead=none, arrowtail=dot, dir=both];
@@ -5927,18 +6173,6 @@ digraph model_graph {
   [label=" page (subscribers)"] [arrowhead=none, arrowtail=dot, dir=both];
 
 
-  taggit_models_TaggedItemBase -> taggit_models_Tag
-  [label=" tag (%(app_label)s_%(class)s_items)"] [arrowhead=none, arrowtail=dot, dir=both];
-  taggit_models_ItemBase [label=<
-  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
-  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">ItemBase</FONT>
-  </TD></TR>
-  </TABLE>
-  >]
-  taggit_models_TaggedItemBase -> taggit_models_ItemBase
-  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
-
   taggit_models_GenericTaggedItemBase -> django_contrib_contenttypes_models_ContentType
   [label=" content_type (%(app_label)s_%(class)s_tagged_items)"] [arrowhead=none, arrowtail=dot, dir=both];
   taggit_models_CommonGenericTaggedItemBase [label=<
@@ -5949,6 +6183,18 @@ digraph model_graph {
   </TABLE>
   >]
   taggit_models_GenericTaggedItemBase -> taggit_models_CommonGenericTaggedItemBase
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+
+  taggit_models_TaggedItemBase -> taggit_models_Tag
+  [label=" tag (%(app_label)s_%(class)s_items)"] [arrowhead=none, arrowtail=dot, dir=both];
+  taggit_models_ItemBase [label=<
+  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">ItemBase</FONT>
+  </TD></TR>
+  </TABLE>
+  >]
+  taggit_models_TaggedItemBase -> taggit_models_ItemBase
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
   taggit_models_Tag -> taggit_models_TagBase
@@ -5994,6 +6240,18 @@ digraph model_graph {
   wagtailmenus_models_menus_AbstractMainMenu -> wagtailmenus_models_menus_MenuWithMenuItems
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
+  wagtailmenus_models_menus_AbstractFlatMenu -> wagtail_models_sites_Site
+  [label=" site (+)"] [arrowhead=none, arrowtail=dot, dir=both];
+  wagtailmenus_models_menus_MenuWithMenuItems [label=<
+  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">MenuWithMenuItems</FONT>
+  </TD></TR>
+  </TABLE>
+  >]
+  wagtailmenus_models_menus_AbstractFlatMenu -> wagtailmenus_models_menus_MenuWithMenuItems
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+
   wagtailmenus_models_menuitems_AbstractMainMenuItem -> wagtail_models_Page
   [label=" link_page (abstractmainmenuitem)"] [arrowhead=none, arrowtail=dot, dir=both];
 
@@ -6007,18 +6265,6 @@ digraph model_graph {
   </TABLE>
   >]
   wagtailmenus_models_menuitems_AbstractMainMenuItem -> wagtailmenus_models_menuitems_AbstractMenuItem
-  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
-
-  wagtailmenus_models_menus_AbstractFlatMenu -> wagtail_models_sites_Site
-  [label=" site (+)"] [arrowhead=none, arrowtail=dot, dir=both];
-  wagtailmenus_models_menus_MenuWithMenuItems [label=<
-  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
-  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">MenuWithMenuItems</FONT>
-  </TD></TR>
-  </TABLE>
-  >]
-  wagtailmenus_models_menus_AbstractFlatMenu -> wagtailmenus_models_menus_MenuWithMenuItems
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
   wagtailmenus_models_menuitems_MainMenuItem -> wagtail_models_Page
@@ -6140,23 +6386,17 @@ digraph model_graph {
   [label=" multi-table\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
 
-  asyquote_products_models_Products -> asyquote_products_models_ProductsPage
-  [label=" page (products)"] [arrowhead=none, arrowtail=dot, dir=both];
+  asyquote_products_models_Links -> asyquote_products_models_Supplier
+  [label=" supplier (links)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  asyquote_products_models_Products -> wagtail_images_models_Image
-  [label=" image (+)"] [arrowhead=none, arrowtail=dot, dir=both];
+  asyquote_products_models_Products -> asyquote_products_models_Category
+  [label=" categories (products)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   asyquote_products_models_Products -> asyquote_products_models_Supplier
   [label=" suppliers (products)"] [arrowhead=dot arrowtail=dot, dir=both];
 
-  asyquote_products_models_Products -> asyquote_products_models_Category
-  [label=" categories (products)"] [arrowhead=dot arrowtail=dot, dir=both];
-
-  asyquote_products_models_Products -> wagtail_models_Orderable
-  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
-
-  asyquote_products_models_ProductsPage -> wagtail_models_Page
-  [label=" multi-table\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+  asyquote_products_models_Products -> asyquote_products_models_Links
+  [label=" links (products)"] [arrowhead=dot arrowtail=dot, dir=both];
 
 
   asyquote_projects_models_Project -> asyquote_users_models_User

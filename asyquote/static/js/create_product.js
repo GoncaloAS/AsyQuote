@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <label class="label_form_create_project" for="id_supplierLink_${supplierId}">Link do Fornecedor (${supplierName}):</label>
                 <input type="text" id="id_supplierLink_${supplierId}" name="supplierLink_${supplierId}" class="form-control" required>
                 <label class="label_form_create_project" for="id_supplierPrice_${supplierId}">Preço do Fornecedor (${supplierName}):</label>
-                <input type="text" id="id_supplierPrice_${supplierId}" name="supplierPrice_${supplierId}" class="form-control" required>
+                <input type="number" id="id_supplierPrice_${supplierId}" name="supplierPrice_${supplierId}" class="form-control" required min="0" step="any">
             `;
             supplierLinkFields.appendChild(inputField);
         }
@@ -77,7 +77,7 @@ function attachProductModalListeners() {
                 modalBody.innerHTML = `
                     <div class="container">
                         <div class="row product-info-modal">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6 product-image-info-div">
                                 <img src="${productImage}" alt="${productTitle}" class="product-image-info">
                             </div>
                             <div class="col-12 col-md-6">
@@ -116,6 +116,7 @@ function updateEditor() {
             createCategoryDropdown.style.display = 'none';
             updateCategoryDropdown.style.display = 'block';
             Array.from(filteredProducts).forEach(container => {
+
                 let links = container.querySelectorAll("a[data-bs-toggle='modal'][data-bs-target='#staticProductInfo']");
                 links.forEach(link => {
                     productCards.forEach(card => {
@@ -125,7 +126,8 @@ function updateEditor() {
                         link.setAttribute('data-bs-target', modalId);
                     });
                 });
-            });
+            })
+
 
         }
         if (!(switchElement.checked)) {
@@ -136,17 +138,17 @@ function updateEditor() {
             createCategoryDropdown.style.display = 'block';
             updateCategoryDropdown.style.display = 'none';
             Array.from(filteredProducts).forEach(container => {
-            let links = container.querySelectorAll("a[data-bs-toggle='modal'][data-bs-target^='#staticProductUpdate']");
-            links.forEach(link => {
-                const productId = link.getAttribute('data-product-id');
-                const modalId = `#staticProductInfo`;
-                link.dataset.bsTarget = modalId;
-                link.setAttribute('data-bs-target', modalId);
+                let links = container.querySelectorAll("a[data-bs-toggle='modal'][data-bs-target^='#staticProductUpdate']");
+                links.forEach(link => {
+                    const productId = link.getAttribute('data-product-id');
+                    const modalId = `#staticProductInfo`;
+                    link.dataset.bsTarget = modalId;
+                    link.setAttribute('data-bs-target', modalId);
+                });
             });
-        });
         }
-    }
 
+    }
 
     document.removeEventListener("htmx:afterSwap", afterSwapHandler);
 }
@@ -155,6 +157,7 @@ function updateEditor() {
 function afterSwapHandler(evt) {
     if (evt.target.id === 'search-results') {
         setTimeout(updateEditor, 100);
+
     }
 }
 
@@ -174,3 +177,40 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+function handleSuppliersChange(productId) {
+    console.log(productId);
+    const supplierLinkFields = document.getElementById("supplierLinkFields" + productId);
+    const linksFormGroup = document.getElementById("linksFormGroup" + productId)
+    supplierLinkFields.style.display = 'block';
+    linksFormGroup.innerHTML = '';
+    linksFormGroup.style.display = 'none';
+    supplierLinkFields.innerHTML = '';
+
+    let selectedOptions = document.querySelectorAll('#id_suppliers' + productId + ' option:checked');
+    selectedOptions.forEach(function (option) {
+        let supplierId = option.value;
+        let supplierName = option.text;
+        let supplierLink = document.querySelector('#id_supplierLink_' + supplierId);
+
+
+        let inputField = document.createElement('div');
+        inputField.classList.add('form-group');
+        inputField.innerHTML = `
+                <label class="label_form_create_project" for="id_supplierLink_${supplierId}">Link do Fornecedor (${supplierName}):</label>
+                <input type="text" id="id_supplierLink_${supplierId}" name="supplierLink_${supplierId}" class="form-control" required>
+                <label class="label_form_create_project" for="id_supplierPrice_${supplierId}">Preço do Fornecedor (${supplierName}):</label>
+                <input type="number" id="id_supplierPrice_${supplierId}" name="supplierPrice_${supplierId}" class="form-control" required min="0" step="any">
+            `;
+        supplierLinkFields.appendChild(inputField);
+    });
+}
+
+function HideFormExcel(){
+    form_excel = document.getElementById("staticExcelUpload");
+    form_excel.style.display = "none";
+    excel_preloader = document.getElementById("excel_preloader_img")
+    excel_preloader.style.display = "block"
+    excel_preloader.style.zIndex = "1000";
+}

@@ -192,3 +192,95 @@
   margin-right: 25px;
   width: 75%;
 }
+
+
+$transition : .5s;
+$width : 2rem;
+$radius : 1rem;
+$angle : 35deg;
+$bg : whitesmoke;
+$buttonbg : dodgerblue;
+
+.previous_client_button {
+  display: flex;
+  background: $buttonbg;
+  padding: 1rem;
+  border-radius: $width;
+  background: $buttonbg;
+  cursor: pointer;
+  transition: $transition;
+  margin: 1rem;
+
+  &:active {
+    background: darken($buttonbg, 20%);
+  }
+}
+
+.before_arrow {
+  position: relative;
+  background: $bg;
+  width: $width;
+  height: 0.2rem;
+  transition: $transition;
+  border-radius: $radius;
+  transform-origin: right center;
+
+  &:before { transform: rotate(-$angle); }
+  &:after { transform: rotate($angle); }
+
+  &:before, &:after {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 0;
+      background: $bg;
+      width: 1rem;
+      height: 0.2rem;
+      transform-origin: 0.1rem center;
+      transition: $transition;
+      border-radius: $radius;
+    }
+}
+
+
+.next_client_button {
+  display: flex;
+  background: $buttonbg;
+  padding: 1rem;
+  border-radius: $width;
+  background: $buttonbg;
+  cursor: pointer;
+  transition: $transition;
+  margin: 1rem;
+
+  &:active {
+    background: darken($buttonbg, 20%);
+  }
+}
+
+.after_arrow {
+  position: relative;
+  background: $bg;
+  width: $width;
+  height: 0.2rem;
+  transition: $transition;
+  border-radius: $radius;
+  transform-origin: left center;
+
+  &:before { transform: rotate($angle); }
+  &:after { transform: rotate(-$angle); }
+
+  &:before, &:after {
+      display: block;
+      content: "";
+      position: absolute;
+      right: 0;
+      background: $bg;
+      width: 1rem;
+      height: 0.2rem;
+      transform-origin: $width*0.47 center;
+      transition: $transition;
+      border-radius: $radius;
+    }
+}
+

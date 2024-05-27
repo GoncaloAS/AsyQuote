@@ -35,7 +35,7 @@
   vertical-align: middle;
   white-space: nowrap;
   width: 150px;
-  margin-left: 100px;
+  margin-left: 30px;
 }
 
 .dropbtn:after {
@@ -78,12 +78,16 @@
 
 .dropdown-content {
   display: none;
-  margin-left: 100px;
+  margin-left: 30px;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 999;
+  inset: 0px 0px auto auto;
+  margin: 0px;
+  transform: translate3d(160px, 40px, 0px);
+
 }
 
 .dropdown-content a {
@@ -103,19 +107,62 @@
 
 .form-projects {
   width: 75%;
-  margin: auto;
+  margin-left: 225px;
   margin-top: 50px;
   padding-left: 200px;
 
 }
 
 .service-fields {
-  margin-left: 5%;
   display: flex;
 }
 
 
 .price-fields {
   display: flex;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.product-search-container {
+  position: relative;
+  width: 100%;
+  margin-left: 5%;
+}
+
+.product-search-div {
+  position: fixed;
+  background: white;
+  margin-left: 30px;
+  width: 25%;
+}
+
+.prices-div-margin {
   margin-left: 10%;
 }
+
+
+.product-search-results {
+  margin-top: 120px;
+  z-index: 1;
+}
+
+.project-menu {
+  z-index: 2;
+}
+
+@media (max-width: 992px) {
+  .product-search-results {
+    display: none;
+  }
+
+  .form-projects {
+    margin-left: 125px;
+    padding-left: 0;
+  }
+}
+
+
+

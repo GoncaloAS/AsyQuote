@@ -61,3 +61,14 @@
 .color-cost {
   color: red;
 }
+
+@media (max-width: 600px) {
+    .list_project_active {
+      display: block!important;
+    }
+    .menu-project-listing {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+  }

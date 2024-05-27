@@ -1,8 +1,6 @@
 from wagtail.models import Orderable, Page
 from django.db import models
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+import requests
 
 
 class Supplier(models.Model):
@@ -41,3 +39,11 @@ class Products(models.Model):
     def minimum_price(self):
         prices = [link.price for link in self.links.all()]
         return min(prices, default=None)
+
+    def minimum_price_info(self):
+        prices_info = [(link.price, link.supplier.name_supplier, link.url) for link in self.links.all()]
+        if prices_info:
+            min_price_info = min(prices_info, key=lambda x: x[0])
+            return min_price_info
+        else:
+            return (None, None, None)
