@@ -12,7 +12,7 @@ $(document).ready(function () {
         csrfmiddlewaretoken: '{{ csrf_token }}',
       },
       success: function (data) {
-        $('#myForm').html(data.form_html);
+        replaceForm(data.form_html);
         addChangeSectionEventListeners();
       },
       error: function (xhr, textStatus, errorThrown) {
@@ -233,6 +233,34 @@ function addPrice(input, input2, input3) {
   createField('add-price', key, input, input2, input3, nextPrice);
 }
 
+// Replacing the whole form's innerHTML destroys and rebuilds every row, which
+// drops the page height to nothing for an instant and leaves the browser scrolled
+// back to the top. Pin the offset across the swap.
+function replaceForm(html) {
+  if (typeof html !== 'string' || html.length === 0) {
+    return false;
+  }
+  const offset = window.scrollY;
+  $('#myForm').html(html);
+  window.scrollTo({ top: offset, behavior: 'instant' });
+  return true;
+}
+
+function reportQuoteError(message) {
+  if (!message) {
+    return;
+  }
+  if (typeof iziToast !== 'undefined') {
+    iziToast.error({
+      title: 'Erro!',
+      message: message,
+      position: 'bottomRight',
+    });
+  } else {
+    console.warn(message);
+  }
+}
+
 // region Section 2: secondary functions
 
 const saveDataUrl = $('#myForm').attr('data-quote-url');
@@ -277,7 +305,10 @@ function deleteField(action, key, section_count, service_count, price_count) {
       price_count: price_count,
     },
     success: function (data) {
-      $('#myForm').html(data.form_html);
+      // The server answers with form_html even when it refuses the delete, so the
+      // form is re-rendered rather than blanked by assigning undefined to it.
+      replaceForm(data.form_html);
+      reportQuoteError(data.message);
     },
   });
 }
@@ -302,7 +333,8 @@ function createField(
       next_id: next_id,
     },
     success: function (data) {
-      $('#myForm').html(data.form_html);
+      replaceForm(data.form_html);
+      reportQuoteError(data.message);
       addChangeSectionEventListeners();
     },
   });

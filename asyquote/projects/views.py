@@ -235,76 +235,79 @@ def delete_fields_quote(request):
         section_count = request.GET.get("section_count")
         service_count = request.GET.get("service_count")
         price_count = request.GET.get("price_count")
+        message = None
         try:
             if action == "drop-section":
-                num_sections = SectionQuote.objects.filter(project_key=key, visible=True).count()
-                print("NUM_SECTIONS: ", num_sections)
-                if num_sections > 1:
-                    section = SectionQuote.objects.get(project_key=key, section_count=section_count, visible=True)
-                    services = ServicesQuote.objects.filter(project_key=key, section_key=section_count, visible=True)
-                    prices = PricesQuote.objects.filter(project_key=key, section_key=section_count, visible=True)
-                    section.visible = False
-                    for service in services:
+                # A quote always keeps one section, each section one service, each
+                # service one price line, so the last of each cannot be removed.
+                if SectionQuote.objects.filter(project_key=key, visible=True).count() <= 1:
+                    message = "Não é possível apagar a única secção."
+                else:
+                    # Positional keys are not unique by construction, so filter().first()
+                    # rather than get(), which would raise on a quote that has drifted.
+                    section = SectionQuote.objects.filter(
+                        project_key=key, section_count=section_count, visible=True
+                    ).first()
+                    if section is None:
+                        message = "Secção não encontrada."
+                    else:
+                        ServicesQuote.objects.filter(project_key=key, section_key=section_count, visible=True).update(
+                            visible=False
+                        )
+                        PricesQuote.objects.filter(project_key=key, section_key=section_count, visible=True).update(
+                            visible=False
+                        )
+                        section.visible = False
+                        section.save()
+
+            elif action == "drop-service":
+                siblings = ServicesQuote.objects.filter(
+                    project_key=key, visible=True, section_key=section_count
+                ).count()
+                if siblings <= 1:
+                    message = "Não é possível apagar o único serviço."
+                else:
+                    service = ServicesQuote.objects.filter(
+                        project_key=key, section_key=section_count, service_count=service_count, visible=True
+                    ).first()
+                    if service is None:
+                        message = "Serviço não encontrado."
+                    else:
+                        PricesQuote.objects.filter(
+                            project_key=key,
+                            section_key=section_count,
+                            services_key=service_count,
+                            visible=True,
+                        ).update(visible=False)
                         service.visible = False
                         service.save()
 
-                    for price in prices:
-                        price.visible = False
-                        price.save()
-                    section.save()
-                else:
-                    return JsonResponse({"status": "error", "message": "Cannot delete the only section."})
-
-            elif action == "drop-service":
-                num_services = ServicesQuote.objects.filter(
-                    project_key=key, visible=True, section_key=section_count
-                ).count()
-
-                if num_services > 1:
-                    service = ServicesQuote.objects.get(
-                        project_key=key, section_key=section_count, service_count=service_count, visible=True
-                    )
-                    service.visible = False
-                    service.save()
-                    prices = PricesQuote.objects.filter(
-                        project_key=key, section_key=section_count, services_key=service_count, visible=True
-                    )
-
-                    for price in prices:
-                        price.visible = False
-                        price.save()
-
-                else:
-                    return JsonResponse({"status": "error", "message": "Cannot delete the only service."})
-
             elif action == "drop-price":
-                num_prices = PricesQuote.objects.filter(
+                siblings = PricesQuote.objects.filter(
                     project_key=key, visible=True, section_key=section_count, services_key=service_count
                 ).count()
-                if num_prices > 1:
-                    price = PricesQuote.objects.get(
+                if siblings <= 1:
+                    message = "Não é possível apagar o único preço."
+                else:
+                    price = PricesQuote.objects.filter(
                         project_key=key,
                         section_key=section_count,
                         services_key=service_count,
                         prices_count=price_count,
                         visible=True,
-                    )
-                    price.visible = False
-                    price.save()
-                else:
-                    return JsonResponse({"status": "error", "message": "Cannot delete the only price."})
+                    ).first()
+                    if price is None:
+                        message = "Preço não encontrado."
+                    else:
+                        price.visible = False
+                        price.save()
 
             else:
-                return JsonResponse({"status": "error", "message": "Invalid action."})
+                message = "Ação inválida."
 
-        except SectionQuote.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Section not found."})
-        except ServicesQuote.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Service not found."})
-        except PricesQuote.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Price not found."})
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)})
+        except Exception as exc:  # noqa: BLE001 - reported back to the user below
+            message = str(exc)
+
         sections = SectionQuote.objects.filter(project_key=key, visible=True).order_by("section_count")
         services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by("service_count")
         prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by("prices_count")
@@ -314,7 +317,7 @@ def delete_fields_quote(request):
             {"sections": sections, "services": services, "prices": prices, "notes": notes},
         )
 
-        return JsonResponse({"form_html": form_html})
+        return JsonResponse({"form_html": form_html, "message": message})
 
 
 def save_quote_url(request):
