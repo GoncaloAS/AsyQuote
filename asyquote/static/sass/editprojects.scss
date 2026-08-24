@@ -149,6 +149,26 @@
   }
 }
 
+.product-add-to-quote {
+  background: #63c5c7;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 0.4rem 0.5rem;
+
+  &:hover {
+    background: #3a9496;
+  }
+}
+
+// Brief confirmation that the line the product landed in is the intended one.
+.price-wrapper-filled input {
+  transition: background-color 0.2s ease;
+  background-color: #e8f6f7;
+}
+
 .product-result-link {
   color: #63c5c7;
   padding: 0.25rem 0.35rem;

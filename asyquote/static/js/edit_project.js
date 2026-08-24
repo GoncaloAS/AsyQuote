@@ -261,6 +261,99 @@ function reportQuoteError(message) {
   }
 }
 
+// region Add a searched product to the quote
+//
+// The search panel used to offer only "Ver na loja" and a hidden copy-the-link
+// on the thumbnail, so getting a product into the quote meant retyping its name
+// and price. This fills a price line instead.
+//
+// Delegated listeners rather than bound ones: the form's innerHTML is replaced
+// wholesale on every edit, so anything bound directly would be lost.
+
+let lastFocusedPriceRow = null;
+
+document.addEventListener('focusin', function (event) {
+  const input = event.target.closest('.price-fields input');
+  if (!input) {
+    return;
+  }
+  lastFocusedPriceRow = {
+    section: input.getAttribute('data-section-identifier'),
+    service: input.getAttribute('data-service-identifier'),
+    price: input.getAttribute('data-price-identifier'),
+  };
+});
+
+function priceRowFor(target) {
+  if (target) {
+    const selector =
+      '.price-wrapper[data-section-identifier="' +
+      target.section +
+      '"][data-service-identifier="' +
+      target.service +
+      '"][data-price-identifier="' +
+      target.price +
+      '"]';
+    const row = document.querySelector(selector);
+    if (row) {
+      return row;
+    }
+  }
+  // Nothing focused yet, or the row is gone: use the last line in the quote.
+  const rows = document.querySelectorAll('.price-wrapper');
+  return rows.length ? rows[rows.length - 1] : null;
+}
+
+function addProductToQuote(title, cost) {
+  const row = priceRowFor(lastFocusedPriceRow);
+  if (!row) {
+    reportQuoteError('Não há nenhuma linha de preço para preencher.');
+    return;
+  }
+  const description = row.querySelector('[data-form-type="description"]');
+  const costField = row.querySelector('[data-form-type="cost"]');
+  if (!description || !costField) {
+    return;
+  }
+
+  description.value = title;
+  costField.value = cost;
+
+  const section = row.getAttribute('data-section-identifier');
+  const service = row.getAttribute('data-service-identifier');
+  const priceId = row.getAttribute('data-price-identifier');
+  saveData('description', key, title, section, service, priceId, function () {
+    saveData('cost', key, cost, section, service, priceId);
+  });
+
+  row.classList.add('price-wrapper-filled');
+  setTimeout(() => row.classList.remove('price-wrapper-filled'), 900);
+  lastFocusedPriceRow = {
+    section: row.getAttribute('data-section-identifier'),
+    service: row.getAttribute('data-service-identifier'),
+    price: row.getAttribute('data-price-identifier'),
+  };
+  if (typeof iziToast !== 'undefined') {
+    iziToast.success({
+      title: 'Adicionado',
+      message: title,
+      position: 'bottomRight',
+      timeout: 2000,
+    });
+  }
+}
+
+document.addEventListener('click', function (event) {
+  const button = event.target.closest('.product-add-to-quote');
+  if (!button) {
+    return;
+  }
+  event.preventDefault();
+  addProductToQuote(button.dataset.title, button.dataset.cost);
+});
+
+// endregion
+
 // region Section 2: secondary functions
 
 const saveDataUrl = $('#myForm').attr('data-quote-url');
@@ -277,6 +370,7 @@ function saveData(
   section_count,
   service_count,
   price_count,
+  onDone,
 ) {
   $.ajax({
     url: saveDataUrl,
@@ -289,6 +383,11 @@ function saveData(
       service_count: service_count,
       price_count: price_count,
       csrfmiddlewaretoken: '{{ csrf_token }}',
+    },
+    complete: function () {
+      if (typeof onDone === 'function') {
+        onDone();
+      }
     },
   });
 }
@@ -352,10 +451,6 @@ function filterProducts(key, value) {
     },
     success: function (data) {
       $('#product-results').html(data.form_html);
-      inputServices2Elements.removeEventListener(
-        'input',
-        handleServiceInputChange,
-      );
     },
   });
 }
