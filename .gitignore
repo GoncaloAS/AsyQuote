@@ -302,8 +302,12 @@ vendors.js
 .env.*
 !.env.example
 
-# User-uploaded media (product/supplier/project images)
-asyquote/media/
+# Wagtail renditions are regenerated on demand from the originals.
+asyquote/media/images/
+# Runtime uploads (product/supplier/project images)
+asyquote/media/products_images/
+asyquote/media/supplier_images/
+asyquote/media/project_images/
 
 # Scraper output: per-category spreadsheets and downloaded product images
 scrappers/*.xlsx

@@ -9,7 +9,7 @@ __pycache__
 *.pyc
 *.pyo
 staticfiles
-asyquote/media
+asyquote/media/images
 docs/_build
 .env
 schema.sql

@@ -32,10 +32,9 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      # Source is mounted so runserver's autoreload picks up edits. media/ is a
-      # named volume so uploads survive a rebuild.
+      # Source is mounted so runserver's autoreload picks up edits. This also
+      # exposes the demo media the fixture's Wagtail image rows point at.
       - .:/app
-      - media:/app/asyquote/media
     env_file:
       - .env
     environment:
@@ -47,4 +46,3 @@ services:
 
 volumes:
   postgres_data:
-  media:
