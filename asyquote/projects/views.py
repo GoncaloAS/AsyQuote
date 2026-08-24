@@ -16,6 +16,16 @@ from .forms import ProjectForm
 from .models import Notes, PricesQuote, Project, SectionQuote, ServicesQuote
 
 
+def owned_project(request, key):
+    """Fetch a quote the requesting user owns, or 404.
+
+    Ownership was checked in edit_project and download_project_quote but not in
+    the endpoints that mutate the quote, so knowing another user's project UUID
+    was enough to read and edit their quote.
+    """
+    return get_object_or_404(Project, key=key, user=request.user)
+
+
 @login_required
 def project_list(request):
     state = "EM ESPERA"
@@ -25,10 +35,9 @@ def project_list(request):
     return render(request, "builder/builder_projects.html", {"projects": projects, "form": form})
 
 
+@login_required
 def edit_project(request, key):
-    project = get_object_or_404(Project, key=key)
-    if project.user != request.user:
-        return render(request, "builder/project_not_found.html")
+    project = get_object_or_404(Project, key=key, user=request.user)
     clients = Client.objects.filter(user=request.user)
     sections = SectionQuote.objects.filter(project_key=key).order_by("section_count")
     services = ServicesQuote.objects.filter(project_key=key).order_by("service_count")
@@ -49,6 +58,7 @@ def edit_project(request, key):
     )
 
 
+@login_required
 def create_project(request):
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES)
@@ -92,6 +102,7 @@ def create_project(request):
     return render(request, "builder/builder_projects.html", {"form": form})
 
 
+@login_required
 def filter_projects(request):
     state = request.GET.get("state", None)
     projects = Project.objects.filter(user=request.user).order_by("-quote_number")
@@ -103,6 +114,7 @@ def filter_projects(request):
     return HttpResponse(html)
 
 
+@login_required
 def filter_projects_data(request):
     state = request.GET.get("state", None)
     projects = Project.objects.filter(user=request.user).order_by("-quote_number")
@@ -113,12 +125,14 @@ def filter_projects_data(request):
     return HttpResponse(html)
 
 
+@login_required
 def list_projects_table(request):
     state = "EM EXECUÇÃO"
     projects = Project.objects.filter(user=request.user, state=state).order_by("-quote_number")
     return render(request, "builder/project_list.html", {"projects": projects})
 
 
+@login_required
 def download_excel(request):
     state = request.GET.get("state")
     if state is None:
@@ -192,8 +206,9 @@ def download_excel(request):
     return response
 
 
+@login_required
 def delete_project(request, key):
-    project = get_object_or_404(Project, key=key)
+    project = owned_project(request, key)
     sections = SectionQuote.objects.filter(project_key=key)
     services = ServicesQuote.objects.filter(project_key=key)
     prices = PricesQuote.objects.filter(project_key=key)
@@ -209,8 +224,9 @@ def delete_project(request, key):
     return render(request, "builder/delete_project.html", {"project": project})
 
 
+@login_required
 def update_project(request, project_id):
-    project = get_object_or_404(Project, pk=project_id)
+    project = get_object_or_404(Project, pk=project_id, user=request.user)
     if request.method == "POST":
         updated_title = request.POST.get("update_title")
         updated_address = request.POST.get("update_address")
@@ -219,7 +235,7 @@ def update_project(request, project_id):
         if updated_title and updated_address:
             project.title = updated_title
             project.address = updated_address
-            updated_client = get_object_or_404(Client, pk=updated_client_id)
+            updated_client = get_object_or_404(Client, pk=updated_client_id, user=request.user)
             project.state = updated_state
             project.client = updated_client
             project.save()
@@ -228,10 +244,12 @@ def update_project(request, project_id):
         return JsonResponse({"error": "Informação errada"})
 
 
+@login_required
 def delete_fields_quote(request):
     if request.method == "GET":
         action = request.GET.get("action")
         key = request.GET.get("key")
+        owned_project(request, key)
         section_count = request.GET.get("section_count")
         service_count = request.GET.get("service_count")
         price_count = request.GET.get("price_count")
@@ -320,12 +338,13 @@ def delete_fields_quote(request):
         return JsonResponse({"form_html": form_html, "message": message})
 
 
+@login_required
 def save_quote_url(request):
     if request.method == "GET":
         action = request.GET.get("action")
         key = request.GET.get("key")
-        project = get_object_or_404(Project, key=key)
-        clients = Client.objects.all()
+        project = owned_project(request, key)
+        clients = Client.objects.filter(user=request.user)
         sections = SectionQuote.objects.filter(project_key=key).order_by("id")
         services = ServicesQuote.objects.filter(project_key=key).order_by("id")
         prices = PricesQuote.objects.filter(project_key=key).order_by("id")
@@ -424,6 +443,7 @@ def save_quote_url(request):
         return JsonResponse({"form_html": form_html})
 
 
+@login_required
 def save_quote_data(request):
     if request.method == "GET":
         action = request.GET.get("action")
@@ -433,8 +453,8 @@ def save_quote_data(request):
         service_key = request.GET.get("service_count")
         price_key = request.GET.get("price_count")
 
-        # Not rendered, but keeps the 404 for an unknown project key.
-        get_object_or_404(Project, key=key)
+        # Not rendered, but keeps the 404 for an unknown or foreign project key.
+        owned_project(request, key)
         sections = SectionQuote.objects.filter(project_key=key).order_by("section_count")
         services = ServicesQuote.objects.filter(project_key=key).order_by("service_count")
         prices = PricesQuote.objects.filter(project_key=key).order_by("prices_count")
@@ -492,10 +512,12 @@ def save_quote_data(request):
         return JsonResponse({"form_html": form_html})
 
 
+@login_required
 def filter_edit_products(request):
     if request.method == "GET":
         key = request.GET.get("key")
         value = request.GET.get("value")
+        owned_project(request, key)
 
         products = Products.objects.all()
         sections = SectionQuote.objects.filter(project_key=key).order_by("section_count")
@@ -534,8 +556,10 @@ def filter_edit_products(request):
         return JsonResponse({"form_html": form_html})
 
 
+@login_required
 def download_project_quote(request, project_key):
-    project = Project.objects.get(key=project_key, user=request.user)
+    # get() raised DoesNotExist and returned a 500 for anyone else's quote.
+    project = owned_project(request, project_key)
     notes = Notes.objects.get(project_key=project_key)
     # projects = Project.objects.filter(user=request.user).order_by('quote_number')
     wb = openpyxl.Workbook()
@@ -814,10 +838,12 @@ def download_project_quote(request, project_key):
     return response
 
 
+@login_required
 def create_fields_quote(request):
     if request.method == "GET":
         action = request.GET.get("action")
         key = request.GET.get("key")
+        owned_project(request, key)
         section_key = request.GET.get("section_count")
         service_key = request.GET.get("service_count")
         price_key = request.GET.get("price_count")

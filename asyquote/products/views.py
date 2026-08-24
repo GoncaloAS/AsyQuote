@@ -8,6 +8,7 @@ from urllib.parse import urljoin, urlparse
 import requests
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -21,6 +22,11 @@ from openpyxl import load_workbook
 
 from .forms import CategoryForm, ProductsForm, SupplierForm, UploadExcelForm
 from .models import Category, Links, Products, Supplier
+
+
+def superuser_required(view):
+    """Catalogue writes are superuser-only, which was enforced only in templates."""
+    return login_required(user_passes_test(lambda user: user.is_superuser)(view))
 
 
 class NotFoundProductView(TemplateView):
@@ -57,6 +63,7 @@ class ProductsListView(ListView):
         return Products.objects.all().order_by("-id")
 
 
+@login_required
 def filter_products(request):
     category_names = request.GET.getlist("name_category", [])
     supplier_names = request.GET.getlist("name_supplier", [])
@@ -98,6 +105,7 @@ def filter_products(request):
 
 
 # region Section CRUD: Create
+@superuser_required
 def create_product(request):
     if request.method == "POST":
         form = ProductsForm(request.POST, request.FILES)
@@ -138,6 +146,7 @@ def create_product(request):
     return render(request, "products/products_page.html", {"form": form})
 
 
+@superuser_required
 def create_category(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
@@ -155,6 +164,7 @@ def create_category(request):
     return render(request, "products/products_page.html", {"form_categories": form})
 
 
+@superuser_required
 def create_supplier(request):
     if request.method == "POST":
         form = SupplierForm(request.POST, request.FILES)
@@ -179,6 +189,7 @@ def create_supplier(request):
 
 
 # region Section CRUD: Update
+@superuser_required
 def update_supplier(request, supplier_id):
     supplier = get_object_or_404(Supplier, id=supplier_id)
     if request.method == "POST":
@@ -195,6 +206,7 @@ def update_supplier(request, supplier_id):
     return redirect("products_page")
 
 
+@superuser_required
 def update_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == "POST":
@@ -207,6 +219,7 @@ def update_category(request, category_id):
     return redirect("products_page")
 
 
+@superuser_required
 def update_product(request, product_id):
     product = get_object_or_404(Products, id=product_id)
     if request.method == "POST":
@@ -246,6 +259,7 @@ def update_product(request, product_id):
 
 
 # region Section CURD: Delete
+@superuser_required
 def delete_product(request, product_id):
     product = Products.objects.filter(id=product_id)
     if request.method == "POST":
@@ -254,6 +268,7 @@ def delete_product(request, product_id):
     return redirect("products_page")
 
 
+@superuser_required
 def delete_category(request, category_id):
     category = Category.objects.get(id=category_id)
     products_count = Products.objects.filter(categories=category).count()
@@ -268,6 +283,7 @@ def delete_category(request, category_id):
     return redirect("products_page")
 
 
+@superuser_required
 def delete_supplier(request, supplier_id):
     supplier = Supplier.objects.get(id=supplier_id)
     products_count = Products.objects.filter(suppliers=supplier).count()
@@ -372,6 +388,7 @@ def fetch_images(image_urls):
     return results, skipped_robots, max(skipped_budget, 0)
 
 
+@superuser_required
 def upload_excel(request):
     try:
         product_names = []

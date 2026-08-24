@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError, transaction
 from django.db.models import Q
@@ -28,6 +29,7 @@ class ClientListView(LoginRequiredMixin, ListView):
         return context
 
 
+@login_required
 def create_client(request):
     if request.method == "POST":
         form = ClientForm(request.POST)
@@ -57,8 +59,9 @@ def create_client(request):
     return render(request, "clients/client_page.html", {"form": form})
 
 
+@login_required
 def update_client(request, client_id):
-    client = get_object_or_404(Client, id=client_id)
+    client = get_object_or_404(Client, id=client_id, user=request.user)
     if request.method == "POST":
         updated_name = request.POST.get("update_name")
         updated_email = request.POST.get("update_email")
@@ -86,8 +89,9 @@ def update_client(request, client_id):
         return JsonResponse({"error": "Erro ao atualizar o campo. Tente novamente."})
 
 
+@login_required
 def delete_client(request, client_id):
-    client = get_object_or_404(Client, id=client_id)
+    client = get_object_or_404(Client, id=client_id, user=request.user)
     projects = Project.objects.filter(user=request.user)
     flag = 0
     for project in projects:
@@ -105,6 +109,7 @@ def delete_client(request, client_id):
     return redirect("client_list")
 
 
+@login_required
 def filter_clients(request):
     search_query = request.GET.get("searchClient")
     clients = Client.objects.filter(user=request.user).order_by("-id")
