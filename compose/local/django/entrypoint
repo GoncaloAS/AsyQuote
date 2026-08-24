@@ -1,0 +1,31 @@
+#!/bin/bash
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# Block until Postgres accepts our credentials. This checks an actual connection
+# rather than just an open port, and reuses the psycopg already in the image.
+python <<'PYTHON'
+import os
+import sys
+import time
+
+import psycopg
+
+url = os.environ.get("DATABASE_URL", "postgres://asyquote:asyquote@postgres:5432/asyquote")
+deadline = time.monotonic() + 60
+
+while True:
+    try:
+        psycopg.connect(url, connect_timeout=3).close()
+        break
+    except psycopg.OperationalError as exc:
+        if time.monotonic() > deadline:
+            sys.exit(f"Postgres unreachable after 60s: {exc}")
+        print("Waiting for Postgres ...", file=sys.stderr)
+        time.sleep(1)
+
+print("Postgres is available", file=sys.stderr)
+PYTHON
+
+exec "$@"

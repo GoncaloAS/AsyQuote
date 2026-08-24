@@ -1,0 +1,46 @@
+# Local development stack. Requires a .env file:
+#   cp .env.example .env
+# Then:
+#   docker compose up --build
+# The django service runs migrations and loads fixtures/demo_data.json into an
+# empty database before starting the dev server on http://localhost:8000.
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-asyquote}
+      POSTGRES_USER: ${POSTGRES_USER:-asyquote}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-asyquote}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-asyquote} -d ${POSTGRES_DB:-asyquote}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      # Source is mounted so runserver's autoreload picks up edits. media/ is a
+      # named volume so uploads survive a rebuild.
+      - .:/app
+      - media:/app/asyquote/media
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.local}
+      DATABASE_URL: ${DATABASE_URL:-postgres://asyquote:asyquote@postgres:5432/asyquote}
+    ports:
+      - "8000:8000"
+    command: /start
+
+volumes:
+  postgres_data:
+  media:

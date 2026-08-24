@@ -1,0 +1,14 @@
+#!/bin/bash
+set -o errexit
+set -o pipefail
+set -o nounset
+
+python manage.py migrate --noinput
+
+# Seed the demo data once, on the first boot of an empty database.
+if [ "$(python manage.py shell -c 'from asyquote.projects.models import Project; print(Project.objects.count())' 2>/dev/null | tail -1)" = "0" ]; then
+  echo "Empty database detected: loading fixtures/demo_data.json"
+  python manage.py loaddata fixtures/demo_data.json
+fi
+
+exec python manage.py runserver 0.0.0.0:8000
