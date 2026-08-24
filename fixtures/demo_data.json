@@ -1,99 +1,9 @@
 [
   {
-    "model": "sites.site",
-    "pk": 1,
-    "fields": {
-      "domain": "localhost:8000",
-      "name": "AsyQuote"
-    }
-  },
-  {
-    "model": "wagtailcore.locale",
-    "pk": 1,
-    "fields": {
-      "language_code": "pt"
-    }
-  },
-  {
-    "model": "wagtailcore.site",
-    "pk": 1,
-    "fields": {
-      "hostname": "localhost",
-      "port": 8000,
-      "site_name": "AsyQuote",
-      "root_page": 3,
-      "is_default_site": true
-    }
-  },
-  {
-    "model": "wagtailmenus.mainmenuitem",
-    "pk": 1,
-    "fields": {
-      "sort_order": 1,
-      "link_page": null,
-      "link_url": "#sobre",
-      "url_append": "",
-      "handle": "",
-      "link_text": "Sobre",
-      "allow_subnav": true,
-      "menu": 1
-    }
-  },
-  {
-    "model": "wagtailmenus.mainmenuitem",
-    "pk": 2,
-    "fields": {
-      "sort_order": 2,
-      "link_page": null,
-      "link_url": "#opiniões",
-      "url_append": "",
-      "handle": "",
-      "link_text": "Opiniões",
-      "allow_subnav": true,
-      "menu": 1
-    }
-  },
-  {
-    "model": "wagtailmenus.mainmenuitem",
-    "pk": 3,
-    "fields": {
-      "sort_order": 3,
-      "link_page": null,
-      "link_url": "#faqs",
-      "url_append": "",
-      "handle": "",
-      "link_text": "FAQS",
-      "allow_subnav": true,
-      "menu": 1
-    }
-  },
-  {
-    "model": "wagtailmenus.mainmenuitem",
-    "pk": 4,
-    "fields": {
-      "sort_order": 4,
-      "link_page": null,
-      "link_url": "login",
-      "url_append": "",
-      "handle": "",
-      "link_text": "Login",
-      "allow_subnav": true,
-      "menu": 1
-    }
-  },
-  {
-    "model": "wagtailmenus.mainmenu",
-    "pk": 1,
-    "fields": {
-      "site": ["localhost", 8000],
-      "max_levels": 2
-    }
-  },
-  {
     "model": "users.user",
     "pk": 1,
     "fields": {
-      "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$S0J3ZTRHWkZVRTdyME5DZzE1OGlQNg$x7tE1SrNB6kNl16aaY0v56BBp7/+k4RLeMY7bMyhbhQ",
+      "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$UVRIY3REdExsMk9VeVRNdjMzOExydQ$G0p5akOuHg5YqVmrKgUnDP52hkibXLFPGjIbijPsAhw",
       "last_login": null,
       "is_superuser": true,
       "username": "demo",
@@ -102,7 +12,7 @@
       "email": "demo@asyquote.example",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2026-08-24T18:57:10.189Z",
+      "date_joined": "2026-08-24T19:13:23.767Z",
       "receive_email": false,
       "development_help": false,
       "groups": [],
@@ -682,8 +592,8 @@
       "client": 2,
       "value": "7267.00",
       "state": "EM EXECUÇÃO",
-      "key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
-      "created_at": "2026-08-24T18:57:10.289Z"
+      "key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
+      "created_at": "2026-08-24T19:13:23.872Z"
     }
   },
   {
@@ -698,8 +608,8 @@
       "client": 4,
       "value": "4535.00",
       "state": "EM ESPERA",
-      "key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
-      "created_at": "2026-08-24T18:57:10.298Z"
+      "key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
+      "created_at": "2026-08-24T19:13:23.878Z"
     }
   },
   {
@@ -714,8 +624,8 @@
       "client": 1,
       "value": "1248.00",
       "state": "CONCLUÍDO",
-      "key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
-      "created_at": "2026-08-24T18:57:10.301Z"
+      "key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
+      "created_at": "2026-08-24T19:13:23.880Z"
     }
   },
   {
@@ -730,8 +640,8 @@
       "client": 5,
       "value": "11120.00",
       "state": "PERDIDO",
-      "key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
-      "created_at": "2026-08-24T18:57:10.304Z"
+      "key": "c73a145a-8ac9-45e5-b15b-19491c710142",
+      "created_at": "2026-08-24T19:13:23.882Z"
     }
   },
   {
@@ -746,8 +656,8 @@
       "client": 3,
       "value": "2385.00",
       "state": "EM ESPERA",
-      "key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
-      "created_at": "2026-08-24T18:57:10.305Z"
+      "key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
+      "created_at": "2026-08-24T19:13:23.883Z"
     }
   },
   {
@@ -762,8 +672,8 @@
       "client": 2,
       "value": "5150.00",
       "state": "EM ESPERA",
-      "key": "269976f5-5b98-4917-9e73-ece0d98932f7",
-      "created_at": "2026-08-24T18:57:10.307Z"
+      "key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
+      "created_at": "2026-08-24T19:13:23.884Z"
     }
   },
   {
@@ -778,8 +688,8 @@
       "client": 1,
       "value": "5150.00",
       "state": "EM EXECUÇÃO",
-      "key": "42295e10-f39b-4930-afa3-ecec3028d76e",
-      "created_at": "2026-08-24T18:57:10.310Z"
+      "key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
+      "created_at": "2026-08-24T19:13:23.886Z"
     }
   },
   {
@@ -787,7 +697,7 @@
     "pk": 1,
     "fields": {
       "name": "Demolições e preparação",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_count": "1",
       "visible": true
     }
@@ -797,7 +707,7 @@
     "pk": 2,
     "fields": {
       "name": "Pavimentos e revestimentos",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_count": "2",
       "visible": true
     }
@@ -807,7 +717,7 @@
     "pk": 3,
     "fields": {
       "name": "Instalações",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_count": "3",
       "visible": true
     }
@@ -817,7 +727,7 @@
     "pk": 4,
     "fields": {
       "name": "Pintura",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_count": "4",
       "visible": true
     }
@@ -827,7 +737,7 @@
     "pk": 5,
     "fields": {
       "name": "Movimentação de terras",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_count": "1",
       "visible": true
     }
@@ -837,7 +747,7 @@
     "pk": 6,
     "fields": {
       "name": "Estrutura",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_count": "2",
       "visible": true
     }
@@ -847,7 +757,7 @@
     "pk": 7,
     "fields": {
       "name": "Casa de banho",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_count": "1",
       "visible": true
     }
@@ -857,7 +767,7 @@
     "pk": 8,
     "fields": {
       "name": "Cobertura",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_count": "1",
       "visible": true
     }
@@ -867,7 +777,7 @@
     "pk": 9,
     "fields": {
       "name": "Cozinha",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_count": "1",
       "visible": true
     }
@@ -877,7 +787,7 @@
     "pk": 10,
     "fields": {
       "name": "Divisórias e tetos",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_count": "1",
       "visible": true
     }
@@ -887,7 +797,7 @@
     "pk": 11,
     "fields": {
       "name": "Pintura",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_count": "2",
       "visible": true
     }
@@ -897,7 +807,7 @@
     "pk": 12,
     "fields": {
       "name": "Fachada",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_count": "1",
       "visible": true
     }
@@ -908,7 +818,7 @@
     "fields": {
       "name": "Remoção de pavimento cerâmico existente",
       "quantity": "68 m2",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -920,7 +830,7 @@
     "fields": {
       "name": "Picagem de paredes da cozinha",
       "quantity": "24 m2",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -932,7 +842,7 @@
     "fields": {
       "name": "Assentamento de pavimento flutuante",
       "quantity": "68 m2",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "service_count": "1",
       "visible": true
@@ -944,7 +854,7 @@
     "fields": {
       "name": "Azulejo cerâmico em cozinha e casas de banho",
       "quantity": "31 m2",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "service_count": "2",
       "visible": true
@@ -956,7 +866,7 @@
     "fields": {
       "name": "Substituição de rede de águas em cozinha",
       "quantity": "1 un",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "service_count": "1",
       "visible": true
@@ -968,7 +878,7 @@
     "fields": {
       "name": "Reforço de quadro elétrico",
       "quantity": "1 un",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "service_count": "2",
       "visible": true
@@ -980,7 +890,7 @@
     "fields": {
       "name": "Pintura geral de paredes e tetos",
       "quantity": "196 m2",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "4",
       "service_count": "1",
       "visible": true
@@ -992,7 +902,7 @@
     "fields": {
       "name": "Abertura de vala para fundação",
       "quantity": "42 m",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1004,7 +914,7 @@
     "fields": {
       "name": "Execução de muro em blocos de cimento",
       "quantity": "63 m2",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "service_count": "1",
       "visible": true
@@ -1016,7 +926,7 @@
     "fields": {
       "name": "Capeamento do muro",
       "quantity": "42 m",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "service_count": "2",
       "visible": true
@@ -1028,7 +938,7 @@
     "fields": {
       "name": "Substituição de louças e torneiras",
       "quantity": "1 un",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1040,7 +950,7 @@
     "fields": {
       "name": "Impermeabilização e azulejo",
       "quantity": "18 m2",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -1052,7 +962,7 @@
     "fields": {
       "name": "Remoção de chapa de fibrocimento",
       "quantity": "310 m2",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1064,7 +974,7 @@
     "fields": {
       "name": "Aplicação de painel sandwich",
       "quantity": "310 m2",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -1076,7 +986,7 @@
     "fields": {
       "name": "Desmontagem de mobiliário existente",
       "quantity": "1 un",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1088,7 +998,7 @@
     "fields": {
       "name": "Assentamento de azulejo e bancada",
       "quantity": "14 m2",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -1100,7 +1010,7 @@
     "fields": {
       "name": "Instalação de eletrodomésticos",
       "quantity": "4 un",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "service_count": "3",
       "visible": true
@@ -1112,7 +1022,7 @@
     "fields": {
       "name": "Montagem de divisórias em pladur",
       "quantity": "46 m2",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1124,7 +1034,7 @@
     "fields": {
       "name": "Teto falso com iluminação embutida",
       "quantity": "78 m2",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -1136,7 +1046,7 @@
     "fields": {
       "name": "Pintura de paredes e tetos",
       "quantity": "124 m2",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "2",
       "service_count": "1",
       "visible": true
@@ -1148,7 +1058,7 @@
     "fields": {
       "name": "Montagem de andaime",
       "quantity": "185 m2",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "service_count": "1",
       "visible": true
@@ -1160,7 +1070,7 @@
     "fields": {
       "name": "Reboco e pintura exterior",
       "quantity": "185 m2",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "service_count": "2",
       "visible": true
@@ -1175,7 +1085,7 @@
       "charged": "760.00",
       "profit_money": "280.00",
       "profit_percentage": "58.333333333333336",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1191,7 +1101,7 @@
       "charged": "230.00",
       "profit_money": "50.00",
       "profit_percentage": "27.77777777777778",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "2",
@@ -1207,7 +1117,7 @@
       "charged": "340.00",
       "profit_money": "130.00",
       "profit_percentage": "61.904761904761905",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1223,7 +1133,7 @@
       "charged": "1120.00",
       "profit_money": "270.68",
       "profit_percentage": "31.870202043988122",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "1",
@@ -1239,7 +1149,7 @@
       "charged": "145.00",
       "profit_money": "50.20",
       "profit_percentage": "52.953586497890306",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "2",
@@ -1255,7 +1165,7 @@
       "charged": "820.00",
       "profit_money": "280.00",
       "profit_percentage": "51.85185185185185",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "3",
@@ -1271,7 +1181,7 @@
       "charged": "372.00",
       "profit_money": "100.75",
       "profit_percentage": "37.142857142857146",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "2",
       "prices_count": "1",
@@ -1287,7 +1197,7 @@
       "charged": "82.00",
       "profit_money": "23.60",
       "profit_percentage": "40.41095890410959",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "2",
       "prices_count": "2",
@@ -1303,7 +1213,7 @@
       "charged": "700.00",
       "profit_money": "235.00",
       "profit_percentage": "50.53763440860215",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "2",
       "services_key": "2",
       "prices_count": "3",
@@ -1319,7 +1229,7 @@
       "charged": "255.00",
       "profit_money": "68.60",
       "profit_percentage": "36.80257510729613",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "services_key": "1",
       "prices_count": "1",
@@ -1335,7 +1245,7 @@
       "charged": "520.00",
       "profit_money": "200.00",
       "profit_percentage": "62.5",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "services_key": "1",
       "prices_count": "2",
@@ -1351,7 +1261,7 @@
       "charged": "38.00",
       "profit_money": "15.60",
       "profit_percentage": "69.64285714285715",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "services_key": "2",
       "prices_count": "1",
@@ -1367,7 +1277,7 @@
       "charged": "145.00",
       "profit_money": "47.65",
       "profit_percentage": "48.94709809964048",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "services_key": "2",
       "prices_count": "2",
@@ -1383,7 +1293,7 @@
       "charged": "440.00",
       "profit_money": "160.00",
       "profit_percentage": "57.14285714285714",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "3",
       "services_key": "2",
       "prices_count": "3",
@@ -1399,7 +1309,7 @@
       "charged": "168.00",
       "profit_money": "48.30",
       "profit_percentage": "40.35087719298245",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "4",
       "services_key": "1",
       "prices_count": "1",
@@ -1415,7 +1325,7 @@
       "charged": "52.00",
       "profit_money": "14.80",
       "profit_percentage": "39.78494623655913",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "4",
       "services_key": "1",
       "prices_count": "2",
@@ -1431,7 +1341,7 @@
       "charged": "1080.00",
       "profit_money": "390.00",
       "profit_percentage": "56.52173913043478",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb",
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1",
       "section_key": "4",
       "services_key": "1",
       "prices_count": "3",
@@ -1447,7 +1357,7 @@
       "charged": "580.00",
       "profit_money": "160.00",
       "profit_percentage": "38.095238095238095",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1463,7 +1373,7 @@
       "charged": "400.00",
       "profit_money": "140.00",
       "profit_percentage": "53.84615384615385",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "2",
@@ -1479,7 +1389,7 @@
       "charged": "980.00",
       "profit_money": "270.00",
       "profit_percentage": "38.028169014084504",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "1",
@@ -1495,7 +1405,7 @@
       "charged": "355.00",
       "profit_money": "90.00",
       "profit_percentage": "33.9622641509434",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "2",
@@ -1511,7 +1421,7 @@
       "charged": "1520.00",
       "profit_money": "540.00",
       "profit_percentage": "55.10204081632652",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "3",
@@ -1527,7 +1437,7 @@
       "charged": "410.00",
       "profit_money": "116.00",
       "profit_percentage": "39.455782312925166",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "services_key": "2",
       "prices_count": "1",
@@ -1543,7 +1453,7 @@
       "charged": "290.00",
       "profit_money": "110.00",
       "profit_percentage": "61.111111111111114",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e",
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d",
       "section_key": "2",
       "services_key": "2",
       "prices_count": "2",
@@ -1559,7 +1469,7 @@
       "charged": "62.00",
       "profit_money": "27.10",
       "profit_percentage": "77.65042979942695",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1575,7 +1485,7 @@
       "charged": "48.00",
       "profit_money": "19.40",
       "profit_percentage": "67.83216783216783",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "2",
@@ -1591,7 +1501,7 @@
       "charged": "390.00",
       "profit_money": "150.00",
       "profit_percentage": "62.5",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "3",
@@ -1607,7 +1517,7 @@
       "charged": "268.00",
       "profit_money": "71.70",
       "profit_percentage": "36.52572592969943",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1623,7 +1533,7 @@
       "charged": "480.00",
       "profit_money": "170.00",
       "profit_percentage": "54.83870967741935",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29",
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "2",
@@ -1639,7 +1549,7 @@
       "charged": "2750.00",
       "profit_money": "650.00",
       "profit_percentage": "30.952380952380953",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1655,7 +1565,7 @@
       "charged": "5580.00",
       "profit_money": "1240.00",
       "profit_percentage": "28.57142857142857",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1671,7 +1581,7 @@
       "charged": "2790.00",
       "profit_money": "930.00",
       "profit_percentage": "50.0",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c",
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "2",
@@ -1687,7 +1597,7 @@
       "charged": "450.00",
       "profit_money": "160.00",
       "profit_percentage": "55.172413793103445",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1703,7 +1613,7 @@
       "charged": "205.00",
       "profit_money": "56.80",
       "profit_percentage": "38.32658569500676",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1719,7 +1629,7 @@
       "charged": "790.00",
       "profit_money": "230.00",
       "profit_percentage": "41.07142857142857",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "2",
@@ -1735,7 +1645,7 @@
       "charged": "660.00",
       "profit_money": "240.00",
       "profit_percentage": "57.14285714285714",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "3",
@@ -1751,7 +1661,7 @@
       "charged": "280.00",
       "profit_money": "120.00",
       "profit_percentage": "75.0",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21",
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d",
       "section_key": "1",
       "services_key": "3",
       "prices_count": "1",
@@ -1767,7 +1677,7 @@
       "charged": "690.00",
       "profit_money": "210.00",
       "profit_percentage": "43.75",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1783,7 +1693,7 @@
       "charged": "980.00",
       "profit_money": "360.00",
       "profit_percentage": "58.06451612903226",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "2",
@@ -1799,7 +1709,7 @@
       "charged": "940.00",
       "profit_money": "250.00",
       "profit_percentage": "36.231884057971016",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1815,7 +1725,7 @@
       "charged": "465.00",
       "profit_money": "155.00",
       "profit_percentage": "50.0",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "2",
@@ -1831,7 +1741,7 @@
       "charged": "1150.00",
       "profit_money": "410.00",
       "profit_percentage": "55.4054054054054",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "3",
@@ -1847,7 +1757,7 @@
       "charged": "165.00",
       "profit_money": "47.00",
       "profit_percentage": "39.83050847457627",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "1",
@@ -1863,7 +1773,7 @@
       "charged": "760.00",
       "profit_money": "280.00",
       "profit_percentage": "58.333333333333336",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7",
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71",
       "section_key": "2",
       "services_key": "1",
       "prices_count": "2",
@@ -1879,7 +1789,7 @@
       "charged": "1320.00",
       "profit_money": "340.00",
       "profit_percentage": "34.69387755102041",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "services_key": "1",
       "prices_count": "1",
@@ -1895,7 +1805,7 @@
       "charged": "1010.00",
       "profit_money": "270.00",
       "profit_percentage": "36.486486486486484",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "1",
@@ -1911,7 +1821,7 @@
       "charged": "540.00",
       "profit_money": "145.00",
       "profit_percentage": "36.708860759493675",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "2",
@@ -1927,7 +1837,7 @@
       "charged": "2280.00",
       "profit_money": "800.00",
       "profit_percentage": "54.054054054054056",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e",
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5",
       "section_key": "1",
       "services_key": "2",
       "prices_count": "3",
@@ -1939,7 +1849,7 @@
     "pk": 1,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "0fe4992e-f3a1-459f-bf5b-f2c5f23ebebb"
+      "project_key": "c1a81b72-26c5-4a45-8769-286ea21b10f1"
     }
   },
   {
@@ -1947,7 +1857,7 @@
     "pk": 2,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "39dc3e58-cf9d-43c6-af10-6bb3c62b539e"
+      "project_key": "c281f90f-c8fd-49a8-81df-b52bef99731d"
     }
   },
   {
@@ -1955,7 +1865,7 @@
     "pk": 3,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "685ebd9c-bdd6-4039-a852-4a6fc2752e29"
+      "project_key": "ccf488ea-2b10-416d-900c-f7f2f07ce4f7"
     }
   },
   {
@@ -1963,7 +1873,7 @@
     "pk": 4,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "e886fc29-b9fd-47e6-beac-9ef6a25ea83c"
+      "project_key": "c73a145a-8ac9-45e5-b15b-19491c710142"
     }
   },
   {
@@ -1971,7 +1881,7 @@
     "pk": 5,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "2e0a7c51-cfbd-490d-8192-bd7b9a43ad21"
+      "project_key": "44ee0d6a-2761-4e1a-b287-9d5b179d151d"
     }
   },
   {
@@ -1979,7 +1889,7 @@
     "pk": 6,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "269976f5-5b98-4917-9e73-ece0d98932f7"
+      "project_key": "f2823427-f8bb-43d2-bde9-9fa0dcbf4f71"
     }
   },
   {
@@ -1987,561 +1897,7 @@
     "pk": 7,
     "fields": {
       "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-      "project_key": "42295e10-f39b-4930-afa3-ecec3028d76e"
-    }
-  },
-  {
-    "model": "landingpage.customimage",
-    "pk": 1,
-    "fields": {
-      "sort_order": null,
-      "images_cards": 6
-    }
-  },
-  {
-    "model": "landingpage.additionalinformation",
-    "pk": 1,
-    "fields": {
-      "additional_information_text": "Política de privacidade",
-      "additional_information_href": "politica-privacidade/"
-    }
-  },
-  {
-    "model": "landingpage.additionalinformation",
-    "pk": 2,
-    "fields": {
-      "additional_information_text": "Créditos",
-      "additional_information_href": "creditos/"
-    }
-  },
-  {
-    "model": "landingpage.additionalinformation",
-    "pk": 3,
-    "fields": {
-      "additional_information_text": "Termos de uso",
-      "additional_information_href": "termos-uso/"
-    }
-  },
-  {
-    "model": "landingpage.websitepages",
-    "pk": 1,
-    "fields": {
-      "text_pages": "Login",
-      "pages_href": "login"
-    }
-  },
-  {
-    "model": "landingpage.websitepages",
-    "pk": 2,
-    "fields": {
-      "text_pages": "Aceder Beta",
-      "pages_href": "aceder-beta"
-    }
-  },
-  {
-    "model": "landingpage.websitepages",
-    "pk": 3,
-    "fields": {
-      "text_pages": "Homepage",
-      "pages_href": ""
-    }
-  },
-  {
-    "model": "landingpage.footercontact",
-    "pk": 1,
-    "fields": {
-      "information_image": 7,
-      "information": "geral@asyquote.example",
-      "information_url": "mailto:geral@asyquote.example"
-    }
-  },
-  {
-    "model": "landingpage.footercontact",
-    "pk": 2,
-    "fields": {
-      "information_image": 8,
-      "information": "+351 200 000 000",
-      "information_url": "tel:+351200000000"
-    }
-  },
-  {
-    "model": "landingpage.footertitles",
-    "pk": 1,
-    "fields": {
-      "footer_navigation_title": "Links Úteis",
-      "footer_contact_title": "Contacte-nos",
-      "copyright": "© 2023 AsyQuote - Todos os direitos Reservados"
-    }
-  },
-  {
-    "model": "landingpage.reviewhome",
-    "pk": 1,
-    "fields": {
-      "sort_order": 1,
-      "page": 3,
-      "review_card": 1,
-      "title_card": "O AsyQuote mudou a minha vida",
-      "paragraph_card": "Estou impressionado com a eficiência desta ferramenta. Desde que comecei a usá-la, a minha empresa viu um aumento notável na produtividade e na precisão dos nossos orçamentos. A plataforma é incrivelmente intuitiva e economizou horas de trabalho manual. Além disso, o suporte ao cliente é excepcional. Definitivamente, uma escolha inteligente para qualquer empresa de construção!",
-      "letters_circle_card": "GS",
-      "name_of_the_person_card": "Gonçalo S.",
-      "function_of_the_person_card": "Estagiário"
-    }
-  },
-  {
-    "model": "landingpage.reviewhome",
-    "pk": 2,
-    "fields": {
-      "sort_order": 2,
-      "page": 3,
-      "review_card": 1,
-      "title_card": "Uma Revolução na Orçamentação",
-      "paragraph_card": "O AsyQuote provou ser uma verdadeira revolução para o nosso processo de orçamentação. Desde a implementação, a nossa eficiência disparou, proporcionando uma melhoria significativa na precisão e rapidez na criação de orçamentos. A interface intuitiva facilitou a transição, e o suporte ao cliente atencioso solidificou nossa confiança na ferramenta. Recomendo a todas as empresas que buscam aprimorar sua abordagem orçamental.",
-      "letters_circle_card": "SO",
-      "name_of_the_person_card": "Sofia O.",
-      "function_of_the_person_card": "Diretora Financeira"
-    }
-  },
-  {
-    "model": "landingpage.reviewhome",
-    "pk": 3,
-    "fields": {
-      "sort_order": 3,
-      "page": 3,
-      "review_card": 1,
-      "title_card": "Eficiência Elevada com AsyQuote",
-      "paragraph_card": "Testar o AsyQuote foi uma jogada estratégica para a nossa empresa. A eficiência que ganhamos desde então é notável. Os processos de orçamentação tornaram-se mais ágeis, economizando tempo valioso. A plataforma é amigável, e o suporte ao cliente, exemplar. Como gestor, essa ferramenta se tornou um aliado indispensável no dia a dia.",
-      "letters_circle_card": "PS",
-      "name_of_the_person_card": "Pedro S.",
-      "function_of_the_person_card": "Gerente de Projetos"
-    }
-  },
-  {
-    "model": "landingpage.faqs",
-    "pk": 1,
-    "fields": {
-      "sort_order": 1,
-      "page": 3,
-      "question": "Como posso criar um orçamento?",
-      "answer": "Pode criar um orçamento através do nosso criador de orçamentos. Neste, poderá definir o produto, quantidades, margens de lucro e até descontos no produto.",
-      "text_href": "",
-      "href_url": ""
-    }
-  },
-  {
-    "model": "landingpage.faqs",
-    "pk": 2,
-    "fields": {
-      "sort_order": 2,
-      "page": 3,
-      "question": "Como posso participar na fase beta",
-      "answer": "Para participar na fase beta, tem que se inscrever no processo de seleção. Embora as vagas sejam limitadas, encorajamos todos a se candidatarem, pois valorizamos a contribuição de todos.",
-      "text_href": "Entre já na fase Beta",
-      "href_url": "aceder-beta"
-    }
-  },
-  {
-    "model": "landingpage.faqs",
-    "pk": 3,
-    "fields": {
-      "sort_order": 3,
-      "page": 3,
-      "question": "Qual é preço da ferramenta?",
-      "answer": "Como o AsyQuote encontra-se ainda em fase beta, decidimos que a melhor maneira de atrair mais usuários e melhorar a ferramenta, é deixar a ferramenta grátis para todos.",
-      "text_href": "",
-      "href_url": ""
-    }
-  },
-  {
-    "model": "landingpage.faqs",
-    "pk": 4,
-    "fields": {
-      "sort_order": 4,
-      "page": 3,
-      "question": "O orçamento é costumizável?",
-      "answer": "Sim o orçamento é costumizável, pode mudar o logo, os preços, as margens. Além disso, no final tem uma secção de notas aonde pode escrever o que quiser.",
-      "text_href": "",
-      "href_url": ""
-    }
-  },
-  {
-    "model": "landingpage.homepage",
-    "pk": 3,
-    "fields": {
-      "hero_image": 1,
-      "hero_title": "Agilize os seus orçamentos",
-      "hero_paragraph": "<p>Descubra como podemos otimizar o processo de orçamentação para o seu negócio de construção.</p>",
-      "uses_title": "10+ empresas usam o AsyQuote",
-      "uses_image": "[{\"id\": \"6364b4b8-0caa-4d8d-a200-5374622168f9\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"c02531af-aabb-4800-a491-4c06225f476a\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"ea9e3349-14e2-4e62-aac1-2993b1f8e3fb\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"e4d1cc1c-aef2-411e-ab8c-a2d9b58a183f\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"df72a14d-2114-417a-81a0-85f371ec2245\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"a2dcba25-93e7-4e04-b23c-22fb83c7cb2a\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}, {\"id\": \"fa87487b-b2e1-44f6-b166-56d45205bbf8\", \"type\": \"image\", \"value\": {\"url_uses\": \"#\", \"image_uses\": 5}}]",
-      "about_title_1": "Aumente a sua produtividade",
-      "about_paragraph_1": "O AsyQuote pode produzir mais orçamentos em menos tempo, permitindo que a sua empresa se concentre em projetos reais em vez de tarefas administrativas. Maximize a produtividade e veja o seu negócio crescer.",
-      "about_image_1": 2,
-      "about_title_2": "Precisão e consistência",
-      "about_paragraph_2": "Garanta a precisão e consistência em todos os seus orçamentos. O AsyQuote elimina erros humanos e padroniza o processo de orçamentação, garantindo que cada orçamento atenda aos mais altos padrões de qualidade.",
-      "about_image_2": 3,
-      "about_title_3": "Acesso rápido a dados cruciais",
-      "about_paragraph_3": "Tenha acesso instantâneo a dados de custos, materiais e mão de obra. Com o AsyQuote, você pode tomar decisões informadas em tempo real, adaptando-se às mudanças do mercado.",
-      "about_image_3": 4,
-      "review_title": "Descubra o porquê dos nossos clientes gostarem de nós",
-      "faqs_title": "Perguntas frequentes",
-      "action_title": "Comece a usar o AsyQuote hoje",
-      "action_benefit": "É grátis"
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 1,
-    "fields": {
-      "collection": 1,
-      "title": "Obra em construção",
-      "file": "original_images/Construction-Illustration.jpg",
-      "width": 2000,
-      "height": 1500,
-      "created_at": "2026-08-24T18:57:10.329Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 2,
-    "fields": {
-      "collection": 1,
-      "title": "Aumente a sua produtividade",
-      "file": "original_images/Multitasking-bro_1.png",
-      "width": 450,
-      "height": 450,
-      "created_at": "2026-08-24T18:57:10.346Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 3,
-    "fields": {
-      "collection": 1,
-      "title": "Precisão e consistência",
-      "file": "original_images/6491986_1.png",
-      "width": 450,
-      "height": 400,
-      "created_at": "2026-08-24T18:57:10.352Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 4,
-    "fields": {
-      "collection": 1,
-      "title": "Acesso rápido a dados cruciais",
-      "file": "original_images/data_1.png",
-      "width": 410,
-      "height": 440,
-      "created_at": "2026-08-24T18:57:10.356Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 5,
-    "fields": {
-      "collection": 1,
-      "title": "Obras com Pinta",
-      "file": "original_images/obrascompinta-removebg-preview.png",
-      "width": 518,
-      "height": 482,
-      "created_at": "2026-08-24T18:57:10.361Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 6,
-    "fields": {
-      "collection": 1,
-      "title": "Cinco estrelas",
-      "file": "original_images/Component_22.png",
-      "width": 156,
-      "height": 30,
-      "created_at": "2026-08-24T18:57:10.365Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 7,
-    "fields": {
-      "collection": 1,
-      "title": "Email",
-      "file": "original_images/image_1.png",
-      "width": 30,
-      "height": 30,
-      "created_at": "2026-08-24T18:57:10.368Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailimages.image",
-    "pk": 8,
-    "fields": {
-      "collection": 1,
-      "title": "Telefone",
-      "file": "original_images/image_2.png",
-      "width": 30,
-      "height": 30,
-      "created_at": "2026-08-24T18:57:10.372Z",
-      "uploaded_by_user": null,
-      "focal_point_x": null,
-      "focal_point_y": null,
-      "focal_point_width": null,
-      "focal_point_height": null,
-      "file_size": null,
-      "file_hash": ""
-    }
-  },
-  {
-    "model": "wagtailcore.revision",
-    "pk": 1,
-    "fields": {
-      "content_type": ["landingpage", "homepage"],
-      "base_content_type": ["wagtailcore", "page"],
-      "object_id": "3",
-      "submitted_for_moderation": false,
-      "created_at": "2026-08-24T18:57:10.435Z",
-      "user": null,
-      "object_str": "AsyQuote",
-      "content": {
-        "pk": 3,
-        "faqs": [
-          {
-            "pk": 1,
-            "page": 3,
-            "answer": "Pode criar um orçamento através do nosso criador de orçamentos. Neste, poderá definir o produto, quantidades, margens de lucro e até descontos no produto.",
-            "href_url": "",
-            "question": "Como posso criar um orçamento?",
-            "text_href": "",
-            "sort_order": 1
-          },
-          {
-            "pk": 2,
-            "page": 3,
-            "answer": "Para participar na fase beta, tem que se inscrever no processo de seleção. Embora as vagas sejam limitadas, encorajamos todos a se candidatarem, pois valorizamos a contribuição de todos.",
-            "href_url": "aceder-beta",
-            "question": "Como posso participar na fase beta",
-            "text_href": "Entre já na fase Beta",
-            "sort_order": 2
-          },
-          {
-            "pk": 3,
-            "page": 3,
-            "answer": "Como o AsyQuote encontra-se ainda em fase beta, decidimos que a melhor maneira de atrair mais usuários e melhorar a ferramenta, é deixar a ferramenta grátis para todos.",
-            "href_url": "",
-            "question": "Qual é preço da ferramenta?",
-            "text_href": "",
-            "sort_order": 3
-          },
-          {
-            "pk": 4,
-            "page": 3,
-            "answer": "Sim o orçamento é costumizável, pode mudar o logo, os preços, as margens. Além disso, no final tem uma secção de notas aonde pode escrever o que quiser.",
-            "href_url": "",
-            "question": "O orçamento é costumizável?",
-            "text_href": "",
-            "sort_order": 4
-          }
-        ],
-        "live": true,
-        "path": "00010002",
-        "slug": "home",
-        "depth": 2,
-        "owner": null,
-        "title": "AsyQuote",
-        "locale": 1,
-        "locked": false,
-        "expired": false,
-        "alias_of": null,
-        "numchild": 0,
-        "url_path": "/home/",
-        "expire_at": null,
-        "locked_at": null,
-        "locked_by": null,
-        "seo_title": "",
-        "faqs_title": "Perguntas frequentes",
-        "go_live_at": null,
-        "hero_image": 1,
-        "hero_title": "Agilize os seus orçamentos",
-        "uses_image": "[{\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"6364b4b8-0caa-4d8d-a200-5374622168f9\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"c02531af-aabb-4800-a491-4c06225f476a\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"ea9e3349-14e2-4e62-aac1-2993b1f8e3fb\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"e4d1cc1c-aef2-411e-ab8c-a2d9b58a183f\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"df72a14d-2114-417a-81a0-85f371ec2245\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"a2dcba25-93e7-4e04-b23c-22fb83c7cb2a\"}, {\"type\": \"image\", \"value\": {\"image_uses\": 5, \"url_uses\": \"#\"}, \"id\": \"fa87487b-b2e1-44f6-b166-56d45205bbf8\"}]",
-        "uses_title": "10+ empresas usam o AsyQuote",
-        "draft_title": "AsyQuote",
-        "review_home": [
-          {
-            "pk": 1,
-            "page": 3,
-            "sort_order": 1,
-            "title_card": "O AsyQuote mudou a minha vida",
-            "review_card": 1,
-            "paragraph_card": "Estou impressionado com a eficiência desta ferramenta. Desde que comecei a usá-la, a minha empresa viu um aumento notável na produtividade e na precisão dos nossos orçamentos. A plataforma é incrivelmente intuitiva e economizou horas de trabalho manual. Além disso, o suporte ao cliente é excepcional. Definitivamente, uma escolha inteligente para qualquer empresa de construção!",
-            "letters_circle_card": "GS",
-            "name_of_the_person_card": "Gonçalo S.",
-            "function_of_the_person_card": "Estagiário"
-          },
-          {
-            "pk": 2,
-            "page": 3,
-            "sort_order": 2,
-            "title_card": "Uma Revolução na Orçamentação",
-            "review_card": 1,
-            "paragraph_card": "O AsyQuote provou ser uma verdadeira revolução para o nosso processo de orçamentação. Desde a implementação, a nossa eficiência disparou, proporcionando uma melhoria significativa na precisão e rapidez na criação de orçamentos. A interface intuitiva facilitou a transição, e o suporte ao cliente atencioso solidificou nossa confiança na ferramenta. Recomendo a todas as empresas que buscam aprimorar sua abordagem orçamental.",
-            "letters_circle_card": "SO",
-            "name_of_the_person_card": "Sofia O.",
-            "function_of_the_person_card": "Diretora Financeira"
-          },
-          {
-            "pk": 3,
-            "page": 3,
-            "sort_order": 3,
-            "title_card": "Eficiência Elevada com AsyQuote",
-            "review_card": 1,
-            "paragraph_card": "Testar o AsyQuote foi uma jogada estratégica para a nossa empresa. A eficiência que ganhamos desde então é notável. Os processos de orçamentação tornaram-se mais ágeis, economizando tempo valioso. A plataforma é amigável, e o suporte ao cliente, exemplar. Como gestor, essa ferramenta se tornou um aliado indispensável no dia a dia.",
-            "letters_circle_card": "PS",
-            "name_of_the_person_card": "Pedro S.",
-            "function_of_the_person_card": "Gerente de Projetos"
-          }
-        ],
-        "action_title": "Comece a usar o AsyQuote hoje",
-        "content_type": 60,
-        "review_title": "Descubra o porquê dos nossos clientes gostarem de nós",
-        "about_image_1": 2,
-        "about_image_2": 3,
-        "about_image_3": 4,
-        "about_title_1": "Aumente a sua produtividade",
-        "about_title_2": "Precisão e consistência",
-        "about_title_3": "Acesso rápido a dados cruciais",
-        "live_revision": null,
-        "show_in_menus": false,
-        "action_benefit": "É grátis",
-        "hero_paragraph": "<p>Descubra como podemos otimizar o processo de orçamentação para o seu negócio de construção.</p>",
-        "latest_revision": null,
-        "translation_key": "1ab44945-0e08-4d30-9a1c-d456cdd37f66",
-        "about_paragraph_1": "O AsyQuote pode produzir mais orçamentos em menos tempo, permitindo que a sua empresa se concentre em projetos reais em vez de tarefas administrativas. Maximize a produtividade e veja o seu negócio crescer.",
-        "about_paragraph_2": "Garanta a precisão e consistência em todos os seus orçamentos. O AsyQuote elimina erros humanos e padroniza o processo de orçamentação, garantindo que cada orçamento atenda aos mais altos padrões de qualidade.",
-        "about_paragraph_3": "Tenha acesso instantâneo a dados de custos, materiais e mão de obra. Com o AsyQuote, você pode tomar decisões informadas em tempo real, adaptando-se às mudanças do mercado.",
-        "last_published_at": null,
-        "first_published_at": null,
-        "search_description": "",
-        "wagtail_admin_comments": [],
-        "has_unpublished_changes": false,
-        "latest_revision_created_at": null
-      },
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.page",
-    "pk": 1,
-    "fields": {
-      "path": "0001",
-      "depth": 1,
-      "numchild": 1,
-      "translation_key": "ab223ecc-e6f5-46a4-ba43-5774a4963678",
-      "locale": 1,
-      "latest_revision": null,
-      "live": true,
-      "has_unpublished_changes": false,
-      "first_published_at": null,
-      "last_published_at": null,
-      "live_revision": null,
-      "go_live_at": null,
-      "expire_at": null,
-      "expired": false,
-      "locked": false,
-      "locked_at": null,
-      "locked_by": null,
-      "title": "Root",
-      "draft_title": "Root",
-      "slug": "root",
-      "content_type": ["wagtailcore", "page"],
-      "url_path": "/",
-      "owner": null,
-      "seo_title": "",
-      "show_in_menus": false,
-      "search_description": "",
-      "latest_revision_created_at": null,
-      "alias_of": null
-    }
-  },
-  {
-    "model": "wagtailcore.page",
-    "pk": 3,
-    "fields": {
-      "path": "00010002",
-      "depth": 2,
-      "numchild": 0,
-      "translation_key": "1ab44945-0e08-4d30-9a1c-d456cdd37f66",
-      "locale": 1,
-      "latest_revision": 1,
-      "live": true,
-      "has_unpublished_changes": false,
-      "first_published_at": "2026-08-24T18:57:10.448Z",
-      "last_published_at": "2026-08-24T18:57:10.448Z",
-      "live_revision": 1,
-      "go_live_at": null,
-      "expire_at": null,
-      "expired": false,
-      "locked": false,
-      "locked_at": null,
-      "locked_by": null,
-      "title": "AsyQuote",
-      "draft_title": "AsyQuote",
-      "slug": "home",
-      "content_type": ["landingpage", "homepage"],
-      "url_path": "/home/",
-      "owner": null,
-      "seo_title": "",
-      "show_in_menus": false,
-      "search_description": "",
-      "latest_revision_created_at": "2026-08-24T18:57:10.435Z",
-      "alias_of": null
+      "project_key": "6388a9ce-4fc9-4454-9a71-5e05fd2485e5"
     }
   }
 ]

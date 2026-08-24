@@ -110,7 +110,23 @@ routes (`termos-uso/`, `politica-privacidade/`, `creditos/`) render static
 templates, with `ReviewHome` and `Faqs` as `Orderable` children edited inline.
 The footer and navigation come from four registered snippets — `FooterTitles`,
 `FooterContact`, `WebsitePages`, `AdditionalInformation` — injected into every
-template by `asyquote/utils/context_processors.py`.
+template by `asyquote/utils/context_processors.py`. The navbar is a
+`wagtailmenus` `MainMenu`.
+
+**All of that is content, not code**, which means a fresh database renders a
+site with no public face: no hero, no navigation, no footer. The data migration
+`landingpage/0002_seed_landing_page_content` therefore creates the page, its
+imagery, the snippets and the menu, so `migrate` alone yields a working
+institutional page. It imports the concrete models instead of using
+`apps.get_model`, because building a Wagtail page needs the real treebeard and
+StreamField behaviour; the cost is that a later schema change to these models
+can break the migration on a fresh database. It also has to depend on the tip of
+every Wagtail app, since publishing a page writes to the search index and
+removing Wagtail's default welcome page cascades into forms and redirects.
+
+One sharp edge worth knowing: the logo slider is slick with `slidesToShow: 7`,
+and slick does not autoplay when the slide count does not exceed what is on
+screen. The migration seeds ten client logos for that reason.
 
 Note that `WebsitePages.pages_href` stores a **URL name**, not a path: the footer
 renders it through `{% url nav.pages_href %}`, so a value like `/builder/products/`

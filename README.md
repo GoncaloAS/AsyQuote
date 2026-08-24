@@ -240,9 +240,21 @@ cp .env.example .env
 docker compose up --build
 ```
 
-That is the whole setup. The `django` service waits for Postgres, applies
-migrations, and — on an empty database — loads `fixtures/demo_data.json`. When
-the log reads `Starting development server`, open **http://localhost:8000**.
+That is the whole setup. When the log reads `Starting development server`, open
+**http://localhost:8000**.
+
+Two separate things populate the database, which matters if you run the
+commands yourself:
+
+- **`migrate` builds the public site.** The landing page's copy, imagery,
+  footer snippets and navigation menu live in the database, so a migration
+  (`landingpage/0002_seed_landing_page_content`) creates them. Migrating an
+  empty database is enough to get the institutional page, `/login/` and
+  `/aceder-beta/`.
+- **`loaddata fixtures/demo_data.json` adds sample business data** — one
+  account, five client companies, a fifteen-product catalogue and seven quotes.
+  Optional; without it the app works but the builder is empty. The `django`
+  service loads it automatically on the first boot of an empty database.
 
 Sign in at `/login/` with:
 
@@ -251,15 +263,13 @@ username: demo
 password: asyquote-demo
 ```
 
-The demo account owns seven quotes, five client companies and a fifteen-product
-catalogue, and is a superuser, so the Wagtail backoffice at `/admin/` and the
+That account is a superuser, so the Wagtail backoffice at `/admin/` and the
 Django admin at `/django-admin/` are both reachable.
 
-`.env.example` ships a throwaway `SECRET_KEY` and blank reCAPTCHA keys, which
-fall back to Google's public test keys — the captcha renders and always
-validates. Email defaults to the console backend, so if you register a fresh
-account the verification link is printed in the `docker compose` log rather than
-sent.
+Registration works locally too. `.env.example` leaves the reCAPTCHA keys blank,
+which falls back to Google's public test keys, so the checkbox renders and
+always validates. Email uses the console backend, so the verification link for a
+new account is printed in the `docker compose` log rather than sent.
 
 <details>
 <summary>Without Docker</summary>
@@ -274,8 +284,8 @@ createdb asyquote
 export DJANGO_SETTINGS_MODULE=config.settings.local
 export DATABASE_URL=postgres:///asyquote
 
-python manage.py migrate
-python manage.py loaddata fixtures/demo_data.json
+python manage.py migrate                             # builds the public site
+python manage.py loaddata fixtures/demo_data.json    # optional demo business data
 python manage.py runserver
 ```
 
