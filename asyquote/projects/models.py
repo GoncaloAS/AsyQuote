@@ -38,14 +38,21 @@ class Project(models.Model):
             Notes.objects.create(project_key=self.key)
         super().save(*args, **kwargs)
 
+    def price_lines(self):
+        """The quote's live price lines.
+
+        Deleting from the builder sets visible=False rather than removing the
+        row, and these totals used to count the hidden ones - so a deleted line
+        still moved the project total while the Excel export, which does filter
+        on visible, disagreed with it.
+        """
+        return PricesQuote.objects.filter(project_key=self.key, visible=True)
+
     def total_cost(self):
-        return PricesQuote.objects.filter(project_key=self.key).aggregate(total_cost=Sum("cost"))["total_cost"] or 0
+        return self.price_lines().aggregate(total=Sum("cost"))["total"] or 0
 
     def total_charged(self):
-        return (
-            PricesQuote.objects.filter(project_key=self.key).aggregate(total_charged=Sum("charged"))["total_charged"]
-            or 0
-        )
+        return self.price_lines().aggregate(total=Sum("charged"))["total"] or 0
 
     def profit_percentage(self):
         total_cost = self.total_cost()

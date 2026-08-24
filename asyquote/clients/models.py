@@ -21,9 +21,9 @@ class Client(models.Model):
 
         client_projects = Project.objects.filter(client=self)
         total_amount = (
-            PricesQuote.objects.filter(project_key__in=client_projects.values_list("key", flat=True)).aggregate(
-                total_charged=Sum("charged")
-            )["total_charged"]
+            PricesQuote.objects.filter(
+                project_key__in=client_projects.values_list("key", flat=True), visible=True
+            ).aggregate(total_charged=Sum("charged"))["total_charged"]
             or 0
         )
         return total_amount

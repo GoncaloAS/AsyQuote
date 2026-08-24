@@ -248,24 +248,31 @@ all four `AUTH_PASSWORD_VALIDATORS` on, `PASSWORD_RESET_TIMEOUT = 120`,
 
 ## Authorisation, and where it is missing
 
-There is no owner-aware manager. Every view filters by `request.user` itself,
-and that discipline was applied unevenly:
+Every view scopes its own lookups to `request.user`; there is no owner-aware
+manager doing it centrally. That discipline was originally applied unevenly, and
+for a long time most of the endpoints that mutate a quote looked their object up
+by `project_key` or by id alone — so an authenticated user who learned another
+user's quote UUID or client id could read and edit it, and several of those
+endpoints took no login at all.
 
-| View | Login required | Ownership checked |
-|---|---|---|
-| `project_list`, `ClientListView` | yes | yes (queryset filtered) |
-| `edit_project` | via `LOGIN_URL` redirect | yes — explicit `project.user != request.user` |
-| `download_project_quote` | no decorator | yes — `get(key=..., user=request.user)` |
-| `save_quote_data`, `save_quote_url` | no | **no** — fetched by `project_key` alone |
-| `create_fields_quote`, `delete_fields_quote` | no | **no** |
-| `update_project`, `delete_project` | no | **no** |
-| `update_client`, `delete_client` | no | **no** — `get_object_or_404(Client, id=...)` |
-| catalogue writes (`create_*`, `update_*`, `delete_*`) | no | n/a — catalogue is global, but not restricted to superusers server-side |
+They now all resolve through `owned_project(request, key)`, or a
+`get_object_or_404(..., user=request.user)`, so a foreign object is a 404:
 
-So an authenticated user who learns another user's project UUID or client id can
-read and modify it, and the "superuser only" catalogue backoffice is enforced by
-hiding the controls in the template rather than in the view. The README's
-*what I'd do differently* section treats this as the first thing to fix.
+| Area | Enforced by |
+|---|---|
+| `project_list`, `ClientListView`, `filter_*` | `@login_required` + queryset filtered on the user |
+| `edit_project`, `delete_project`, `download_project_quote` | `owned_project()` |
+| `save_quote_data`, `save_quote_url`, `create_fields_quote`, `delete_fields_quote`, `filter_edit_products` | `owned_project()` on the `key` parameter |
+| `update_project` | `get_object_or_404(Project, pk=..., user=request.user)` |
+| `update_client`, `delete_client` | `get_object_or_404(Client, id=..., user=request.user)` |
+| catalogue writes (`create_*`, `update_*`, `delete_*`, `upload_excel`) | `@superuser_required` — previously gated only by hiding the controls in the template |
+
+`asyquote/projects/tests/test_permissions.py` covers each of these from the
+point of view of a second, logged-in user.
+
+What has *not* changed is the method: these are still `GET` requests that write,
+so they sit outside CSRF protection. Moving the mutations to `POST` is the
+remaining half of the job.
 
 ## Frontend
 
@@ -285,9 +292,20 @@ in the critical path of every page load.
 ## Testing
 
 `pytest` with `pytest-django`, `--reuse-db`, settings `config.settings.test`.
-Coverage is the cookiecutter `users` suite only: 15 tests over the admin, the
-creation form, the model URL and the user views.
+59 tests:
 
-Nothing covers the quote tree, the margin arithmetic, the Excel exports, the NIF
-validation or the importer. The margin functions are pure over decimals and are
-the obvious place to start.
+| File | Covers |
+|---|---|
+| `projects/tests/test_margins.py` | per-line profit, quote totals, the zero-cost case, and that a soft-deleted line stops counting |
+| `projects/tests/test_excel_export.py` | both exports: header block, repeated print titles, live `=C*E` formulas, article numbering, chapter subtotals, hidden lines left out, and that neither leaks another user's quotes |
+| `projects/tests/test_permissions.py` | every mutating endpoint, from the point of view of a second logged-in user |
+| `clients/tests/test_clients.py` | the NIF rules, per-owner uniqueness, and the guard against deleting a client that has quotes |
+| `users/tests/` | the cookiecutter suite over the admin, the creation form and the user views |
+
+`projects/tests/factories.py` builds a quote — chapter, service, two priced
+lines — so a test reads as the arithmetic it is checking.
+
+What is still untested is the quote tree's own operations: inserting a chapter,
+soft-deleting a service, the positional bookkeeping in between. That is the part
+of the design that is weakest, and pinning it down properly means changing the
+schema first rather than freezing the current behaviour in tests.

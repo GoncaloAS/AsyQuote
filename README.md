@@ -348,7 +348,7 @@ is worth leaving running even when the app itself runs on the host.
 <summary>Tests, linting and assets</summary>
 
 ```bash
-pytest                       # test suite (users app only)
+pytest                       # 59 tests
 black . && flake8            # formatting and linting
 pre-commit run --all-files   # everything the hooks cover
 npm install && npm run build # recompile Sass; committed CSS is already current
@@ -403,10 +403,12 @@ row instead of using `bulk_create`, deletes the previous products for a category
 before the new ones are confirmed good, and wraps the lot in one broad
 `except Exception` that surfaces as a flash message.
 
-**And there are no tests worth the name.** The suite covers the cookiecutter
-users app and nothing else — not the margin arithmetic, not the Excel export,
-not the quote tree operations. The margin calculations in particular are pure
-functions over decimals and would have been cheap to pin down.
+**The tests still stop well short of the interesting parts.** They cover what a
+wrong answer would be most expensive in — the margin arithmetic, both Excel
+exports, the NIF rules and who is allowed to touch what — but not the quote
+tree's own operations: inserting a chapter, soft-deleting a service, the
+positional bookkeeping that goes with them. That is exactly where the design is
+weakest, and testing it properly means fixing the schema first.
 
 ## License
 
