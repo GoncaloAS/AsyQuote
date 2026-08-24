@@ -4,6 +4,18 @@ A quoting SaaS for construction firms: build a proposal as nested chapters of
 priced line items, track cost against what the client is charged, and export a
 formatted spreadsheet ready to send.
 
+> ## 📄 [**Read the full project report →**](docs/Relatorio-PAP-AsyQuote.pdf)
+>
+> **[docs/Relatorio-PAP-AsyQuote.pdf](docs/Relatorio-PAP-AsyQuote.pdf)** — 46 pages,
+> 58 figures, in Portuguese. Written as my _Prova de Aptidão Profissional_ and
+> graded 20/20.
+>
+> It is the fuller account of this project and the better place to start: the
+> problem it set out to solve, the data model, every screen walked through, and
+> the reasoning behind the choices — including why the supplier catalogue is
+> scraped in parallel and what the site's `robots.txt` allowed at the time.
+> This README is the short version.
+
 <p align="center">
   <img src="docs/screenshots/03-quote-builder.png" alt="The quote builder: chapters, services and price lines with cost in red and charged in green" width="100%">
 </p>
@@ -362,7 +374,8 @@ and djLint. Note that flake8 is what is configured here, not ruff.
 ## Status & what I'd do differently
 
 Built in 2023/24 as my final secondary-school project (_Prova de Aptidão
-Profissional_, graded 20/20). It is **not maintained** — Django 4.2 and Wagtail
+Profissional_, graded 20/20 — the full report is
+[in this repository](docs/Relatorio-PAP-AsyQuote.pdf)). It is **not maintained** — Django 4.2 and Wagtail
 5.2 are both behind, and I am not taking issues or pull requests. It is public
 as a work sample; the commit history before the cleanup was, honestly, a mess of
 `everything backup` commits.

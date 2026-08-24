@@ -54,8 +54,14 @@ class TestQuoteOwnership:
         before = SectionQuote.objects.filter(project_key=victim["project"].key).count()
         response = client.get(
             reverse("create_fields_quote"),
-            {"action": "add-section", "key": str(victim["project"].key),
-             "section_count": 1, "service_count": 1, "price_count": 1, "next_id": 2},
+            {
+                "action": "add-section",
+                "key": str(victim["project"].key),
+                "section_count": 1,
+                "service_count": 1,
+                "price_count": 1,
+                "next_id": 2,
+            },
         )
         assert response.status_code == 404
         assert SectionQuote.objects.filter(project_key=victim["project"].key).count() == before
@@ -64,9 +70,13 @@ class TestQuoteOwnership:
         line = PricesQuote.objects.filter(project_key=victim["project"].key).first()
         response = client.get(
             reverse("delete_fields_quote"),
-            {"action": "drop-price", "key": str(victim["project"].key),
-             "section_count": line.section_key, "service_count": line.services_key,
-             "price_count": line.prices_count},
+            {
+                "action": "drop-price",
+                "key": str(victim["project"].key),
+                "section_count": line.section_key,
+                "service_count": line.services_key,
+                "price_count": line.prices_count,
+            },
         )
         assert response.status_code == 404
         line.refresh_from_db()
@@ -95,8 +105,13 @@ class TestClientOwnership:
         url = reverse("update_client", kwargs={"client_id": target.pk})
         response = client.post(
             url,
-            {"update_name": "invadido", "update_email": "a@b.test", "update_phone": "912000000",
-             "update_address": "x", "update_nif": "500000000"},
+            {
+                "update_name": "invadido",
+                "update_email": "a@b.test",
+                "update_phone": "912000000",
+                "update_address": "x",
+                "update_nif": "500000000",
+            },
         )
         assert response.status_code == 404
         target.refresh_from_db()
