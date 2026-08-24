@@ -27,8 +27,10 @@ formatted spreadsheet ready to send.
 </tr>
 </table>
 
-> Screenshots are taken against `fixtures/demo_data.json`, which carries no
-> product images — hence the placeholder thumbnails in the catalogue.
+> Screenshots come from the application running against
+> `fixtures/demo_data.json`. The landing page uses the project's own artwork,
+> already committed under `asyquote/media/`. Catalogue products ship without
+> photos, hence the placeholder thumbnails.
 
 ## The problem
 
