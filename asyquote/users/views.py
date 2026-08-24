@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
-from django.shortcuts import render
 
 User = get_user_model()
 
@@ -20,7 +20,7 @@ user_detail_view = UserDetailView.as_view()
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = ["name"]
+    fields = ["receive_email", "development_help"]
     success_message = _("Information successfully updated")
 
     def get_success_url(self):
@@ -29,10 +29,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
-
-    def post(self, request, *args, **kwargs):
-        print("ola")
-        return super().post(request, *args, **kwargs)
 
 
 user_update_view = UserUpdateView.as_view()
@@ -50,5 +46,6 @@ user_redirect_view = UserRedirectView.as_view()
 
 # views.py
 
+
 def send_email_template(request):
-    return render(request, 'admin/send_email_template.html')
+    return render(request, "admin/send_email_template.html")

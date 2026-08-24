@@ -9,6 +9,7 @@ from django.http import HttpRequest
 
 if typing.TYPE_CHECKING:
     from allauth.socialaccount.models import SocialLogin
+
     from asyquote.users.models import User
 
 
@@ -27,11 +28,7 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 
         See: https://django-allauth.readthedocs.io/en/latest/advanced.html?#creating-and-populating-user-instances
         """
-        user = sociallogin.user
-        if name := data.get("name"):
-            user.name = name
-        elif first_name := data.get("first_name"):
-            user.name = first_name
-            if last_name := data.get("last_name"):
-                user.name += f" {last_name}"
+        # The User model has no `name` field, so let allauth map what it can
+        # (username, email, first_name, last_name) rather than assigning to an
+        # attribute that is never persisted.
         return super().populate_user(request, sociallogin, data)
