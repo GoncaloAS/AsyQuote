@@ -175,9 +175,18 @@ function deletePrice(input, input2, input3) {
 }
 
 // endregion
+function addSection(input) {
+    let nextSection = parseInt(input) + 1
+    createField('add-section', key, input, 0, 0, nextSection)
+}
 function addService(input, input2) {
     let nextService = parseInt(input2) + 1
     createField('add-service', key, input, input2, 0, nextService)
+}
+
+function addPrice(input, input2, input3) {
+    let nextPrice = parseInt(input3) + 1
+    createField('add-price', key, input, input2, input3, nextPrice)
 }
 
 // region Section 2: secondary functions
@@ -215,8 +224,11 @@ function deleteField(action, key, section_count, service_count, price_count) {
             section_count: section_count,
             service_count: service_count,
             price_count: price_count,
+        },
+        success: function (data) {
+            $('#myForm').html(data.form_html);
         }
-    })
+    });
 }
 
 function createField(action, key, section_count, service_count, price_count, next_id) {
@@ -231,7 +243,11 @@ function createField(action, key, section_count, service_count, price_count, nex
             price_count: price_count,
             next_id: next_id,
         },
-    })
+        success: function (data) {
+            $('#myForm').html(data.form_html);
+            addChangeSectionEventListeners();
+        }
+    });
 
 }
 
@@ -348,7 +364,7 @@ function handlePriceChange(event) {
     }
 }
 
-function handleNotesChange (event) {
+function handleNotesChange(event) {
     let inputValue = event.target.value;
     let formType = event.target.getAttribute('data-form-type');
     saveData(formType, key, inputValue, 0, 0, 0);

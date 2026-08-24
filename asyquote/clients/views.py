@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import RequestContext
 from ..projects.models import Project
 from django.contrib import messages
+from django.db import transaction, IntegrityError
 
 
 class ClientListView(LoginRequiredMixin, ListView):
@@ -21,7 +22,7 @@ class ClientListView(LoginRequiredMixin, ListView):
     context_object_name = 'clients'
 
     def get_queryset(self):
-        return Client.objects.filter(user=self.request.user)
+        return Client.objects.filter(user=self.request.user).order_by('-id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,22 +37,19 @@ def create_client(request):
             nif = form.cleaned_data['nif']
             if len(nif) != 9:
                 return JsonResponse({'error': 'O NIF deve ter exatamente 9 dígitos.'})
-            if Client.objects.filter(nif=nif, user=request.user).exists():
-                # Client already exists, show iziToast error notification
-                return JsonResponse({'error': 'Erro ao adicionar cliente. Este cliente já existe.'})
-            last_client = Client.objects.order_by('-id').first()
-            if last_client:
-                last_client_id = last_client.id
-            else:
-                last_client_id = 0
-
-            new_id = last_client_id + 1
-            form.cleaned_data['id'] = new_id
-
-            client = form.save(commit=False)
-            client.user = request.user
-            client.save()
-            return JsonResponse({'success': 'Cliente adicionado com sucesso'})
+            contains_letters = any(not char.isdigit() for char in nif)
+            if contains_letters:
+                return JsonResponse({'error': 'O NIF só deve conter dígitos.'})
+            try:
+                with transaction.atomic():
+                    if Client.objects.filter(nif=nif, user=request.user).exists():
+                        return JsonResponse({'error': 'Erro ao adicionar cliente. Este cliente já existe.'})
+                    client = form.save(commit=False)
+                    client.user = request.user
+                    client.save()
+                    return JsonResponse({'success': 'Cliente adicionado com sucesso'})
+            except IntegrityError:
+                return JsonResponse({'error': 'Erro ao adicionar cliente. Por favor, tente novamente.'})
         else:
             errors = json.loads(form.errors.as_json())
             return JsonResponse({'error': errors})
@@ -73,10 +71,12 @@ def update_client(request, client_id):
 
         if len(updated_nif) != 9:
             return JsonResponse({'error': 'O NIF deve ter exatamente 9 dígitos.'})
+        if Client.objects.filter(nif=updated_nif, user=request.user).exclude(id=client_id).exists():
+            return JsonResponse({'error': 'Este cliente já existe.'})
         else:
-            contains_letters = any(char.isalpha() for char in updated_nif)
+            contains_letters = any(not char.isdigit() for char in updated_nif)
             if contains_letters:
-                return JsonResponse({'error': 'O NIF não deve conter letras.'})
+                return JsonResponse({'error': 'O NIF só deve conter dígitos.'})
         client.name = updated_name
         client.email = updated_email
         client.phone = updated_phone
@@ -108,10 +108,10 @@ def delete_client(request, client_id):
 
 def filter_clients(request):
     search_query = request.GET.get('searchClient')
-    clients = Client.objects.filter(user=request.user)
+    clients = Client.objects.filter(user=request.user).order_by('-id')
     if search_query:
-        clients = clients.filter(Q(name__icontains=search_query) | Q(nif__icontains=search_query))
+        clients = clients.filter(Q(name__icontains=search_query) | Q(nif__icontains=search_query)).order_by('-id')
     else:
-        clients = Client.objects.filter(user=request.user)[:7]
+        clients = Client.objects.filter(user=request.user).order_by('-id')[:7]
 
     return render(request, 'clients/client_page_partial.html', {'clients': clients})

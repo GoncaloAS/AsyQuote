@@ -44,7 +44,7 @@
                   {% csrf_token %}
                   <a class="dropdown-item cursor-pointer" onclick="openUpdateModal2({{ project.pk }})">Editar</a>
                 </form>
-                <a class="dropdown-item" onclick="confirmDeleteProject('{{ project.key }}')">Apagar</a>
+                <a class="dropdown-item cursor-pointer" onclick="confirmDeleteProject('{{ project.key }}')">Apagar</a>
 
               </div>
             </div>
@@ -136,7 +136,7 @@
                                     class="fa-solid fa-trash text-danger mx-2"></i></a>
                                   <a class="cursor-pointer" onclick="erasePrice({{ forloop.counter }})"><i
                                     class="fa-solid fa-eraser text-warning mx-2"></i></a>
-                                  <a href="#"><i class="fa-solid fa-plus mx-2 text-success"></i></a>
+                                  <a class="cursor-pointer" onclick="addPrice({{ price.section_key }}, {{ service.service_count }}, {{ price.prices_count }})"><i class="fa-solid fa-plus mx-2 text-success"></i></a>
                                   <input id="input-descricao-{{ forloop.counter }}"
                                          class="prices-form prices-div-margin" type="text"
                                          name="description" data-form-type="description"

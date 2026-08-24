@@ -5,7 +5,7 @@
       {% for product in filtered_products %}
         <div class="d-flex align-items-center mb-2 px-3 justify-content-between" title="{{ product.title }}">
           <div class="mr-3">
-            <img src="{{ product.image.url }}" alt="product-image" class="supplier-image" style="width: 60px;">
+            <img src="{{ product.image.url }}" alt="product-image" class="supplier-image" style="width: 60px;" onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')">
           </div>
           <div class="mr-3">
             <p>{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
@@ -24,3 +24,14 @@
   </div>
 </div>
 
+<script>
+function copyToClipboard(text) {
+    var tempInput = document.createElement('textarea');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+}
+</script>

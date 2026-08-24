@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
+from django.db.models import Sum
 
 
 class Client(models.Model):
@@ -14,3 +15,9 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
+
+    def total_charged_amount(self):
+        from asyquote.projects.models import Project, PricesQuote
+        client_projects = Project.objects.filter(client=self)
+        total_amount = PricesQuote.objects.filter(project_key__in=client_projects.values_list('key', flat=True)).aggregate(total_charged=Sum('charged'))['total_charged'] or 0
+        return total_amount

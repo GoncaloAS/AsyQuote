@@ -84,7 +84,7 @@ class PricesQuote(models.Model):
 
     def save(self, *args, **kwargs):
         if self.cost is not None and self.charged is not None:
-            if int(self.cost) == 0:
+            if float(self.cost) == 0:
                 profit = self.charged
                 percentage = profit * 100
             else:

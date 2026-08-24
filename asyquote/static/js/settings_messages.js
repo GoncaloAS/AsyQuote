@@ -1,6 +1,6 @@
 let toastVisible = false;
 window.addEventListener('DOMContentLoaded', function () {
-    const message = "{% translate 'Deseja mesmo remover este email da sua conta?' %}";
+    const message = "Deseja mesmo remover este email da sua conta?";
     const actions = document.getElementsByName('action_remove');
     if (actions.length) {
         actions[0].addEventListener("click", function (e) {

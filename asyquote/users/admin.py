@@ -49,7 +49,7 @@ class CustomUserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
     fieldsets = (
-        (_("Preferências Usuário"), {"fields": ("receive_email", "development_help")}),
+        (_("Preferências Utilizador"), {"fields": ("receive_email", "development_help")}),
         (_("Personal info"), {"fields": ("username", "email", "password")}),
         (
             _("Permissions"),

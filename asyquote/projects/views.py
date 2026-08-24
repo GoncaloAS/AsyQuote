@@ -1,7 +1,8 @@
 import json
 
-from django.db.models import Max
 import re
+from django.db.models import OuterRef, Subquery, Min, DecimalField, Max, F
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProjectForm
 from .models import Project, SectionQuote, ServicesQuote, PricesQuote, Notes
@@ -15,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from wagtail.blocks import StreamValue
 from ..clients.models import Client
-from ..products.models import Products
+from ..products.models import Products, Links
 from datetime import datetime
 from openpyxl.styles import Alignment, Border, Side, numbers
 
@@ -23,7 +24,7 @@ from openpyxl.styles import Alignment, Border, Side, numbers
 @login_required
 def project_list(request):
     state = "EM ESPERA"
-    projects = Project.objects.filter(user=request.user, state=state)
+    projects = Project.objects.filter(user=request.user, state=state).order_by('-quote_number')
     form = ProjectForm(user=request.user)
     form.fields['client'].queryset = form.fields['client'].queryset.order_by('name')
     return render(request, 'builder/builder_projects.html', {'projects': projects, 'form': form})
@@ -34,9 +35,9 @@ def edit_project(request, key):
     if project.user != request.user:
         return render(request, 'builder/project_not_found.html')
     clients = Client.objects.filter(user=request.user)
-    sections = SectionQuote.objects.filter(project_key=key).order_by('id')
-    services = ServicesQuote.objects.filter(project_key=key).order_by('id')
-    prices = PricesQuote.objects.filter(project_key=key).order_by('id')
+    sections = SectionQuote.objects.filter(project_key=key).order_by('section_count')
+    services = ServicesQuote.objects.filter(project_key=key).order_by('service_count')
+    prices = PricesQuote.objects.filter(project_key=key).order_by('prices_count')
     notes = Notes.objects.filter(project_key=key)
 
     return render(request, 'builder/edit_project.html',
@@ -87,10 +88,10 @@ def create_project(request):
 
 def filter_projects(request):
     state = request.GET.get('state', None)
-    projects = Project.objects.filter(user=request.user)
+    projects = Project.objects.filter(user=request.user).order_by('-quote_number')
 
     if state:
-        projects = projects.filter(state=state, user=request.user)
+        projects = projects.filter(state=state, user=request.user).order_by('-quote_number')
 
     html = render_to_string('builder/project_list_partial.html', {'projects': projects})
     return HttpResponse(html)
@@ -98,10 +99,10 @@ def filter_projects(request):
 
 def filter_projects_data(request):
     state = request.GET.get('state', None)
-    projects = Project.objects.filter(user=request.user)
+    projects = Project.objects.filter(user=request.user).order_by('-quote_number')
 
     if state:
-        projects = projects.filter(state=state, user=request.user)
+        projects = projects.filter(state=state, user=request.user).order_by('-quote_number')
     html = render_to_string('builder/project_list_data_partial.html',
                             {'projects': projects})
     return HttpResponse(html)
@@ -109,7 +110,7 @@ def filter_projects_data(request):
 
 def list_projects_table(request):
     state = "EM EXECUÇÃO"
-    projects = Project.objects.filter(user=request.user, state=state)
+    projects = Project.objects.filter(user=request.user, state=state).order_by('-quote_number')
     return render(request, 'builder/project_list.html', {'projects': projects})
 
 
@@ -224,40 +225,39 @@ def delete_fields_quote(request):
         try:
             if action == 'drop-section':
                 num_sections = SectionQuote.objects.filter(project_key=key, visible=True).count()
+                print("NUM_SECTIONS: ", num_sections)
                 if num_sections > 1:
-                    section = SectionQuote.objects.get(project_key=key, section_count=section_count)
-                    services = ServicesQuote.objects.filter(project_key=key, section_key=section_count)
-                    prices = PricesQuote.objects.filter(project_key=key, section_key=section_count)
+                    section = SectionQuote.objects.get(project_key=key, section_count=section_count, visible=True)
+                    services = ServicesQuote.objects.filter(project_key=key, section_key=section_count, visible=True)
+                    prices = PricesQuote.objects.filter(project_key=key, section_key=section_count, visible=True)
                     section.visible = False
                     for service in services:
                         service.visible = False
+                        service.save()
 
                     for price in prices:
                         price.visible = False
+                        price.save()
                     section.save()
-                    return JsonResponse({'status': 'success', 'message': 'Section hidden successfully.'})
                 else:
                     return JsonResponse({'status': 'error', 'message': 'Cannot delete the only section.'})
 
             elif action == 'drop-service':
                 num_services = ServicesQuote.objects.filter(project_key=key, visible=True,
                                                             section_key=section_count).count()
-                print("num_services:", num_services)
+
                 if num_services > 1:
                     service = ServicesQuote.objects.get(project_key=key, section_key=section_count,
                                                         service_count=service_count, visible=True)
-                    print(service)
                     service.visible = False
                     service.save()
                     prices = PricesQuote.objects.filter(project_key=key, section_key=section_count,
                                                         services_key=service_count, visible=True)
 
                     for price in prices:
-                        print("price_name:", price.name)
                         price.visible = False
                         price.save()
 
-                    return JsonResponse({'status': 'success', 'message': 'Service hidden successfully.'})
                 else:
                     return JsonResponse({'status': 'error', 'message': 'Cannot delete the only service.'})
 
@@ -267,10 +267,9 @@ def delete_fields_quote(request):
                 if num_prices > 1:
                     price = PricesQuote.objects.get(project_key=key, section_key=section_count,
                                                     services_key=service_count,
-                                                    prices_count=price_count)
+                                                    prices_count=price_count, visible=True)
                     price.visible = False
                     price.save()
-                    return JsonResponse({'status': 'success', 'message': 'Price hidden successfully.'})
                 else:
                     return JsonResponse({'status': 'error', 'message': 'Cannot delete the only price.'})
 
@@ -285,6 +284,16 @@ def delete_fields_quote(request):
             return JsonResponse({'status': 'error', 'message': 'Price not found.'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
+        sections = SectionQuote.objects.filter(project_key=key, visible=True).order_by('section_count')
+        services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('service_count')
+        prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('prices_count')
+        notes = Notes.objects.filter(project_key=key)
+        form_html = render_to_string('builder/edit_project_partial.html',
+                                     {'sections': sections,
+                                      'services': services, 'prices': prices,
+                                      'notes': notes})
+
+        return JsonResponse({'form_html': form_html})
 
 
 def save_quote_url(request):
@@ -378,46 +387,46 @@ def save_quote_data(request):
 
         clients = Client.objects.all()
         project = get_object_or_404(Project, key=key)
-        sections = SectionQuote.objects.filter(project_key=key).order_by('id')
-        services = ServicesQuote.objects.filter(project_key=key).order_by('id')
-        prices = PricesQuote.objects.filter(project_key=key).order_by('id')
+        sections = SectionQuote.objects.filter(project_key=key).order_by('section_count')
+        services = ServicesQuote.objects.filter(project_key=key).order_by('service_count')
+        prices = PricesQuote.objects.filter(project_key=key).order_by('prices_count')
         notes = Notes.objects.filter(project_key=key)
         if action == 'sections':
             section_changed = sections.get(section_count=section_key, visible=True)
             section_changed.name = value
             section_changed.save()
-            sections = SectionQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            sections = SectionQuote.objects.filter(project_key=key, visible=True).order_by('section_count')
 
         elif action == 'services':
             services_changed = services.get(section_key=section_key, service_count=service_key, visible=True)
             services_changed.name = value
             services_changed.save()
-            services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('service_count')
 
         elif action == 'quantities':
             services_changed = services.get(section_key=section_key, service_count=service_key, visible=True)
             services_changed.quantity = value
             services_changed.save()
-            services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('service_count')
 
         elif action == 'description':
             prices_changed = prices.get(section_key=section_key, services_key=service_key, prices_count=price_key,
                                         visible=True)
             prices_changed.description = value
             prices_changed.save()
-            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('prices_count')
         elif action == 'cost':
             prices_changed = prices.get(section_key=section_key, services_key=service_key, prices_count=price_key,
                                         visible=True)
             prices_changed.cost = value
             prices_changed.save()
-            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('prices_count')
         elif action == 'charged':
             prices_changed = prices.get(section_key=section_key, services_key=service_key, prices_count=price_key,
                                         visible=True)
             prices_changed.charged = value
             prices_changed.save()
-            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('id')
+            prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('prices_count')
         elif action == 'notes':
             notes_changed = notes.get(project_key=key)
             notes_changed.notes = value
@@ -439,13 +448,22 @@ def filter_edit_products(request):
         value = request.GET.get('value')
 
         products = Products.objects.all()
-        sections = SectionQuote.objects.filter(project_key=key).order_by('id')
-        services = ServicesQuote.objects.filter(project_key=key).order_by('id')
-        prices = PricesQuote.objects.filter(project_key=key).order_by('id')
+        sections = SectionQuote.objects.filter(project_key=key).order_by('section_count')
+        services = ServicesQuote.objects.filter(project_key=key).order_by('service_count')
+        prices = PricesQuote.objects.filter(project_key=key).order_by('prices_count')
         notes = Notes.objects.filter(project_key=key)
 
-        if value != '':
-            filtered_products = products.filter(title__icontains=value).order_by('-id')
+        if value:
+            # Annotate each product with its minimum price
+            min_price_subquery = Links.objects.filter(
+                products__id=OuterRef('id')
+            ).values('products__id').annotate(
+                min_price=Min('price')
+            ).values('min_price')
+
+            filtered_products = products.filter(title__icontains=value).annotate(
+                minimum_price=Subquery(min_price_subquery, output_field=DecimalField())
+            ).order_by('minimum_price')
         else:
             filtered_products = None
 
@@ -581,7 +599,7 @@ def download_project_quote(request, project_key):
     count_2 = 0
     total_quote = 0
     green_fill = PatternFill(start_color="50C878", end_color="50C878", fill_type="solid")
-    sections = SectionQuote.objects.filter(project_key=project_key).order_by('section_count')
+    sections = SectionQuote.objects.filter(project_key=project_key, visible=True).order_by('section_count')
     for section in sections:
         sum_columns = 0
         sum_prices = 0
@@ -594,7 +612,7 @@ def download_project_quote(request, project_key):
             section_description.alignment = Alignment(wrap_text=True, vertical="center")
             section_description.font = Font(size=10, bold=True)
             services = ServicesQuote.objects.filter(project_key=project_key,
-                                                    section_key=section.section_count).order_by(
+                                                    section_key=section.section_count, visible=True).order_by(
                 'service_count')
             current_row += 1
             for service in services:
@@ -635,7 +653,8 @@ def download_project_quote(request, project_key):
                         quantity_measure_cell.alignment = Alignment(horizontal="center", vertical="center")
                         quantity_measure_cell.font = Font(size=8)
                     prices = PricesQuote.objects.filter(project_key=project_key, section_key=section.section_count,
-                                                        services_key=service.service_count).order_by('prices_count')
+                                                        services_key=service.service_count, visible=True).order_by(
+                        'prices_count')
                     for price in prices:
                         if price.charged and quantity_number:
                             sum_columns += quantity_number * int(price.charged)
@@ -718,28 +737,100 @@ def create_fields_quote(request):
         service_key = request.GET.get('service_count')
         price_key = request.GET.get('price_count')
         next_id = request.GET.get('next_id')
+        next_section = int(section_key) + 1
+        if action == 'add-section':
+            next_section = SectionQuote.objects.filter(project_key=key, section_count=next_id, visible=True)
+            max_services_count = \
+                ServicesQuote.objects.filter(project_key=key, section_key=section_key, visible=True) \
+                    .aggregate(Max('service_count'))['service_count__max']
+            next_services_count = (max_services_count or 0) + 1
+            max_prices_count = \
+                PricesQuote.objects.filter(project_key=key, section_key=next_id, services_key=next_services_count,
+                                           visible=True) \
+                    .aggregate(Max('prices_count'))['prices_count__max']
+            next_prices_count = (max_prices_count or 0) + 1
+            if next_section:
+                # sections_to_update = SectionQuote.objects.filter(project_key=key, section_count__gte=section_key,
+                #                                                  visible=True)
+                #
+                # for section in sections_to_update:
+                #     service_to_update = ServicesQuote.objects.filter(project_key=key, section_key=section.section_count,
+                #                                                      visible=True)
+                #     for service in service_to_update:
+                #         service.section_key = next_section
+                #         service.save()
+                #         price_to_update = PricesQuote.objects.filter(project_key=key, section_key=section.section_count,
+                #                                                      services_key=service.service_count,
+                #                                                      visible=True)
+                #         for price in price_to_update:
+                #             price.section_key = price.section_key + 1
+                #             price.services_key = price.services_key + 1
+                #             price.save()
+                #
+                # SectionQuote.objects.create(project_key=key, section_count=section_key)
+                # ServicesQuote.objects.create(project_key=key, section_key=section_key, service_count=1)
+                # PricesQuote.objects.create(project_key=key, section_key=section_key, services_key=1, prices_count=1)
+                SectionQuote.objects.create(project_key=key, section_count=next_id)
+                ServicesQuote.objects.create(project_key=key, section_key=next_id, service_count=next_services_count)
+                PricesQuote.objects.create(project_key=key, section_key=next_id, services_key=next_services_count,
+                                           prices_count=next_prices_count)
+            else:
+                SectionQuote.objects.create(project_key=key, section_count=next_id)
+                ServicesQuote.objects.create(project_key=key, section_key=next_id, service_count=next_services_count)
+                PricesQuote.objects.create(project_key=key, section_key=next_id, services_key=next_services_count,
+                                           prices_count=next_prices_count)
 
-        if action == 'add-service':
+        elif action == 'add-service':
             next_services = ServicesQuote.objects.filter(project_key=key, section_key=section_key,
                                                          service_count=next_id, visible=True)
             max_prices_count = \
-                PricesQuote.objects.filter(project_key=key, section_key=section_key, services_key=next_id) \
+                PricesQuote.objects.filter(project_key=key, section_key=section_key, services_key=next_id, visible=True) \
                     .aggregate(Max('prices_count'))['prices_count__max']
             next_prices_count = (max_prices_count or 0) + 1
-            for service in next_services:
-                print(service.name)
             if next_services:
-                print("ola")
+                services_to_update = ServicesQuote.objects.filter(project_key=key, section_key=section_key,
+                                                                  service_count__gte=next_id, visible=True)
+
+                for service in services_to_update:
+                    price_to_update = PricesQuote.objects.filter(project_key=key, visible=True, section_key=section_key,
+                                                                 services_key=service.service_count)
+                    for price in price_to_update:
+                        price.services_key = price.services_key + 1
+                        price.save()
+                    service.service_count = service.service_count + 1
+                    service.save()
+
+                ServicesQuote.objects.create(project_key=key, section_key=section_key, service_count=next_id)
+                PricesQuote.objects.create(project_key=key, section_key=section_key, services_key=next_id,
+                                           prices_count=1)
             else:
                 ServicesQuote.objects.create(project_key=key, service_count=next_id,
                                              section_key=section_key)
                 PricesQuote.objects.create(project_key=key, prices_count=next_prices_count,
                                            services_key=next_id,
                                            section_key=section_key)
+        elif action == 'add-price':
+            next_prices = PricesQuote.objects.filter(project_key=key, section_key=section_key, services_key=service_key,
+                                                     prices_count=price_key, visible=True)
+            if next_prices:
+                prices_to_update = PricesQuote.objects.filter(project_key=key, section_key=section_key,
+                                                              services_key=service_key,
+                                                              prices_count__gte=next_id, visible=True)
 
-        sections = SectionQuote.objects.filter(project_key=key).order_by('id')
-        services = ServicesQuote.objects.filter(project_key=key).order_by('id')
-        prices = PricesQuote.objects.filter(project_key=key).order_by('id')
+                for price in prices_to_update:
+                    price.prices_count = price.prices_count + 1
+                    price.save()
+
+                PricesQuote.objects.create(project_key=key, section_key=section_key, services_key=service_key,
+                                           prices_count=next_id)
+            else:
+                PricesQuote.objects.create(project_key=key, prices_count=next_id,
+                                           services_key=service_key,
+                                           section_key=section_key)
+
+        sections = SectionQuote.objects.filter(project_key=key, visible=True).order_by('section_count')
+        services = ServicesQuote.objects.filter(project_key=key, visible=True).order_by('service_count')
+        prices = PricesQuote.objects.filter(project_key=key, visible=True).order_by('prices_count')
         notes = Notes.objects.filter(project_key=key)
         form_html = render_to_string('builder/edit_project_partial.html',
                                      {'sections': sections,
