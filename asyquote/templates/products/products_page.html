@@ -39,7 +39,7 @@
                 {% endif %}
                 {% for supplier in all_suppliers %}
                   <div class="form-check px-0">
-                    <li class="px-3">
+                    <li class="px-3 d-flex align-items-start gap-2">
                       <input type="checkbox"
                              name="name_supplier"
                              id="supplier_checkbox{{ forloop.counter }}"
@@ -87,7 +87,7 @@
                 {% endif %}
                 {% for category in all_categorys %}
                   <div class="form-check px-0">
-                    <li class="px-3">
+                    <li class="px-3 d-flex align-items-start gap-2">
                       <input name="name_category"
                              id="category_radio{{ forloop.counter }}"
                              type="checkbox"

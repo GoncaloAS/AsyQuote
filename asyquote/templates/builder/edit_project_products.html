@@ -1,29 +1,26 @@
 {% load i18n static %}
 
 <div class="filtered_products product-search-div mx-0 mt-5">
+  {# max-height, not height: an empty panel used to reserve 400px of blank white. #}
   <div class="stores-info-product mt-4 product-results-div"
-       style="height: 400px;
+       style="max-height: 400px;
               overflow-y: auto">
     {% if filtered_products %}
       {% for product in filtered_products %}
-        <div class="d-flex align-items-center mb-2 px-3 justify-content-between"
+        <div class="d-flex align-items-center mb-2 px-3 gap-2"
              title="{{ product.title }}">
-          <div class="mr-3">
-            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
-                 alt="product-image"
-                 class="supplier-image"
-                 style="width: 60px"
-                 onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')" />
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
+               alt="{{ product.title }}"
+               class="supplier-image flex-shrink-0"
+               style="width: 48px"
+               onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')" />
+          <div class="flex-grow-1 min-width-0">
+            <p class="product-result-title mb-0" title="{{ product.title }}">{{ product.title }}</p>
+            <p class="product-result-price mb-0">{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
           </div>
-          <div class="mr-3">
-            <p>{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
-          </div>
-          <div class="supplier-info d-flex">
+          <div class="supplier-info d-flex flex-shrink-0">
             <a href="{{ product.minimum_price_info.2 }}" target="_blank">
-              <button class="supplier-link">
-                Ver na
-                loja
-              </button>
+              <button class="supplier-link">{% translate "Ver na loja" %}</button>
             </a>
           </div>
         </div>

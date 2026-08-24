@@ -13758,7 +13758,7 @@ body {
 
 .button-nav {
   color: black;
-  border: 2px solid #62C6C8;
+  border: 2px solid #62c6c8;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -13809,7 +13809,7 @@ body {
 }
 
 .hero-button {
-  background: #62C6C8;
+  background: #62c6c8;
   border-radius: 30px;
   border: 0;
   height: 48px;
@@ -14017,8 +14017,9 @@ body {
   display: flex;
 }
 
-.slick-next:before, .slick-prev:before {
-  color: #62C6C8 !important;
+.slick-next:before,
+.slick-prev:before {
+  color: #62c6c8 !important;
 }
 
 .width-card {
@@ -14088,7 +14089,7 @@ body {
   height: 55px;
   border: 0;
   border-radius: 55px;
-  background: #62C6C8;
+  background: #62c6c8;
   font-weight: 600;
   color: white;
   font-size: 22px;
@@ -14147,8 +14148,9 @@ body {
   width: 45%;
 }
 
-.faq-href, .faq-href:hover {
-  color: #47B972;
+.faq-href,
+.faq-href:hover {
+  color: #47b972;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -14192,12 +14194,12 @@ body {
 }
 
 .call-back {
-  background: #ECECEC;
+  background: #ececec;
   margin-top: 5%;
 }
 
 .call-button {
-  background: #62C6C8;
+  background: #62c6c8;
   border-radius: 7px;
   border: 0;
   height: 64px;
@@ -14231,7 +14233,8 @@ body {
   line-height: normal;
 }
 
-.navigation-a, .navigation-a:hover {
+.navigation-a,
+.navigation-a:hover {
   color: black;
   font-size: 18px;
   font-style: normal;
@@ -14263,7 +14266,8 @@ body {
   height: 30px;
 }
 
-.href-additional, .href-additional:hover {
+.href-additional,
+.href-additional:hover {
   color: rgba(0, 0, 0, 0.4);
   font-size: 20px;
   font-style: normal;
@@ -14358,12 +14362,12 @@ body {
 
 .btn-signin:hover {
   color: white;
-  background-color: #62C6C8;
+  background-color: #62c6c8;
 }
 
 .btn-signin2:hover {
   color: white;
-  background-color: #62C6C8;
+  background-color: #62c6c8;
 }
 
 .mt-h1 {
@@ -14769,12 +14773,12 @@ body {
   display: -ms-flexbox;
   display: flex;
   margin: 0 auto;
-  background: #62C6C8;
+  background: #62c6c8;
   border: 0;
 }
 
 .btn_change_password:hover {
-  background: #62C6C8;
+  background: #62c6c8;
   border: 0;
 }
 
@@ -14824,22 +14828,25 @@ body {
   margin-right: 20px;
 }
 
-.color_remove, .color_remove:hover {
-  background: #D2122E;
+.color_remove,
+.color_remove:hover {
+  background: #d2122e;
   border: 0;
 }
 
-.color_primary, .color_primary:hover {
-  background: #17B169;
+.color_primary,
+.color_primary:hover {
+  background: #17b169;
   border: 0;
 }
 
 .color_resend {
-  background: #FDDA0D;
+  background: #fdda0d;
   border: 0;
 }
 
-.add_email_settings, .add_email_settings:hover {
+.add_email_settings,
+.add_email_settings:hover {
   background: #62c6c8;
   border: 0;
   width: 100%;
@@ -14955,7 +14962,9 @@ body {
 input[type=text],
 input[type=email],
 input[type=number],
-#id_state, .update_client_project, .update_state_project {
+#id_state,
+.update_client_project,
+.update_state_project {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -15138,7 +15147,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: din-round, sans-serif;
@@ -15200,7 +15209,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: din-round, sans-serif;
@@ -15382,6 +15391,14 @@ input[type=number],
   z-index: 30;
 }
 
+.dropdown-menu {
+  min-width: 256px;
+  min-width: 16rem;
+}
+.dropdown-menu label {
+  margin-bottom: 0;
+}
+
 .page_404 {
   padding: 40px 0;
   background: #fff;
@@ -15459,7 +15476,8 @@ input[type=number],
   opacity: 0;
 }
 
-.custom-file-label, .custom-file-label-supplier {
+.custom-file-label,
+.custom-file-label-supplier {
   position: absolute;
   top: 0;
   right: 0;
@@ -15504,7 +15522,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-family: din-round, sans-serif;
   font-size: 15px;
@@ -15577,7 +15595,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-family: din-round, sans-serif;
   font-size: 12px;
@@ -15650,7 +15668,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-family: din-round, sans-serif;
   font-size: 12px;
@@ -15854,7 +15872,7 @@ input[type=number],
   border-width: 0 0 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-family: din-round, sans-serif;
   font-size: 15px;
@@ -15990,6 +16008,27 @@ input[type=number],
   background: white;
   margin-left: 30px;
   width: 25%;
+  max-width: 340px;
+}
+
+.product-result-title {
+  font-size: 12.48px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-result-price {
+  font-size: 12.48px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.min-width-0 {
+  min-width: 0;
 }
 
 .prices-div-margin {

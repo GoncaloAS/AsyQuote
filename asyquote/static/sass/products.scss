@@ -511,3 +511,13 @@ input[type='number'],
   width: auto;
   z-index: 30;
 }
+
+// The supplier and category filter menus inherit Bootstrap's narrow default, so
+// a name like "Pavimentos e Revestimentos" wrapped onto a second line.
+.dropdown-menu {
+  min-width: 16rem;
+
+  label {
+    margin-bottom: 0;
+  }
+}
