@@ -40,6 +40,14 @@ EMAIL_BACKEND = env(
 INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa: F405
 
 
+# django-recaptcha
+# ------------------------------------------------------------------------------
+# Locally the settings fall back to Google's public reCAPTCHA test keys, which
+# always validate. django-recaptcha raises this as an error check; silence it
+# here only. Production requires real keys via RECAPTCHA_* env vars.
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
