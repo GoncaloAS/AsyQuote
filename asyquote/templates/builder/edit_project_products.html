@@ -5,7 +5,7 @@
       {% for product in filtered_products %}
         <div class="d-flex align-items-center mb-2 px-3 justify-content-between" title="{{ product.title }}">
           <div class="mr-3">
-            <img src="{{ product.image.url }}" alt="product-image" class="supplier-image" style="width: 60px;" onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="product-image" class="supplier-image" style="width: 60px;" onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')">
           </div>
           <div class="mr-3">
             <p>{{ product.minimum_price_info.0 }}&nbsp;EUR</p>

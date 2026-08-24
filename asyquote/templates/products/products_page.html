@@ -1,5 +1,5 @@
 {% extends 'builder/builder_landing.html' %}
-{% load crispy_forms_filters %}
+{% load crispy_forms_filters static %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load account %}
 {% load crispy_forms_tags %}
@@ -149,10 +149,10 @@
                 <a href="#" data-bs-toggle="modal" data-bs-target="#staticProductInfo"
                    data-product-id="{{ product.id }}"
                    data-product-title="{{ product.title }}"
-                   data-product-image="{{ product.image.url }}"
+                   data-product-image="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
                    data-supplier-image="
                   {% for supplier in product.suppliers.all %}
-                    {{ supplier.image_supplier.url }}
+                    {% if supplier.image_supplier %}{{ supplier.image_supplier.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}
                  {% endfor %}
               "
                    data-product-price="
@@ -165,7 +165,7 @@
               {% endfor %}"
                    class="card card_products margin_right_products_cards text-decoration-none">
                   <div>
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="image_cards_products mx-0">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="{{ product.title }}" class="image_cards_products mx-0">
                   </div>
                   <div class="card-body">
                     <p
@@ -391,7 +391,7 @@
                   <label class="custom-file-label custom-file-label-update-supplier"
                          for="update_supplier_image{{ supplier.pk }}">Escolha uma imagem</label>
                 </div>
-                <img id="imagePreview{{ supplier.pk }}" src="{{ supplier.image_supplier.url }}" alt="Image Preview"
+                <img id="imagePreview{{ supplier.pk }}" src="{% if supplier.image_supplier %}{{ supplier.image_supplier.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="Image Preview"
                      style="max-width: 200px; max-height: 200px; margin-top: 10px; ">
               </div>
               <button type="submit" class="btn btn-primary save_project">Salvar</button>
@@ -520,7 +520,7 @@
               <div id="supplierLinkFields{{ product.id }}" class="form-group" style="display:none;">
 
               </div>
-              <img id="imagePreviewProduct{{ product.id }}" src="{{ product.image.url }}" alt="{{ product.image.alt }}"
+              <img id="imagePreviewProduct{{ product.id }}" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="{{ product.image.alt }}"
                    style="max-width: 200px; max-height: 200px; margin-top: 10px; margin-bottom: 20px;">
               <button type="submit" class="btn btn-primary save_project">Salvar</button>
             </form>

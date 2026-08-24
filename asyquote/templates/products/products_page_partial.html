@@ -1,4 +1,4 @@
-{% load crispy_forms_filters %}
+{% load crispy_forms_filters static %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load account %}
 {% load crispy_forms_tags %}
@@ -27,10 +27,10 @@
     <div class="col-12 col-md-3">
       <a href="#" data-bs-toggle="modal" data-bs-target="#staticProductInfo" data-product-id="{{ product.id }}"
          data-product-title="{{ product.title }}"
-         data-product-image="{{ product.image.url }}"
+         data-product-image="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
          data-supplier-image="
                   {% for supplier in product.suppliers.all %}
-                    {{ supplier.image_supplier.url }}
+                    {% if supplier.image_supplier %}{{ supplier.image_supplier.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}
                  {% endfor %}
               "
          data-product-price="
@@ -43,7 +43,7 @@
               {% endfor %}"
          class="card card_products margin_right_products_cards text-decoration-none">
         <div>
-          <img src="{{ product.image.url }}" alt="{{ product.title }}" class="image_cards_products mx-0">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="{{ product.title }}" class="image_cards_products mx-0">
         </div>
         <div class="card-body">
           <p class="text-center font_family_products color_text_products text-uppercase">{{ product.title }}</p>
