@@ -26,6 +26,9 @@ selenium==4.15.2
 XlsxWriter==3.1.9
 aiohttp==3.9.1
 aiofiles==23.2.1
+# used by scrappers/peixoto2.py; previously only present as a Wagtail
+# transitive dependency. Wagtail 5.2 caps this at <4.12.
+beautifulsoup4==4.11.2  # https://www.crummy.com/software/BeautifulSoup/
 fpdf==1.7.2
 django-htmx==1.17.3
 
