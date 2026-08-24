@@ -1,12 +1,17 @@
-import asyncio
 import os
 import re
+import time
 from decimal import Decimal, DecimalException
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
 
-import aiohttp
+import requests
+from django.conf import settings
 from django.contrib import messages
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -280,22 +285,91 @@ def delete_supplier(request, supplier_id):
 # endregion
 
 
-async def fetch_image(session, image_url):
+def _robots_for(host_url: str):
+    """Fetch and parse robots.txt for the host serving the product images."""
+    from scrappers import robots as robots_rules
+
     try:
-        async with session.get(image_url) as response:
-            if response.status == 200:
-                return await response.read(), os.path.basename(image_url)
-            else:
-                return None, None
-    except Exception as e:
-        print(f"Error downloading image {image_url}: {e}")
-        return None, None
+        response = requests.get(
+            urljoin(host_url, "/robots.txt"),
+            headers={"User-Agent": settings.PRODUCT_IMPORT_USER_AGENT},
+            timeout=15,
+        )
+        return robots_rules.parse(response.text if response.ok else "", settings.PRODUCT_IMPORT_USER_AGENT)
+    except requests.RequestException:
+        return robots_rules.parse("", settings.PRODUCT_IMPORT_USER_AGENT)
 
 
-async def download_images(image_urls):
-    async with aiohttp.ClientSession() as session:
-        tasks = [fetch_image(session, url) for url in image_urls]
-        return await asyncio.gather(*tasks)
+def local_images(category: str, count: int):
+    """Reuse the images the scraper already downloaded, if they are on disk.
+
+    scrappers/peixoto2.py writes <category>_products/image_N.jpg alongside the
+    spreadsheet, numbered by row, at the delay the supplier asks for. Reading
+    those makes the import instant and hits the network zero times; anything
+    missing falls through to fetch_images below.
+    """
+    folder = Path(settings.PRODUCT_IMPORT_LOCAL_IMAGE_DIR) / f"{category}_products"
+    found: list[tuple[bytes, str] | tuple[None, None]] = []
+    for index in range(count):
+        path = folder / f"image_{index + 1}.jpg"
+        if path.is_file():
+            found.append((path.read_bytes(), path.name))
+        else:
+            found.append((None, None))
+    return found
+
+
+def fetch_images(image_urls):
+    """Download product images, obeying each host's robots.txt and Crawl-delay.
+
+    The previous version fired every URL at once with asyncio.gather, ignoring
+    the delay the source site asks for. Honouring it makes the work sequential,
+    and at the 30s some sites request that is far longer than a request should
+    block - so it runs against a time budget and reports what it could not
+    fetch. Products are still created; they simply show the placeholder until
+    their image is filled in.
+    """
+    results = [(None, None)] * len(image_urls)
+    if not image_urls:
+        return results, 0, 0
+
+    session = requests.Session()
+    session.headers["User-Agent"] = settings.PRODUCT_IMPORT_USER_AGENT
+    rules_by_host: dict[str, object] = {}
+    deadline = time.monotonic() + settings.PRODUCT_IMPORT_MAX_SECONDS
+    last_request_at: dict[str, float] = {}
+    skipped_budget = 0
+    skipped_robots = 0
+
+    for index, url in enumerate(image_urls):
+        parsed = urlparse(url)
+        host = f"{parsed.scheme}://{parsed.netloc}"
+        if host not in rules_by_host:
+            rules_by_host[host] = _robots_for(host)
+        rules = rules_by_host[host]
+
+        if not rules.allows(url):
+            skipped_robots += 1
+            continue
+
+        delay = rules.crawl_delay if rules.crawl_delay is not None else settings.PRODUCT_IMPORT_MIN_DELAY
+        delay = max(delay, settings.PRODUCT_IMPORT_MIN_DELAY)
+        wait = delay - (time.monotonic() - last_request_at.get(host, 0.0))
+        if time.monotonic() + max(wait, 0) > deadline:
+            skipped_budget = len(image_urls) - index - skipped_robots
+            break
+        if wait > 0:
+            time.sleep(wait)
+
+        try:
+            response = session.get(url, timeout=30)
+            last_request_at[host] = time.monotonic()
+            if response.status_code == 200:
+                results[index] = (response.content, os.path.basename(parsed.path))
+        except requests.RequestException as exc:
+            print(f"Error downloading image {url}: {exc}")
+
+    return results, skipped_robots, max(skipped_budget, 0)
 
 
 def upload_excel(request):
@@ -359,26 +433,69 @@ def upload_excel(request):
                 product_suppliers.extend([supplier] * len_list_names)
 
                 if len(product_names) == len(product_links) == len(product_prices) == len(product_images):
-                    products_delete = products.filter(suppliers=product_suppliers[0], categories=product_categories[0])
-                    products_delete.delete()
+                    category_obj = product_categories[0] if product_categories else None
 
-                    # Run the async image download
-                    loop = asyncio.new_event_loop()
-                    asyncio.set_event_loop(loop)
-                    image_results = loop.run_until_complete(download_images(product_images))
+                    # Prefer the scraper's own downloads; only go to the network
+                    # for rows it does not cover.
+                    image_results = local_images(category_obj.name_category, len(product_images))
+                    reused = sum(1 for content, _ in image_results if content)
+                    missing = [
+                        url if content is None else None for url, (content, _) in zip(product_images, image_results)
+                    ]
+                    if any(u for u in missing):
+                        fetched, skipped_robots, skipped_budget = fetch_images([u or "" for u in missing])
+                        for i, item in enumerate(fetched):
+                            if item[0] is not None:
+                                image_results[i] = item
+                    else:
+                        skipped_robots = skipped_budget = 0
+                    supplier_obj = product_suppliers[0]
 
-                    for name, link, price, (image_content, image_name), supplier_obj in zip(
-                        product_names, product_links, product_prices, image_results, product_suppliers
-                    ):
-                        if image_content:
-                            link_instance = Links.objects.create(url=link, price=price, supplier=supplier_obj)
-                            category_obj = product_categories[0] if product_categories else None
-                            product = Products.objects.create(title=name, categories=category_obj)
-                            product.image.save(image_name, ContentFile(image_content), save=True)
-                            product.suppliers.add(supplier_obj)
-                            product.links.add(link_instance)
-                            product.save()
-                    messages.success(request, "Produtos importados com sucesso!")
+                    # One transaction: a failure part-way through no longer leaves
+                    # the category's previous products deleted and nothing in their
+                    # place.
+                    with transaction.atomic():
+                        products.filter(suppliers=supplier_obj, categories=category_obj).delete()
+
+                        new_products = []
+                        new_links = []
+                        for name, link, price, (image_content, image_name) in zip(
+                            product_names, product_links, product_prices, image_results
+                        ):
+                            stored = ""
+                            if image_content:
+                                stored = default_storage.save(
+                                    f"products_images/{image_name}", ContentFile(image_content)
+                                )
+                            new_products.append(Products(title=name, categories=category_obj, image=stored))
+                            new_links.append(Links(url=link, price=price, supplier=supplier_obj))
+
+                        # bulk_create rather than a save per row; PostgreSQL returns
+                        # the primary keys, so the join rows can be built in bulk too.
+                        Products.objects.bulk_create(new_products)
+                        Links.objects.bulk_create(new_links)
+
+                        supplier_join = Products.suppliers.through
+                        links_join = Products.links.through
+                        supplier_join.objects.bulk_create(
+                            [supplier_join(products_id=p.pk, supplier_id=supplier_obj.pk) for p in new_products]
+                        )
+                        links_join.objects.bulk_create(
+                            [links_join(products_id=p.pk, links_id=lk.pk) for p, lk in zip(new_products, new_links)]
+                        )
+
+                    created = len(new_products)
+                    detail = f"{created} produtos importados."
+                    if reused:
+                        detail += f" {reused} imagens reutilizadas do disco."
+                    if skipped_robots:
+                        detail += f" {skipped_robots} imagens ignoradas por robots.txt."
+                    if skipped_budget:
+                        detail += (
+                            f" {skipped_budget} imagens não descarregadas dentro do limite de "
+                            f"{settings.PRODUCT_IMPORT_MAX_SECONDS}s (Crawl-delay do fornecedor)."
+                        )
+                    messages.success(request, detail)
                 else:
                     category.delete()
                     messages.error(

@@ -329,6 +329,22 @@ SOCIALACCOUNT_FORMS = {"signup": "asyquote.users.forms.UserSocialSignupForm"}
 # Your stuff...
 # ------------------------------------------------------------------------------
 
+# Product import
+# ------------------------------------------------------------------------------
+# Importing a scraped spreadsheet fetches each product image from the supplier
+# site. That obeys the site's robots.txt Crawl-delay, which can be tens of
+# seconds, so the work is bounded: whatever does not fit is left without an
+# image rather than hanging the request.
+PRODUCT_IMPORT_USER_AGENT = env(
+    "PRODUCT_IMPORT_USER_AGENT",
+    default="AsyQuoteImporter/1.0 (+https://github.com/GoncaloAS/AsyQuote)",
+)
+# Where the scraper leaves its downloads. Images found here are reused instead
+# of being fetched again.
+PRODUCT_IMPORT_LOCAL_IMAGE_DIR = env("PRODUCT_IMPORT_LOCAL_IMAGE_DIR", default=str(BASE_DIR / "scrappers" / "output"))
+PRODUCT_IMPORT_MAX_SECONDS = env.int("PRODUCT_IMPORT_MAX_SECONDS", default=60)
+PRODUCT_IMPORT_MIN_DELAY = env.float("PRODUCT_IMPORT_MIN_DELAY", default=0.5)
+
 GRAPH_MODELS = {
     "all_applications": True,
     "group_models": True,
