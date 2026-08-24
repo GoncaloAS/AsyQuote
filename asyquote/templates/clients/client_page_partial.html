@@ -24,62 +24,86 @@
           <td id="nif_updater" class="table_field px-3">{{ client.nif }}</td>
           <td class="table_field px-3">{{ client.total_charged_amount }}</td>
           <td class="table_field px-3">
-            <form id="updateForm" action="{% url 'update_client' client.id %}" method="post"
-                  style="display: inline;">
+            <form id="updateForm"
+                  action="{% url 'update_client' client.id %}"
+                  method="post"
+                  style="display: inline">
               {% csrf_token %}
-              <button type="button" class="button-21" onclick="openUpdateModal({{ client.id }})">Editar</button>
+              <button type="button"
+                      class="button-21"
+                      onclick="openUpdateModal({{ client.id }})">Editar</button>
               {#                    onclick="openUpdateModal({{ client.id }})#}
             </form>
-            <form id="deleteForm" action="{% url 'delete_client' 0 %}" method="post" style="display: inline;">
+            <form id="deleteForm"
+                  action="{% url 'delete_client' 0 %}"
+                  method="post"
+                  style="display: inline">
               {% csrf_token %}
-              <input type="hidden" id="deleteClientId" name="delete_client_id" value="">
-              <button type="button" class="button-20" onclick="return confirmDeleteClient({{ client.id }})">
-                Eliminar
-              </button>
+              <input type="hidden" id="deleteClientId" name="delete_client_id" value="" />
+              <button type="button"
+                      class="button-20"
+                      onclick="return confirmDeleteClient({{ client.id }})">Eliminar</button>
             </form>
-
-            <div class="modal fade" id="staticClientUpdate{{ client.id }}" data-bs-backdrop="static"
-                 data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade"
+                 id="staticClientUpdate{{ client.id }}"
+                 data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 tabindex="-1"
+                 aria-labelledby="staticBackdropLabel"
+                 aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form id='update_client_form' method="post"
+                    <form id='update_client_form'
+                          method="post"
                           action="{% url 'update_client' client.id %}">
                       {% csrf_token %}
                       <div class="form-group">
                         <label class="label_form_create_project d-flex text-left"
                                for="update_name{{ client.id }}">Nome:</label>
-                        <input type="text" id="update_name{{ client.id }}" name="update_name"
-                               value="{{ client.name }}">
+                        <input type="text"
+                               id="update_name{{ client.id }}"
+                               name="update_name"
+                               value="{{ client.name }}" />
                       </div>
                       <div class="form-group">
                         <label class="label_form_create_project d-flex text-left"
                                for="update_email{{ client.id }}">Email:</label>
-                        <input type="email" id="update_email{{ client.id }}" name="update_email"
-                               value="{{ client.email }}">
+                        <input type="email"
+                               id="update_email{{ client.id }}"
+                               name="update_email"
+                               value="{{ client.email }}" />
                       </div>
                       <div class="form-group">
                         <label class="label_form_create_project d-flex text-left"
                                for="update_phone{{ client.id }}">Telemóvel:</label>
-                        <input type="text" id="update_phone{{ client.id }}" name="update_phone"
-                               value="{{ client.phone }}">
+                        <input type="text"
+                               id="update_phone{{ client.id }}"
+                               name="update_phone"
+                               value="{{ client.phone }}" />
                       </div>
                       <div class="form-group">
                         <label class="label_form_create_project d-flex text-left"
                                for="update_address{{ client.id }}">Morada:</label>
-                        <input type="text" id="update_address{{ client.id }}" name="update_address"
-                               value="{{ client.address }}">
+                        <input type="text"
+                               id="update_address{{ client.id }}"
+                               name="update_address"
+                               value="{{ client.address }}" />
                       </div>
                       <div class="form-group">
                         <label class="label_form_create_project d-flex text-left"
                                for="update_nif{{ client.id }}">NIF:</label>
-                        <input type="text" id="update_nif{{ client.id }}" name="update_nif"
-                               value="{{ client.nif }}">
+                        <input type="text"
+                               id="update_nif{{ client.id }}"
+                               name="update_nif"
+                               value="{{ client.nif }}" />
                       </div>
                       <button type="submit" class="btn btn-primary save_project">Salvar</button>
                     </form>
@@ -94,9 +118,5 @@
   </div>
   <script src="{% static 'js/form_submit_handler.js' %}" type="text/javascript"></script>
 {% else %}
-  <div class="col-12">
-    {% include '404/404_clients.html' %}
-  </div>
+  <div class="col-12">{% include '404/404_clients.html' %}</div>
 {% endif %}
-
-

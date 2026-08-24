@@ -5,7 +5,8 @@
   line-height: normal;
 }
 
-.navigation-a, .navigation-a:hover {
+.navigation-a,
+.navigation-a:hover {
   color: black;
   font-size: 18px;
   font-style: normal;
@@ -19,12 +20,12 @@
 }
 
 .bb-footer {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.60);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   margin-bottom: 1%;
 }
 
 .footer_rights {
-  color: rgba(0, 0, 0, 0.40);
+  color: rgba(0, 0, 0, 0.4);
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -37,8 +38,9 @@
   height: 30px;
 }
 
-.href-additional, .href-additional:hover {
-  color: rgba(0, 0, 0, 0.40);
+.href-additional,
+.href-additional:hover {
+  color: rgba(0, 0, 0, 0.4);
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -93,7 +95,3 @@
     padding-bottom: 30px;
   }
 }
-
-
-
-

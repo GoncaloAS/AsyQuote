@@ -1,6 +1,6 @@
 {% extends "account/base.html" %}
-{% load crispy_forms_filters static %}
 
+{% load crispy_forms_filters static %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load crispy_forms_tags %}
 
@@ -16,13 +16,11 @@
             method="post"
             action="{% url 'account_signup' %}">
         {% csrf_token %}
-        {% for field in form %}
-          {{ field|as_crispy_field }}
-        {% endfor %}
+        {% for field in form %}{{ field|as_crispy_field }}{% endfor %}
         {% if redirect_field_value %}
           <input type="hidden"
                  name="{{ redirect_field_name }}."
-                 value="{{ redirect_field_value }}"/>
+                 value="{{ redirect_field_value }}" />
         {% endif %}
         <button class="btn btn-signin" type="submit">{% translate "Submeter Candidatura" %}</button>
       </form>

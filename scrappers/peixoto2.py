@@ -1,13 +1,13 @@
-import aiohttp
 import asyncio
-import pandas as pd
-from bs4 import BeautifulSoup
-import requests
-from urllib.parse import urljoin
 import os
-import aiofiles
 
-first_url = 'https://casapeixoto.pt/2-produtos'
+import aiofiles
+import aiohttp
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+first_url = "https://casapeixoto.pt/2-produtos"
 data = []
 product_titles = []
 product_hrefs = []
@@ -31,7 +31,7 @@ async def fetch(session, url, headers):
                 return await response.text()
         except aiohttp.client_exceptions.ServerDisconnectedError:
             retry_count += 1
-            await asyncio.sleep(2 ** retry_count)
+            await asyncio.sleep(2**retry_count)
 
     raise RuntimeError(f"Exceeded retry limit ({retry_limit}) for {url}")
 
@@ -39,12 +39,18 @@ async def fetch(session, url, headers):
 def save_to_excel(product_titles, product_hrefs, product_prices, category_name, imagem_products):
     num_products = len(product_titles)
     category_names = [category_name] * num_products
-    suppliers = ['Casa Peixoto'] * num_products
-    data = {'Title': product_titles, 'Href': product_hrefs, 'Price': product_prices, 'imagem': imagem_products,
-            'Category': category_names, 'Supplier': suppliers}
+    suppliers = ["Casa Peixoto"] * num_products
+    data = {
+        "Title": product_titles,
+        "Href": product_hrefs,
+        "Price": product_prices,
+        "imagem": imagem_products,
+        "Category": category_names,
+        "Supplier": suppliers,
+    }
     df = pd.DataFrame(data)
-    filename = f'{category_name}_products.xlsx'
-    df.to_excel(filename, sheet_name='products', index=False)
+    filename = f"{category_name}_products.xlsx"
+    df.to_excel(filename, sheet_name="products", index=False)
     print(f"Saved data for category {category_name} to {filename}")
     return filename
 
@@ -53,8 +59,8 @@ async def download_image(session, folder_name, i, image_url):
     try:
         async with session.get(image_url) as response:
             if response.status == 200:
-                image_filename = os.path.join(folder_name, f'image_{i + 1}.jpg')
-                async with aiofiles.open(image_filename, 'wb') as f:
+                image_filename = os.path.join(folder_name, f"image_{i + 1}.jpg")
+                async with aiofiles.open(image_filename, "wb") as f:
                     await f.write(await response.read())
                 print(f"Downloaded image {i + 1} to {image_filename}")
             else:
@@ -75,39 +81,40 @@ async def download_images(folder_name, imagem_products):
 
 def scrape_product(page_content, product_titles, product_hrefs, product_prices, imagem_products):
     global teller
-    soup = BeautifulSoup(page_content, 'html.parser')
-    product_info = soup.find_all(class_='product-meta')
-    product_image = soup.find_all(class_='product-image')
+    soup = BeautifulSoup(page_content, "html.parser")
+    product_info = soup.find_all(class_="product-meta")
+    product_image = soup.find_all(class_="product-image")
     for image_product in product_image:
-        image = image_product.select_one('img')
+        image = image_product.select_one("img")
         if image:
-            imagem = image.get('src')
+            imagem = image.get("src")
             imagem_products.append(imagem)
 
     for product_title in product_info:
-        title_product = product_title.select('a')
+        title_product = product_title.select("a")
         for title_element in title_product:
             title_text = title_element.get_text()
-            title_link = title_element['href']
+            title_link = title_element["href"]
             product_titles.append(title_text)
             product_hrefs.append(title_link)
     price = ""
-    price_info = soup.find_all(class_='price')
+    price_info = soup.find_all(class_="price")
     for price_element in price_info:
         price = price_element.get_text()
         product_prices.append(price)
 
-    if (price == "" or price == " "):
+    if price == "" or price == " ":
         teller = False
 
 
-async def scrape_category_async(category_url, headers, product_titles, product_hrefs,
-                                product_prices, imagem_products, numberpage):
+async def scrape_category_async(
+    category_url, headers, product_titles, product_hrefs, product_prices, imagem_products, numberpage
+):
     global i, teller
     retry_limit = 10
     retry_count = 0
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:
-        while (teller and retry_count < retry_limit):
+        while teller and retry_count < retry_limit:
             print(f"--------------------------------{i}")
             tasks = []
             for page in range(numberpage, numberpage + 10):
@@ -129,70 +136,73 @@ async def scrape_category_async(category_url, headers, product_titles, product_h
 
 
 def main():
-    global teller
+    global teller, i
     headers = {
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,'
-                  'application/signed-exchange;v=b3;q=0.7',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/119.0.0.0 Safari/537.36',
-        'Accept-Encoding': 'zip, deflate, br',
-        'referer': 'https://casapeixoto.pt/',
-        'Accept-Language': 'pt-PT,pt;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6',
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,"
+        "application/signed-exchange;v=b3;q=0.7",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/119.0.0.0 Safari/537.36",
+        "Accept-Encoding": "zip, deflate, br",
+        "referer": "https://casapeixoto.pt/",
+        "Accept-Language": "pt-PT,pt;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6",
         # A browser session cookie was originally pasted in here. Credentials do not
         # belong in source control: set SCRAPER_COOKIE in the environment if the
         # target site requires a session, otherwise the header is simply omitted.
     }
-    cookie = os.environ.get('SCRAPER_COOKIE')
+    cookie = os.environ.get("SCRAPER_COOKIE")
     if cookie:
-        headers['Cookie'] = cookie
+        headers["Cookie"] = cookie
 
     response = requests.get(first_url, headers=headers)
 
     if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        product_containers = soup.find_all('ul', {'class': 'category-sub-menu'})
+        soup = BeautifulSoup(response.text, "html.parser")
+        product_containers = soup.find_all("ul", {"class": "category-sub-menu"})
         start_processing = False
 
         for product_container in product_containers:
-            links_main = product_container.find_all('li', {'data-depth': '0'})
+            links_main = product_container.find_all("li", {"data-depth": "0"})
 
             for li in links_main:
-                first_a_tag = li.find('a')
+                first_a_tag = li.find("a")
 
                 if first_a_tag:
-                    category_url = first_a_tag.get('href')
+                    category_url = first_a_tag.get("href")
 
-                    if start_processing or category_url.startswith('https://casapeixoto.pt/745-jardim'):
+                    if start_processing or category_url.startswith("https://casapeixoto.pt/745-jardim"):
                         start_processing = True
                         print(f"Processing category URL: {category_url}")
-                        data.append({'Category': category_url})
+                        data.append({"Category": category_url})
                     if start_processing:
                         pass
 
     for entry in data:
-        category_url = entry['Category']
+        category_url = entry["Category"]
         if category_url not in unique_urls:
             unique_urls.add(category_url)
             unique_data.append(entry)
     df = pd.DataFrame(unique_data)
-    df.to_excel('products_links.xlsx', sheet_name='products_links', index=False)
+    df.to_excel("products_links.xlsx", sheet_name="products_links", index=False)
 
     # Tudo Certo para cima para ir buscar os links
 
     for entry in unique_data:
-        category_url = entry['Category']
+        category_url = entry["Category"]
         print(category_url)
         numberpage = 1
         i = 0
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(
-            scrape_category_async(category_url, headers, product_titles, product_hrefs, product_prices, imagem_products,
-                                  numberpage))
+            scrape_category_async(
+                category_url, headers, product_titles, product_hrefs, product_prices, imagem_products, numberpage
+            )
+        )
 
-        save_to_excel(product_titles, product_hrefs, product_prices, category_url.split('/')[-1], imagem_products)
-        excel_filename = save_to_excel(product_titles, product_hrefs, product_prices, category_url.split('/')[-1],
-                                       imagem_products)
+        save_to_excel(product_titles, product_hrefs, product_prices, category_url.split("/")[-1], imagem_products)
+        excel_filename = save_to_excel(
+            product_titles, product_hrefs, product_prices, category_url.split("/")[-1], imagem_products
+        )
         folder_name = os.path.splitext(excel_filename)[0]
         loop.run_until_complete(download_images(folder_name, imagem_products))
         # Reset

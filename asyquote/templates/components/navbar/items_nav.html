@@ -1,19 +1,24 @@
 {% load static %}
+
 {% for item in menu_items %}
   {% if item.href == 'login' %}
     {% if user.is_authenticated %}
       {# If user is authenticated, set the href to 'builder' #}
-      <a class="mx-4 nav-link item-nav-style color-black" href="{% url 'project_list' %}">{{ item.text }}</a>
+      <a class="mx-4 nav-link item-nav-style color-black"
+         href="{% url 'project_list' %}">{{ item.text }}</a>
     {% else %}
       {# If user is not authenticated, keep the original login link #}
-      <a onclick="removeId('{{ item.href }}')" class="mx-4 nav-link item-nav-style color-black" href="{% url item.href %}">{{ item.text }}</a>
+      <a onclick="removeId('{{ item.href }}')"
+         class="mx-4 nav-link item-nav-style color-black"
+         href="{% url item.href %}">{{ item.text }}</a>
     {% endif %}
   {% else %}
     {# For other links, keep the original href attribute #}
-    <a onclick="removeId('{{ item.href }}')" class="mx-4 nav-link item-nav-style color-black" href="{{ item.href }}">{{ item.text }}</a>
+    <a onclick="removeId('{{ item.href }}')"
+       class="mx-4 nav-link item-nav-style color-black"
+       href="{{ item.href }}">{{ item.text }}</a>
   {% endif %}
 {% endfor %}
-
 <script>
   function removeId(targetUrl) {
     setTimeout(() => {
@@ -22,7 +27,11 @@
       if (window.location.href.includes('/users/{user.username}')) {
 
         // Redirect to the base URL if the current URL contains '/login/' and the user is not authenticated
-        if (!{{ user.is_authenticated }}) {
+        if (!{
+            {
+              user.is_authenticated
+            }
+          }) {
           window.location.href = 'http://localhost:3000/';
         }
       } else if (window.location.href !== 'http://localhost:3000/') {

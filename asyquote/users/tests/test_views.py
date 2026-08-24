@@ -12,11 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from asyquote.users.forms import UserAdminChangeForm
 from asyquote.users.models import User
 from asyquote.users.tests.factories import UserFactory
-from asyquote.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from asyquote.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 

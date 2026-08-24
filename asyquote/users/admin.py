@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import get_user_model, decorators
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import decorators, get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from asyquote.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
@@ -16,32 +16,30 @@ if settings.DJANGO_ADMIN_FORCE_ALLAUTH:
     admin.site.login = decorators.login_required(admin.site.login)  # type: ignore[method-assign]
 
 
+@admin.action(description="Mandar e-mail de marketing para os utilizadores selecionados")
 def send_marketing_email_action(modeladmin, request, queryset):
     # Filter the queryset to include only users with receive_email set to True
     queryset = queryset.filter(receive_email=True)
 
     # Get the list of selected users' email addresses
-    email_list = ','.join(queryset.values_list("email", flat=True))
+    email_list = ",".join(queryset.values_list("email", flat=True))
 
     # Pass data to a template using the reverse function
-    redirect_url = reverse('send_email_template')
-    return HttpResponseRedirect(f'{redirect_url}?email_list={email_list}')
+    redirect_url = reverse("send_email_template")
+    return HttpResponseRedirect(f"{redirect_url}?email_list={email_list}")
 
 
+@admin.action(description="Mandar e-mail de satisfação para os utilizadores selecionados")
 def send_review_email_action(modeladmin, request, queryset):
     # Filter the queryset to include only users with receive_email set to True
     queryset = queryset.filter(development_help=True)
 
     # Get the list of selected users' email addresses
-    email_list = ','.join(queryset.values_list("email", flat=True))
+    email_list = ",".join(queryset.values_list("email", flat=True))
 
     # Pass data to a template using the reverse function
-    redirect_url = reverse('send_email_template')
-    return HttpResponseRedirect(f'{redirect_url}?email_list={email_list}')
-
-
-send_marketing_email_action.short_description = "Mandar e-mail de marketing para os utilizadores selecionados"
-send_review_email_action.short_description = "Mandar e-mail de satisfação para os utilizadores selecionados"
+    redirect_url = reverse("send_email_template")
+    return HttpResponseRedirect(f"{redirect_url}?email_list={email_list}")
 
 
 @admin.register(User)
@@ -67,4 +65,4 @@ class CustomUserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "is_superuser"]
     search_fields = ["username"]
-    actions = [send_marketing_email_action,send_review_email_action]
+    actions = [send_marketing_email_action, send_review_email_action]

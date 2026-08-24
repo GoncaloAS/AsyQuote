@@ -16,7 +16,7 @@
 
 .card.card_products:hover {
   border: 2px solid black;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   transition-timing-function: linear;
 }
 
@@ -50,10 +50,9 @@
   height: 240px;
 }
 
-
 .create_project_card:hover {
   border: 2px solid black;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   transition-timing-function: linear;
 }
 
@@ -65,10 +64,12 @@
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-#id_state, .update_client_project, .update_state_project {
+input[type='text'],
+input[type='email'],
+input[type='number'],
+#id_state,
+.update_client_project,
+.update_state_project {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -158,9 +159,10 @@ input[type="number"],
   -moz-appearance: none;
   appearance: none;
   background-color: var(--bs-body-bg);
-  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  background-image: var(--bs-form-select-bg-img),
+    var(--bs-form-select-bg-icon, none);
   background-position: right 12px center;
-  background-position: right .75rem center;
+  background-position: right 0.75rem center;
   background-repeat: no-repeat;
   background-size: 16px 12px;
   border: var(--bs-border-width) solid var(--bs-border-color);
@@ -171,12 +173,21 @@ input[type="number"],
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  padding: .375rem 2.25rem .375rem .75rem;
-  -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  width: 100%
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  -webkit-transition:
+    border-color 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
+  width: 100%;
 }
 
 #search-results {
@@ -231,7 +242,6 @@ input[type="number"],
 
   h3 {
     font-family: 'Source Sans Pro', sans-serif;
-
   }
 
   .stores-info-product {
@@ -252,13 +262,13 @@ input[type="number"],
     border-radius: 16px;
     border-width: 0 0 4px;
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
     display: inline-block;
     font-family: din-round, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: .8px;
+    letter-spacing: 0.8px;
     line-height: 20px;
     margin: 0;
     outline: none;
@@ -268,7 +278,7 @@ input[type="number"],
     text-transform: uppercase;
     touch-action: manipulation;
     transform: translateZ(0);
-    transition: filter .2s;
+    transition: filter 0.2s;
     user-select: none;
     -webkit-user-select: none;
     vertical-align: middle;
@@ -283,14 +293,13 @@ input[type="number"],
     border-radius: 16px;
     border-width: 0 0 4px;
     bottom: -4px;
-    content: "";
+    content: '';
     left: 0;
     position: absolute;
     right: 0;
     top: 0;
     z-index: -1;
   }
-
 
   .supplier-link2:hover:not(:disabled) {
     filter: brightness(1.1);
@@ -312,13 +321,13 @@ input[type="number"],
     border-radius: 16px;
     border-width: 0 0 4px;
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
     display: inline-block;
     font-family: din-round, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: .8px;
+    letter-spacing: 0.8px;
     line-height: 20px;
     margin: 0;
     outline: none;
@@ -328,7 +337,7 @@ input[type="number"],
     text-transform: uppercase;
     touch-action: manipulation;
     transform: translateZ(0);
-    transition: filter .2s;
+    transition: filter 0.2s;
     user-select: none;
     -webkit-user-select: none;
     vertical-align: middle;
@@ -343,14 +352,13 @@ input[type="number"],
     border-radius: 16px;
     border-width: 0 0 4px;
     bottom: -4px;
-    content: "";
+    content: '';
     left: 0;
     position: absolute;
     right: 0;
     top: 0;
     z-index: -1;
   }
-
 
   .supplier-link:hover:not(:disabled) {
     filter: brightness(1.1);
@@ -373,11 +381,9 @@ input[type="number"],
   }
 }
 
-
 // toogle css
 .editor_mode {
-
-  input[type=checkbox] {
+  input[type='checkbox'] {
     height: 0;
     width: 0;
     visibility: hidden;
@@ -417,9 +423,7 @@ input[type="number"],
   label:active:after {
     width: 40px;
   }
-
 }
-
 
 .excel_upload {
   i {
@@ -501,7 +505,6 @@ input[type="number"],
     padding: 0;
   }
 }
-
 
 .preloader_excel {
   position: absolute;

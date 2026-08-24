@@ -1,11 +1,19 @@
 {% load i18n static %}
+
 <div class="filtered_products product-search-div mx-0 mt-5">
-  <div class="stores-info-product mt-4 product-results-div" style="height: 400px; overflow-y: auto">
+  <div class="stores-info-product mt-4 product-results-div"
+       style="height: 400px;
+              overflow-y: auto">
     {% if filtered_products %}
       {% for product in filtered_products %}
-        <div class="d-flex align-items-center mb-2 px-3 justify-content-between" title="{{ product.title }}">
+        <div class="d-flex align-items-center mb-2 px-3 justify-content-between"
+             title="{{ product.title }}">
           <div class="mr-3">
-            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}" alt="product-image" class="supplier-image" style="width: 60px;" onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
+                 alt="product-image"
+                 class="supplier-image"
+                 style="width: 60px"
+                 onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')" />
           </div>
           <div class="mr-3">
             <p>{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
@@ -23,9 +31,8 @@
     {% endif %}
   </div>
 </div>
-
 <script>
-function copyToClipboard(text) {
+  function copyToClipboard(text) {
     var tempInput = document.createElement('textarea');
     tempInput.value = text;
     document.body.appendChild(tempInput);
@@ -33,5 +40,5 @@ function copyToClipboard(text) {
     tempInput.setSelectionRange(0, 99999);
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-}
+  }
 </script>

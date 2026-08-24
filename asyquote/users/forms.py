@@ -1,12 +1,12 @@
 from allauth.account.forms import SignupForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
-from django.conf import settings
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from django.conf import settings
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
-from django.forms import CharField, ChoiceField, BooleanField
+from django.forms import BooleanField
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
@@ -33,28 +33,22 @@ class UserAdminCreationForm(admin_forms.UserCreationForm):
 
 
 class UserSignupForm(SignupForm):
-    development_help = BooleanField(
-        label="Aceita ajudar no desenvolvimento do asyquote?",
-        required=False
-    )
-    receive_email = BooleanField(
-        label="Deseja receber email sobre as novidades da ferramenta?",
-        required=False
-    )
+    development_help = BooleanField(label="Aceita ajudar no desenvolvimento do asyquote?", required=False)
+    receive_email = BooleanField(label="Deseja receber email sobre as novidades da ferramenta?", required=False)
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(), label="Captcha")
 
     def __init__(self, *args, **kwargs):
-        super(UserSignupForm, self).__init__(*args, **kwargs)
-        self.fields['development_help'].initial = False  # Set default value if needed
-        self.fields['receive_email'].initial = False  # Set default value if needed
+        super().__init__(*args, **kwargs)
+        self.fields["development_help"].initial = False  # Set default value if needed
+        self.fields["receive_email"].initial = False  # Set default value if needed
 
     def save(self, request):
         # Call the superclass's save method
-        user = super(UserSignupForm, self).save(request)
+        user = super().save(request)
 
         # Save the additional fields to the user instance
-        user.development_help = self.cleaned_data['development_help']
-        user.receive_email = self.cleaned_data['receive_email']
+        user.development_help = self.cleaned_data["development_help"]
+        user.receive_email = self.cleaned_data["receive_email"]
         user.save()
 
         self.send_signup_confirmation_email(user)
@@ -62,14 +56,14 @@ class UserSignupForm(SignupForm):
         return user
 
     def send_signup_confirmation_email(self, user):
-        subject = 'Thank you for signing up'
-        html_content = render_to_string('account/email/signup_email.html', {'user': user})
+        subject = "Thank you for signing up"
+        html_content = render_to_string("account/email/signup_email.html", {"user": user})
         plain_message = strip_tags(html_content)
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = [user.email]
         send_mail(subject, plain_message, from_email, to_email, html_message=html_content)
 
-    field_order = ['email', 'username', 'password1', 'password2', 'development_help', 'receive_email', 'captcha']
+    field_order = ["email", "username", "password1", "password2", "development_help", "receive_email", "captcha"]
 
 
 class UserSocialSignupForm(SocialSignupForm):

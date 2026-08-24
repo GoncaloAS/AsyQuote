@@ -1,11 +1,11 @@
 /* Import Google font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 .sidebarfont {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Pre css */
@@ -177,12 +177,10 @@
 
 .link22:hover {
   color: red;
-
 }
 
 .link23:hover {
   color: #62c6c8;
-
 }
 
 .link span {
@@ -253,7 +251,6 @@
 }
 
 /* Responsive */
-
 
 @media screen and (max-width: 800px) {
   .sidebar {

@@ -34,4 +34,3 @@ django-htmx==1.17.3
 # generate model er:
 # python manage.py graph_models -a --dot -o myapp_models.dot
 # dot -Tpng myapp_models.dot -o myapp_models.png
-

@@ -1,6 +1,6 @@
 {% extends "account/base.html" %}
-{% load crispy_forms_filters %}
 
+{% load crispy_forms_filters %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -24,7 +24,7 @@
                          type="radio"
                          name="email"
                          {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{% endif %}
-                         value="{{ emailaddress.email }}"/>
+                         value="{{ emailaddress.email }}" />
                   {{ emailaddress.email }}
                   {% if emailaddress.verified %}
                     <span class="verified">{% translate "Verified" %}</span>
@@ -67,11 +67,11 @@
 {% block inline_javascript %}
   {{ block.super }}
   <script type="text/javascript">
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('DOMContentLoaded', function() {
       const message = "{% translate 'Do you really want to remove the selected e-mail address?' %}";
       const actions = document.getElementsByName('action_remove');
       if (actions.length) {
-        actions[0].addEventListener("click", function (e) {
+        actions[0].addEventListener("click", function(e) {
           if (!confirm(message)) {
             e.preventDefault();
           }

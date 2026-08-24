@@ -1,53 +1,58 @@
 {% extends 'base.html' %}
+
 {% load static wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
-
   <div class="container">
-  <div class="row w-100 m-auto">
-    <div class="col-12 col-md-5">
-      <div class="float-homepage">
-        <h1 class="hero-title">{{ self.hero_title }}</h1>
-        <div class="hero-p">{{ self.hero_paragraph|safe }}</div>
-        <a href="{% url 'aceder-beta' %}">
-          <button class="hero-button hero-button-text px-4">Aceder Beta</button>
-        </a>
+    <div class="row w-100 m-auto">
+      <div class="col-12 col-md-5">
+        <div class="float-homepage">
+          <h1 class="hero-title">{{ self.hero_title }}</h1>
+          <div class="hero-p">{{ self.hero_paragraph|safe }}</div>
+          <a href="{% url 'aceder-beta' %}">
+            <button class="hero-button hero-button-text px-4">Aceder Beta</button>
+          </a>
+        </div>
       </div>
-    </div>
-
-    <div class="col-12 col-md-7 margin-mobile-hero">
-      {% image self.hero_image width-1000 as hero_image %}
-      <img src="{{ hero_image.url }}" alt="{{ hero_image.alt }}" class="hero-image img-fluid">
-    </div>
-    <div class="col-12">
-      <h1 class="title-uses">{{ self.uses_title }}</h1>
-      <div class="slider text-center mt-5">
-        {% for item in self.uses_image %}
-          <div class="slide">
-            <a href="{{ item.value.url_uses }}" target="_blank">
-              {% image item.value.image_uses width-200 as imagem_uses %}
-              <img src="{{ imagem_uses.url }}" alt="{{ imagem_uses.alt }}"
-                   class="img-fluid image-filter-uses">
-            </a>
-          </div>
-        {% endfor %}
+      <div class="col-12 col-md-7 margin-mobile-hero">
+        {% image self.hero_image width-1000 as hero_image %}
+        <img src="{{ hero_image.url }}"
+             alt="{{ hero_image.alt }}"
+             class="hero-image img-fluid" />
       </div>
-    </div>
-
-    <div class="col-12 col-md-6 padding-about margin-mobile-about" id="sobre">
-      <h1 class="title-1-about mt-about-title-1">{{ self.about_title_1 }}</h1>
-      <p class="paragraph-1-about">{{ self.about_paragraph_1 }}</p>
-    </div>
-    <div class="col-12 col-md-5 padding-tablet-about">
-      {% image self.about_image_1 width-600 as about_image_1 %}
-      <img src="{{ about_image_1.url }}" alt="{{ about_image_1.alt }}" class="img-fluid">
-    </div>
-    {#desktop#}
-    <div class="about-desktop row">
-      <div class="col-12 col-md-5 text-start margin2-mobile-about padding-tablet-about">
-        {% image self.about_image_2 width-600 as about_image_2 %}
-        <img src="{{ about_image_2.url }}" alt="{{ about_image_2.alt }}" class="img-fluid">
+      <div class="col-12">
+        <h1 class="title-uses">{{ self.uses_title }}</h1>
+        <div class="slider text-center mt-5">
+          {% for item in self.uses_image %}
+            <div class="slide">
+              <a href="{{ item.value.url_uses }}" target="_blank">
+                {% image item.value.image_uses width-200 as imagem_uses %}
+                <img src="{{ imagem_uses.url }}"
+                     alt="{{ imagem_uses.alt }}"
+                     class="img-fluid image-filter-uses" />
+              </a>
+            </div>
+          {% endfor %}
+        </div>
       </div>
+      <div class="col-12 col-md-6 padding-about margin-mobile-about" id="sobre">
+        <h1 class="title-1-about mt-about-title-1">{{ self.about_title_1 }}</h1>
+        <p class="paragraph-1-about">{{ self.about_paragraph_1 }}</p>
+      </div>
+      <div class="col-12 col-md-5 padding-tablet-about">
+        {% image self.about_image_1 width-600 as about_image_1 %}
+        <img src="{{ about_image_1.url }}"
+             alt="{{ about_image_1.alt }}"
+             class="img-fluid" />
+      </div>
+      {#desktop#}
+      <div class="about-desktop row">
+        <div class="col-12 col-md-5 text-start margin2-mobile-about padding-tablet-about">
+          {% image self.about_image_2 width-600 as about_image_2 %}
+          <img src="{{ about_image_2.url }}"
+               alt="{{ about_image_2.alt }}"
+               class="img-fluid" />
+        </div>
         <div class="col-12 col-md-6 ml-about-title-2">
           <h1 class="title-2-about mt-about-title-2">{{ self.about_title_2 }}</h1>
           <p class="paragraph-2-about">{{ self.about_paragraph_2 }}</p>
@@ -61,7 +66,9 @@
         </div>
         <div class="col-12 col-md-5 text-start margin2-mobile-about padding-tablet-about">
           {% image self.about_image_2 width-600 as about_image_2 %}
-          <img src="{{ about_image_2.url }}" alt="{{ about_image_2.alt }}" class="img-fluid">
+          <img src="{{ about_image_2.url }}"
+               alt="{{ about_image_2.alt }}"
+               class="img-fluid" />
         </div>
       </div>
       <div class="col-12 col-md-6 margin-mobile-about">
@@ -70,7 +77,9 @@
       </div>
       <div class="col-12 col-md-5 text-end padding-tablet-about">
         {% image self.about_image_3 width-600 as about_image_3 %}
-        <img src="{{ about_image_3.url }}" alt="{{ about_image_3.alt }}" class="img-fluid">
+        <img src="{{ about_image_3.url }}"
+             alt="{{ about_image_3.alt }}"
+             class="img-fluid" />
       </div>
       <div class="col-12 margin-top-review justify-content-center" id="opiniões">
         <h1 class="review_title">{{ self.review_title }}</h1>
@@ -84,7 +93,7 @@
                   <div class="width-image-review">
                     {% with review_image=review.review_card.images_cards %}
                       {% image review_image width-200 as img %}
-                      <img src="{{ img.url }}" alt="rating stars" class="img-fluid">
+                      <img src="{{ img.url }}" alt="rating stars" class="img-fluid" />
                     {% endwith %}
                   </div>
                   <h5 class="card-title review-card-title">{{ review.title_card }}</h5>
@@ -117,7 +126,9 @@
             <div class="d-flex ">
               <a href="{% url faq.href_url %}" class="faq-href">
                 {{ faq.text_href }}
-                <img src="{% static 'images/arrow_url.svg' %}" alt="arrow url" class="ml-faq">
+                <img src="{% static 'images/arrow_url.svg' %}"
+                     alt="arrow url"
+                     class="ml-faq" />
               </a>
             </div>
           {% endif %}

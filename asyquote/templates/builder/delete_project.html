@@ -8,10 +8,9 @@
         <p>Are you sure you want to delete "{{ project.title }}"?</p>
         <form action="{% url 'delete_project' project.pk %}" method="post">
           {% csrf_token %}
-          <input type="submit" value="Delete">
+          <input type="submit" value="Delete" />
         </form>
       </div>
     </div>
-
   </div>
 {% endblock %}

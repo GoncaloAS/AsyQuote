@@ -15,7 +15,11 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-asyquote}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-asyquote}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-asyquote} -d ${POSTGRES_DB:-asyquote}"]
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -U ${POSTGRES_USER:-asyquote} -d ${POSTGRES_DB:-asyquote}',
+        ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -38,7 +42,7 @@ services:
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.local}
       DATABASE_URL: ${DATABASE_URL:-postgres://asyquote:asyquote@postgres:5432/asyquote}
     ports:
-      - "8000:8000"
+      - '8000:8000'
     command: /start
 
 volumes:

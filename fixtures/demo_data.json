@@ -1,2061 +1,2397 @@
 [
-{
-  "model": "sites.site",
-  "pk": 1,
-  "fields": {
-    "domain": "localhost:8000",
-    "name": "AsyQuote"
-  }
-},
-{
-  "model": "wagtailcore.locale",
-  "pk": 1,
-  "fields": {
-    "language_code": "pt"
-  }
-},
-{
-  "model": "wagtailcore.site",
-  "pk": 1,
-  "fields": {
-    "hostname": "localhost",
-    "port": 8000,
-    "site_name": "AsyQuote",
-    "root_page": 3,
-    "is_default_site": true
-  }
-},
-{
-  "model": "users.user",
-  "pk": 1,
-  "fields": {
-    "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$RXlnbm93NmY0ZFFxYWVrNEJ6djg2NA$rAjVZvcbClxCm2LQMgDIDP/Y1kznNMIxADDWYipWvLw",
-    "last_login": null,
-    "is_superuser": true,
-    "username": "demo",
-    "first_name": "",
-    "last_name": "",
-    "email": "demo@asyquote.example",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2026-08-24T17:52:09.276Z",
-    "receive_email": false,
-    "development_help": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "account.emailaddress",
-  "pk": 1,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "email": "demo@asyquote.example",
-    "verified": true,
-    "primary": true
-  }
-},
-{
-  "model": "clients.client",
-  "pk": 1,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "name": "Construções Vale Douro, Lda.",
-    "email": "geral@valedouro.example",
-    "phone": "220110480",
-    "address": "Rua das Oliveiras 128, 4050-449 Porto",
-    "nif": "501312340",
-    "value": "0"
-  }
-},
-{
-  "model": "clients.client",
-  "pk": 2,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "name": "Imobiliária Foz Nova, S.A.",
-    "email": "obras@foznova.example",
-    "phone": "220334871",
-    "address": "Avenida da Boavista 2210, 4100-120 Porto",
-    "nif": "502783915",
-    "value": "0"
-  }
-},
-{
-  "model": "clients.client",
-  "pk": 3,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "name": "Ana Ribeiro Teixeira",
-    "email": "ana.teixeira@exemplo.example",
-    "phone": "912450889",
-    "address": "Travessa do Carvalhido 17, 4250-166 Porto",
-    "nif": "217449026",
-    "value": "0"
-  }
-},
-{
-  "model": "clients.client",
-  "pk": 4,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "name": "Câmara Municipal de Vila Nova (piloto)",
-    "email": "obras@cmvilanova.example",
-    "phone": "227889310",
-    "address": "Praça do Município 1, 4400-018 Vila Nova de Gaia",
-    "nif": "500445184",
-    "value": "0"
-  }
-},
-{
-  "model": "clients.client",
-  "pk": 5,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "name": "Remodelações Serra & Filhos",
-    "email": "orcamentos@serrafilhos.example",
-    "phone": "935112764",
-    "address": "Rua de Santa Catarina 908, 4000-447 Porto",
-    "nif": "503902764",
-    "value": "0"
-  }
-},
-{
-  "model": "products.supplier",
-  "pk": 1,
-  "fields": {
-    "name_supplier": "Materiais Nortenho",
-    "image_supplier": ""
-  }
-},
-{
-  "model": "products.supplier",
-  "pk": 2,
-  "fields": {
-    "name_supplier": "Depósito do Construtor",
-    "image_supplier": ""
-  }
-},
-{
-  "model": "products.category",
-  "pk": 1,
-  "fields": {
-    "name_category": "Pavimentos e Revestimentos"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 2,
-  "fields": {
-    "name_category": "Canalizações e Saneamento"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 3,
-  "fields": {
-    "name_category": "Eletricidade e Comunicações"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 4,
-  "fields": {
-    "name_category": "Pintura"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 5,
-  "fields": {
-    "name_category": "Ferramentas"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 1,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/1",
-    "supplier": 1,
-    "price": "12.49"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 2,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/1",
-    "supplier": 2,
-    "price": "13.90"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 3,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/2",
-    "supplier": 1,
-    "price": "4.15"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 4,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/2",
-    "supplier": 2,
-    "price": "3.95"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 5,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/3",
-    "supplier": 1,
-    "price": "8.75"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 6,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/3",
-    "supplier": 2,
-    "price": "9.20"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 7,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/4",
-    "supplier": 1,
-    "price": "7.30"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 8,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/4",
-    "supplier": 2,
-    "price": "6.85"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 9,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/5",
-    "supplier": 1,
-    "price": "9.60"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 10,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/5",
-    "supplier": 2,
-    "price": "10.45"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 11,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/6",
-    "supplier": 1,
-    "price": "5.20"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 12,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/6",
-    "supplier": 2,
-    "price": "4.99"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 13,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/7",
-    "supplier": 1,
-    "price": "34.90"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 14,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/7",
-    "supplier": 2,
-    "price": "38.50"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 15,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/8",
-    "supplier": 1,
-    "price": "48.00"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 16,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/8",
-    "supplier": 2,
-    "price": "45.75"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 17,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/9",
-    "supplier": 1,
-    "price": "22.40"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 18,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/9",
-    "supplier": 2,
-    "price": "24.10"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 19,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/10",
-    "supplier": 1,
-    "price": "3.45"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 20,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/10",
-    "supplier": 2,
-    "price": "3.20"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 21,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/11",
-    "supplier": 1,
-    "price": "39.90"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 22,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/11",
-    "supplier": 2,
-    "price": "42.30"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 23,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/12",
-    "supplier": 1,
-    "price": "18.60"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 24,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/12",
-    "supplier": 2,
-    "price": "17.95"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 25,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/13",
-    "supplier": 1,
-    "price": "6.10"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 26,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/13",
-    "supplier": 2,
-    "price": "5.80"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 27,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/14",
-    "supplier": 1,
-    "price": "89.00"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 28,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/14",
-    "supplier": 2,
-    "price": "94.50"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 29,
-  "fields": {
-    "url": "https://materiais-nortenho.example/p/15",
-    "supplier": 1,
-    "price": "119.00"
-  }
-},
-{
-  "model": "products.links",
-  "pk": 30,
-  "fields": {
-    "url": "https://deposito-construtor.example/p/15",
-    "supplier": 2,
-    "price": "112.00"
-  }
-},
-{
-  "model": "products.products",
-  "pk": 1,
-  "fields": {
-    "image": "",
-    "title": "Pavimento flutuante carvalho natural 8mm (m²)",
-    "categories": 1,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      1,
-      2
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 2,
-  "fields": {
-    "image": "",
-    "title": "Rodapé MDF branco 2.4m",
-    "categories": 1,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      3,
-      4
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 3,
-  "fields": {
-    "image": "",
-    "title": "Azulejo cerâmico branco 20x20cm (m²)",
-    "categories": 1,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      5,
-      6
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 4,
-  "fields": {
-    "image": "",
-    "title": "Cola para ladrilhos cinza 25kg",
-    "categories": 1,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      7,
-      8
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 5,
-  "fields": {
-    "image": "",
-    "title": "Tubo PVC 110mm esgoto 3m",
-    "categories": 2,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      9,
-      10
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 6,
-  "fields": {
-    "image": "",
-    "title": "Sifão universal lavatório",
-    "categories": 2,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      11,
-      12
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 7,
-  "fields": {
-    "image": "",
-    "title": "Torneira monocomando lavatório cromada",
-    "categories": 2,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      13,
-      14
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 8,
-  "fields": {
-    "image": "",
-    "title": "Cabo elétrico H07V-K 2.5mm² (rolo 100m)",
-    "categories": 3,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      15,
-      16
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 9,
-  "fields": {
-    "image": "",
-    "title": "Quadro elétrico embutir 12 módulos",
-    "categories": 3,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      17,
-      18
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 10,
-  "fields": {
-    "image": "",
-    "title": "Tomada schuko branca com terra",
-    "categories": 3,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      19,
-      20
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 11,
-  "fields": {
-    "image": "",
-    "title": "Tinta plástica interior branca 15L",
-    "categories": 4,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      21,
-      22
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 12,
-  "fields": {
-    "image": "",
-    "title": "Primário selante aquoso 5L",
-    "categories": 4,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      23,
-      24
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 13,
-  "fields": {
-    "image": "",
-    "title": "Rolo de pintura antigota 25cm",
-    "categories": 4,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      25,
-      26
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 14,
-  "fields": {
-    "image": "",
-    "title": "Nível laser autonivelante 2 linhas",
-    "categories": 5,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      27,
-      28
-    ]
-  }
-},
-{
-  "model": "products.products",
-  "pk": 15,
-  "fields": {
-    "image": "",
-    "title": "Martelo perfurador SDS-Plus 800W",
-    "categories": 5,
-    "suppliers": [
-      1,
-      2
-    ],
-    "links": [
-      29,
-      30
-    ]
-  }
-},
-{
-  "model": "projects.project",
-  "pk": 1,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "quote_number": "18",
-    "image": "",
-    "title": "Remodelação de apartamento T3 - Foz",
-    "address": "Rua do Molhe 412, Porto",
-    "client": 2,
-    "value": "7267.00",
-    "state": "EM EXECUÇÃO",
-    "key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "created_at": "2026-08-24T17:52:09.408Z"
-  }
-},
-{
-  "model": "projects.project",
-  "pk": 2,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "quote_number": "21",
-    "image": "",
-    "title": "Construção de muro de vedação",
-    "address": "Quinta da Bouça, Vila Nova de Gaia",
-    "client": 4,
-    "value": "4535.00",
-    "state": "EM ESPERA",
-    "key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "created_at": "2026-08-24T17:52:09.415Z"
-  }
-},
-{
-  "model": "projects.project",
-  "pk": 3,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "quote_number": "09",
-    "image": "",
-    "title": "Casa de banho de serviço - Boavista",
-    "address": "Avenida da Boavista 1180, Porto",
-    "client": 1,
-    "value": "1248.00",
-    "state": "CONCLUÍDO",
-    "key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "created_at": "2026-08-24T17:52:09.417Z"
-  }
-},
-{
-  "model": "projects.project",
-  "pk": 4,
-  "fields": {
-    "user": [
-      "demo"
-    ],
-    "quote_number": "44",
-    "image": "",
-    "title": "Substituição de cobertura - armazém",
-    "address": "Zona Industrial de Canelas, Vila Nova de Gaia",
-    "client": 5,
-    "value": "11120.00",
-    "state": "PERDIDO",
-    "key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "created_at": "2026-08-24T17:52:09.418Z"
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 1,
-  "fields": {
-    "name": "Demolições e preparação",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 2,
-  "fields": {
-    "name": "Pavimentos e revestimentos",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 3,
-  "fields": {
-    "name": "Instalações",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 4,
-  "fields": {
-    "name": "Pintura",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_count": "4",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 5,
-  "fields": {
-    "name": "Movimentação de terras",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 6,
-  "fields": {
-    "name": "Estrutura",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 7,
-  "fields": {
-    "name": "Casa de banho",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.sectionquote",
-  "pk": 8,
-  "fields": {
-    "name": "Cobertura",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 1,
-  "fields": {
-    "name": "Remoção de pavimento cerâmico existente",
-    "quantity": "68 m2",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "1",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 2,
-  "fields": {
-    "name": "Picagem de paredes da cozinha",
-    "quantity": "24 m2",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "1",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 3,
-  "fields": {
-    "name": "Assentamento de pavimento flutuante",
-    "quantity": "68 m2",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 4,
-  "fields": {
-    "name": "Azulejo cerâmico em cozinha e casas de banho",
-    "quantity": "31 m2",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 5,
-  "fields": {
-    "name": "Substituição de rede de águas em cozinha",
-    "quantity": "1 un",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 6,
-  "fields": {
-    "name": "Reforço de quadro elétrico",
-    "quantity": "1 un",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 7,
-  "fields": {
-    "name": "Pintura geral de paredes e tetos",
-    "quantity": "196 m2",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "4",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 8,
-  "fields": {
-    "name": "Abertura de vala para fundação",
-    "quantity": "42 m",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "1",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 9,
-  "fields": {
-    "name": "Execução de muro em blocos de cimento",
-    "quantity": "63 m2",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 10,
-  "fields": {
-    "name": "Capeamento do muro",
-    "quantity": "42 m",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 11,
-  "fields": {
-    "name": "Substituição de louças e torneiras",
-    "quantity": "1 un",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 12,
-  "fields": {
-    "name": "Impermeabilização e azulejo",
-    "quantity": "18 m2",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 13,
-  "fields": {
-    "name": "Remoção de chapa de fibrocimento",
-    "quantity": "310 m2",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_key": "1",
-    "service_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.servicesquote",
-  "pk": 14,
-  "fields": {
-    "name": "Aplicação de painel sandwich",
-    "quantity": "310 m2",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_key": "1",
-    "service_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 1,
-  "fields": {
-    "description": "Mão de obra 2 operários",
-    "cost": "480.00",
-    "charged": "760.00",
-    "profit_money": "280.00",
-    "profit_percentage": "58.333333333333336",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 2,
-  "fields": {
-    "description": "Aluguer de contentor de entulho",
-    "cost": "180.00",
-    "charged": "230.00",
-    "profit_money": "50.00",
-    "profit_percentage": "27.77777777777778",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 3,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "210.00",
-    "charged": "340.00",
-    "profit_money": "130.00",
-    "profit_percentage": "61.904761904761905",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "1",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 4,
-  "fields": {
-    "description": "Pavimento flutuante carvalho 8mm",
-    "cost": "849.32",
-    "charged": "1120.00",
-    "profit_money": "270.68",
-    "profit_percentage": "31.870202043988122",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 5,
-  "fields": {
-    "description": "Rodapé MDF branco",
-    "cost": "94.80",
-    "charged": "145.00",
-    "profit_money": "50.20",
-    "profit_percentage": "52.953586497890306",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 6,
-  "fields": {
-    "description": "Mão de obra de assentamento",
-    "cost": "540.00",
-    "charged": "820.00",
-    "profit_money": "280.00",
-    "profit_percentage": "51.85185185185185",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 7,
-  "fields": {
-    "description": "Azulejo branco 20x20",
-    "cost": "271.25",
-    "charged": "372.00",
-    "profit_money": "100.75",
-    "profit_percentage": "37.142857142857146",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 8,
-  "fields": {
-    "description": "Cola para ladrilhos",
-    "cost": "58.40",
-    "charged": "82.00",
-    "profit_money": "23.60",
-    "profit_percentage": "40.41095890410959",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "2",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 9,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "465.00",
-    "charged": "700.00",
-    "profit_money": "235.00",
-    "profit_percentage": "50.53763440860215",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "2",
-    "services_key": "2",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 10,
-  "fields": {
-    "description": "Material de canalização",
-    "cost": "186.40",
-    "charged": "255.00",
-    "profit_money": "68.60",
-    "profit_percentage": "36.80257510729613",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 11,
-  "fields": {
-    "description": "Mão de obra especializada",
-    "cost": "320.00",
-    "charged": "520.00",
-    "profit_money": "200.00",
-    "profit_percentage": "62.5",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 12,
-  "fields": {
-    "description": "Quadro elétrico 12 módulos",
-    "cost": "22.40",
-    "charged": "38.00",
-    "profit_money": "15.60",
-    "profit_percentage": "69.64285714285715",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 13,
-  "fields": {
-    "description": "Cabo e tomadas",
-    "cost": "97.35",
-    "charged": "145.00",
-    "profit_money": "47.65",
-    "profit_percentage": "48.94709809964048",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "services_key": "2",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 14,
-  "fields": {
-    "description": "Mão de obra de eletricista",
-    "cost": "280.00",
-    "charged": "440.00",
-    "profit_money": "160.00",
-    "profit_percentage": "57.14285714285714",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "3",
-    "services_key": "2",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 15,
-  "fields": {
-    "description": "Tinta plástica interior 15L x3",
-    "cost": "119.70",
-    "charged": "168.00",
-    "profit_money": "48.30",
-    "profit_percentage": "40.35087719298245",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "4",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 16,
-  "fields": {
-    "description": "Primário selante",
-    "cost": "37.20",
-    "charged": "52.00",
-    "profit_money": "14.80",
-    "profit_percentage": "39.78494623655913",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "4",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 17,
-  "fields": {
-    "description": "Mão de obra de pintura",
-    "cost": "690.00",
-    "charged": "1080.00",
-    "profit_money": "390.00",
-    "profit_percentage": "56.52173913043478",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4",
-    "section_key": "4",
-    "services_key": "1",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 18,
-  "fields": {
-    "description": "Aluguer de retroescavadora",
-    "cost": "420.00",
-    "charged": "580.00",
-    "profit_money": "160.00",
-    "profit_percentage": "38.095238095238095",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 19,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "260.00",
-    "charged": "400.00",
-    "profit_money": "140.00",
-    "profit_percentage": "53.84615384615385",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 20,
-  "fields": {
-    "description": "Blocos e cimento",
-    "cost": "710.00",
-    "charged": "980.00",
-    "profit_money": "270.00",
-    "profit_percentage": "38.028169014084504",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 21,
-  "fields": {
-    "description": "Ferro de armadura",
-    "cost": "265.00",
-    "charged": "355.00",
-    "profit_money": "90.00",
-    "profit_percentage": "33.9622641509434",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 22,
-  "fields": {
-    "description": "Mão de obra de alvenaria",
-    "cost": "980.00",
-    "charged": "1520.00",
-    "profit_money": "540.00",
-    "profit_percentage": "55.10204081632652",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "services_key": "1",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 23,
-  "fields": {
-    "description": "Capeamento pré-fabricado",
-    "cost": "294.00",
-    "charged": "410.00",
-    "profit_money": "116.00",
-    "profit_percentage": "39.455782312925166",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 24,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "180.00",
-    "charged": "290.00",
-    "profit_money": "110.00",
-    "profit_percentage": "61.111111111111114",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e",
-    "section_key": "2",
-    "services_key": "2",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 25,
-  "fields": {
-    "description": "Torneira monocomando cromada",
-    "cost": "34.90",
-    "charged": "62.00",
-    "profit_money": "27.10",
-    "profit_percentage": "77.65042979942695",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 26,
-  "fields": {
-    "description": "Sifão e acessórios",
-    "cost": "28.60",
-    "charged": "48.00",
-    "profit_money": "19.40",
-    "profit_percentage": "67.83216783216783",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 27,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "240.00",
-    "charged": "390.00",
-    "profit_money": "150.00",
-    "profit_percentage": "62.5",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "3",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 28,
-  "fields": {
-    "description": "Material",
-    "cost": "196.30",
-    "charged": "268.00",
-    "profit_money": "71.70",
-    "profit_percentage": "36.52572592969943",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 29,
-  "fields": {
-    "description": "Mão de obra",
-    "cost": "310.00",
-    "charged": "480.00",
-    "profit_money": "170.00",
-    "profit_percentage": "54.83870967741935",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf",
-    "section_key": "1",
-    "services_key": "2",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 30,
-  "fields": {
-    "description": "Remoção e transporte especializado",
-    "cost": "2100.00",
-    "charged": "2750.00",
-    "profit_money": "650.00",
-    "profit_percentage": "30.952380952380953",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_key": "1",
-    "services_key": "1",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 31,
-  "fields": {
-    "description": "Painel sandwich 40mm",
-    "cost": "4340.00",
-    "charged": "5580.00",
-    "profit_money": "1240.00",
-    "profit_percentage": "28.57142857142857",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_key": "1",
-    "services_key": "2",
-    "prices_count": "1",
-    "visible": true
-  }
-},
-{
-  "model": "projects.pricesquote",
-  "pk": 32,
-  "fields": {
-    "description": "Mão de obra e montagem",
-    "cost": "1860.00",
-    "charged": "2790.00",
-    "profit_money": "930.00",
-    "profit_percentage": "50.0",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b",
-    "section_key": "1",
-    "services_key": "2",
-    "prices_count": "2",
-    "visible": true
-  }
-},
-{
-  "model": "projects.notes",
-  "pk": 1,
-  "fields": {
-    "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-    "project_key": "9b7963db-76a0-46d9-be38-43aa281646d4"
-  }
-},
-{
-  "model": "projects.notes",
-  "pk": 2,
-  "fields": {
-    "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-    "project_key": "cbfd6829-7db4-4dcc-96ba-11c0b9e4870e"
-  }
-},
-{
-  "model": "projects.notes",
-  "pk": 3,
-  "fields": {
-    "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-    "project_key": "47bc7db4-9841-47d6-abd7-759429e2a4cf"
-  }
-},
-{
-  "model": "projects.notes",
-  "pk": 4,
-  "fields": {
-    "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
-    "project_key": "8a671f3f-4d09-4565-809e-f2d76d4dba7b"
-  }
-},
-{
-  "model": "landingpage.additionalinformation",
-  "pk": 1,
-  "fields": {
-    "additional_information_text": "Termos de uso",
-    "additional_information_href": "termos-uso/"
-  }
-},
-{
-  "model": "landingpage.additionalinformation",
-  "pk": 2,
-  "fields": {
-    "additional_information_text": "Política de privacidade",
-    "additional_information_href": "politica-privacidade/"
-  }
-},
-{
-  "model": "landingpage.additionalinformation",
-  "pk": 3,
-  "fields": {
-    "additional_information_text": "Créditos",
-    "additional_information_href": "creditos/"
-  }
-},
-{
-  "model": "landingpage.websitepages",
-  "pk": 1,
-  "fields": {
-    "text_pages": "Início",
-    "pages_href": ""
-  }
-},
-{
-  "model": "landingpage.websitepages",
-  "pk": 2,
-  "fields": {
-    "text_pages": "Orçamentos",
-    "pages_href": "project_list"
-  }
-},
-{
-  "model": "landingpage.websitepages",
-  "pk": 3,
-  "fields": {
-    "text_pages": "Produtos",
-    "pages_href": "products_page"
-  }
-},
-{
-  "model": "landingpage.websitepages",
-  "pk": 4,
-  "fields": {
-    "text_pages": "Clientes",
-    "pages_href": "client_list"
-  }
-},
-{
-  "model": "landingpage.footercontact",
-  "pk": 1,
-  "fields": {
-    "information_image": null,
-    "information": "geral@asyquote.example",
-    "information_url": "mailto:geral@asyquote.example"
-  }
-},
-{
-  "model": "landingpage.footercontact",
-  "pk": 2,
-  "fields": {
-    "information_image": null,
-    "information": "Porto, Portugal",
-    "information_url": ""
-  }
-},
-{
-  "model": "landingpage.footertitles",
-  "pk": 1,
-  "fields": {
-    "footer_navigation_title": "Navegação",
-    "footer_contact_title": "Contacto",
-    "copyright": "© 2024 AsyQuote — projeto de demonstração"
-  }
-},
-{
-  "model": "landingpage.reviewhome",
-  "pk": 1,
-  "fields": {
-    "sort_order": 1,
-    "page": 3,
-    "review_card": null,
-    "title_card": "Deixámos de perder propostas por demora",
-    "paragraph_card": "Antes levávamos dois dias a montar um orçamento de remodelação. Agora sai no mesmo dia da visita.",
-    "letters_circle_card": "MC",
-    "name_of_the_person_card": "Miguel Cardoso",
-    "function_of_the_person_card": "Sócio-gerente, empresa de remodelações"
-  }
-},
-{
-  "model": "landingpage.reviewhome",
-  "pk": 2,
-  "fields": {
-    "sort_order": 2,
-    "page": 3,
-    "review_card": null,
-    "title_card": "A margem deixou de ser um palpite",
-    "paragraph_card": "Ver o custo e o valor cobrado lado a lado em cada linha mudou a forma como fazemos preços.",
-    "letters_circle_card": "SL",
-    "name_of_the_person_card": "Sofia Lemos",
-    "function_of_the_person_card": "Responsável de orçamentação"
-  }
-},
-{
-  "model": "landingpage.reviewhome",
-  "pk": 3,
-  "fields": {
-    "sort_order": 3,
-    "page": 3,
-    "review_card": null,
-    "title_card": "O cliente recebe algo apresentável",
-    "paragraph_card": "O ficheiro que sai já está formatado por capítulos. Não temos de mexer mais nada.",
-    "letters_circle_card": "RF",
-    "name_of_the_person_card": "Rui Faria",
-    "function_of_the_person_card": "Encarregado de obra"
-  }
-},
-{
-  "model": "landingpage.faqs",
-  "pk": 1,
-  "fields": {
-    "sort_order": 1,
-    "page": 3,
-    "question": "Preciso de instalar alguma coisa?",
-    "answer": "Não. O AsyQuote corre no navegador.",
-    "text_href": null,
-    "href_url": null
-  }
-},
-{
-  "model": "landingpage.faqs",
-  "pk": 2,
-  "fields": {
-    "sort_order": 2,
-    "page": 3,
-    "question": "Posso usar os meus próprios preços?",
-    "answer": "Sim. Cada linha aceita um custo e um valor cobrado próprios.",
-    "text_href": null,
-    "href_url": null
-  }
-},
-{
-  "model": "landingpage.faqs",
-  "pk": 3,
-  "fields": {
-    "sort_order": 3,
-    "page": 3,
-    "question": "Como funciona a margem?",
-    "answer": "Escreva a percentagem no campo de valor cobrado e prima %; o valor é calculado a partir do custo da linha.",
-    "text_href": null,
-    "href_url": null
-  }
-},
-{
-  "model": "landingpage.faqs",
-  "pk": 4,
-  "fields": {
-    "sort_order": 4,
-    "page": 3,
-    "question": "O orçamento sai em PDF?",
-    "answer": "A exportação é em Excel, já formatada para imprimir ou guardar como PDF.",
-    "text_href": null,
-    "href_url": null
-  }
-},
-{
-  "model": "landingpage.homepage",
-  "pk": 3,
-  "fields": {
-    "hero_image": null,
-    "hero_title": "Orçamentos de obra em minutos, não em folhas de Excel",
-    "hero_paragraph": "<p>Monte propostas por capítulos, controle a margem linha a linha e exporte um orçamento pronto a enviar ao cliente.</p>",
-    "uses_title": "Feito para quem orça obras todos os dias",
-    "uses_image": "[]",
-    "about_title_1": "Construtor por capítulos",
-    "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
-    "about_image_1": null,
-    "about_title_2": "Catálogo de fornecedores",
-    "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
-    "about_image_2": null,
-    "about_title_3": "Exportação para Excel",
-    "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
-    "about_image_3": null,
-    "review_title": "O que dizem quem já usou",
-    "faqs_title": "Perguntas frequentes",
-    "action_title": "Experimente o construtor de orçamentos",
-    "action_benefit": "Sem instalação. Basta uma conta."
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 1,
-  "fields": {
-    "content_type": [
-      "landingpage",
-      "homepage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "3",
-    "submitted_for_moderation": false,
-    "created_at": "2026-08-24T17:52:09.455Z",
-    "user": null,
-    "object_str": "AsyQuote",
-    "content": {
-      "pk": 3,
-      "faqs": [],
-      "live": true,
-      "path": "00010002",
-      "slug": "home",
-      "depth": 2,
-      "owner": null,
-      "title": "AsyQuote",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/home/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "faqs_title": "Perguntas frequentes",
-      "go_live_at": null,
+  {
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+      "domain": "localhost:8000",
+      "name": "AsyQuote"
+    }
+  },
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "pt"
+    }
+  },
+  {
+    "model": "wagtailcore.site",
+    "pk": 1,
+    "fields": {
+      "hostname": "localhost",
+      "port": 8000,
+      "site_name": "AsyQuote",
+      "root_page": 3,
+      "is_default_site": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$d1hCR21MT3ZPMkFhc0t3ZWJUSlpHRA$h6IpcA2n5xOiK72s4ZwNafT0MrfNK/WVqYBvFZo4Ib8",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "demo",
+      "first_name": "",
+      "last_name": "",
+      "email": "demo@asyquote.example",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-08-24T18:08:29.235Z",
+      "receive_email": false,
+      "development_help": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+      "user": ["demo"],
+      "email": "demo@asyquote.example",
+      "verified": true,
+      "primary": true
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 1,
+    "fields": {
+      "user": ["demo"],
+      "name": "Construções Vale Douro, Lda.",
+      "email": "geral@valedouro.example",
+      "phone": "220110480",
+      "address": "Rua das Oliveiras 128, 4050-449 Porto",
+      "nif": "501312340",
+      "value": "0"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 2,
+    "fields": {
+      "user": ["demo"],
+      "name": "Imobiliária Foz Nova, S.A.",
+      "email": "obras@foznova.example",
+      "phone": "220334871",
+      "address": "Avenida da Boavista 2210, 4100-120 Porto",
+      "nif": "502783915",
+      "value": "0"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 3,
+    "fields": {
+      "user": ["demo"],
+      "name": "Ana Ribeiro Teixeira",
+      "email": "ana.teixeira@exemplo.example",
+      "phone": "912450889",
+      "address": "Travessa do Carvalhido 17, 4250-166 Porto",
+      "nif": "217449026",
+      "value": "0"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 4,
+    "fields": {
+      "user": ["demo"],
+      "name": "Câmara Municipal de Vila Nova (piloto)",
+      "email": "obras@cmvilanova.example",
+      "phone": "227889310",
+      "address": "Praça do Município 1, 4400-018 Vila Nova de Gaia",
+      "nif": "500445184",
+      "value": "0"
+    }
+  },
+  {
+    "model": "clients.client",
+    "pk": 5,
+    "fields": {
+      "user": ["demo"],
+      "name": "Remodelações Serra & Filhos",
+      "email": "orcamentos@serrafilhos.example",
+      "phone": "935112764",
+      "address": "Rua de Santa Catarina 908, 4000-447 Porto",
+      "nif": "503902764",
+      "value": "0"
+    }
+  },
+  {
+    "model": "products.supplier",
+    "pk": 1,
+    "fields": {
+      "name_supplier": "Materiais Nortenho",
+      "image_supplier": ""
+    }
+  },
+  {
+    "model": "products.supplier",
+    "pk": 2,
+    "fields": {
+      "name_supplier": "Depósito do Construtor",
+      "image_supplier": ""
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name_category": "Pavimentos e Revestimentos"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name_category": "Canalizações e Saneamento"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+      "name_category": "Eletricidade e Comunicações"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+      "name_category": "Pintura"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name_category": "Ferramentas"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 1,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/1",
+      "supplier": 1,
+      "price": "12.49"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 2,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/1",
+      "supplier": 2,
+      "price": "13.90"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 3,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/2",
+      "supplier": 1,
+      "price": "4.15"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 4,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/2",
+      "supplier": 2,
+      "price": "3.95"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 5,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/3",
+      "supplier": 1,
+      "price": "8.75"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 6,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/3",
+      "supplier": 2,
+      "price": "9.20"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 7,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/4",
+      "supplier": 1,
+      "price": "7.30"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 8,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/4",
+      "supplier": 2,
+      "price": "6.85"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 9,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/5",
+      "supplier": 1,
+      "price": "9.60"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 10,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/5",
+      "supplier": 2,
+      "price": "10.45"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 11,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/6",
+      "supplier": 1,
+      "price": "5.20"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 12,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/6",
+      "supplier": 2,
+      "price": "4.99"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 13,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/7",
+      "supplier": 1,
+      "price": "34.90"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 14,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/7",
+      "supplier": 2,
+      "price": "38.50"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 15,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/8",
+      "supplier": 1,
+      "price": "48.00"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 16,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/8",
+      "supplier": 2,
+      "price": "45.75"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 17,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/9",
+      "supplier": 1,
+      "price": "22.40"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 18,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/9",
+      "supplier": 2,
+      "price": "24.10"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 19,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/10",
+      "supplier": 1,
+      "price": "3.45"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 20,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/10",
+      "supplier": 2,
+      "price": "3.20"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 21,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/11",
+      "supplier": 1,
+      "price": "39.90"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 22,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/11",
+      "supplier": 2,
+      "price": "42.30"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 23,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/12",
+      "supplier": 1,
+      "price": "18.60"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 24,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/12",
+      "supplier": 2,
+      "price": "17.95"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 25,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/13",
+      "supplier": 1,
+      "price": "6.10"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 26,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/13",
+      "supplier": 2,
+      "price": "5.80"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 27,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/14",
+      "supplier": 1,
+      "price": "89.00"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 28,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/14",
+      "supplier": 2,
+      "price": "94.50"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 29,
+    "fields": {
+      "url": "https://materiais-nortenho.example/p/15",
+      "supplier": 1,
+      "price": "119.00"
+    }
+  },
+  {
+    "model": "products.links",
+    "pk": 30,
+    "fields": {
+      "url": "https://deposito-construtor.example/p/15",
+      "supplier": 2,
+      "price": "112.00"
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 1,
+    "fields": {
+      "image": "",
+      "title": "Pavimento flutuante carvalho natural 8mm (m²)",
+      "categories": 1,
+      "suppliers": [1, 2],
+      "links": [1, 2]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 2,
+    "fields": {
+      "image": "",
+      "title": "Rodapé MDF branco 2.4m",
+      "categories": 1,
+      "suppliers": [1, 2],
+      "links": [3, 4]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 3,
+    "fields": {
+      "image": "",
+      "title": "Azulejo cerâmico branco 20x20cm (m²)",
+      "categories": 1,
+      "suppliers": [1, 2],
+      "links": [5, 6]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 4,
+    "fields": {
+      "image": "",
+      "title": "Cola para ladrilhos cinza 25kg",
+      "categories": 1,
+      "suppliers": [1, 2],
+      "links": [7, 8]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 5,
+    "fields": {
+      "image": "",
+      "title": "Tubo PVC 110mm esgoto 3m",
+      "categories": 2,
+      "suppliers": [1, 2],
+      "links": [9, 10]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 6,
+    "fields": {
+      "image": "",
+      "title": "Sifão universal lavatório",
+      "categories": 2,
+      "suppliers": [1, 2],
+      "links": [11, 12]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 7,
+    "fields": {
+      "image": "",
+      "title": "Torneira monocomando lavatório cromada",
+      "categories": 2,
+      "suppliers": [1, 2],
+      "links": [13, 14]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 8,
+    "fields": {
+      "image": "",
+      "title": "Cabo elétrico H07V-K 2.5mm² (rolo 100m)",
+      "categories": 3,
+      "suppliers": [1, 2],
+      "links": [15, 16]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 9,
+    "fields": {
+      "image": "",
+      "title": "Quadro elétrico embutir 12 módulos",
+      "categories": 3,
+      "suppliers": [1, 2],
+      "links": [17, 18]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 10,
+    "fields": {
+      "image": "",
+      "title": "Tomada schuko branca com terra",
+      "categories": 3,
+      "suppliers": [1, 2],
+      "links": [19, 20]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 11,
+    "fields": {
+      "image": "",
+      "title": "Tinta plástica interior branca 15L",
+      "categories": 4,
+      "suppliers": [1, 2],
+      "links": [21, 22]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 12,
+    "fields": {
+      "image": "",
+      "title": "Primário selante aquoso 5L",
+      "categories": 4,
+      "suppliers": [1, 2],
+      "links": [23, 24]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 13,
+    "fields": {
+      "image": "",
+      "title": "Rolo de pintura antigota 25cm",
+      "categories": 4,
+      "suppliers": [1, 2],
+      "links": [25, 26]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 14,
+    "fields": {
+      "image": "",
+      "title": "Nível laser autonivelante 2 linhas",
+      "categories": 5,
+      "suppliers": [1, 2],
+      "links": [27, 28]
+    }
+  },
+  {
+    "model": "products.products",
+    "pk": 15,
+    "fields": {
+      "image": "",
+      "title": "Martelo perfurador SDS-Plus 800W",
+      "categories": 5,
+      "suppliers": [1, 2],
+      "links": [29, 30]
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 1,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "18",
+      "image": "",
+      "title": "Remodelação T3 na Foz",
+      "address": "Rua do Molhe 412, Porto",
+      "client": 2,
+      "value": "7267.00",
+      "state": "EM EXECUÇÃO",
+      "key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "created_at": "2026-08-24T18:08:29.364Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 2,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "21",
+      "image": "",
+      "title": "Muro de vedação em Gaia",
+      "address": "Quinta da Bouça, Vila Nova de Gaia",
+      "client": 4,
+      "value": "4535.00",
+      "state": "EM ESPERA",
+      "key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "created_at": "2026-08-24T18:08:29.369Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 3,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "09",
+      "image": "",
+      "title": "Casa de banho Boavista",
+      "address": "Avenida da Boavista 1180, Porto",
+      "client": 1,
+      "value": "1248.00",
+      "state": "CONCLUÍDO",
+      "key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "created_at": "2026-08-24T18:08:29.371Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 4,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "44",
+      "image": "",
+      "title": "Cobertura de armazém",
+      "address": "Zona Industrial de Canelas, Vila Nova de Gaia",
+      "client": 5,
+      "value": "11120.00",
+      "state": "PERDIDO",
+      "key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "created_at": "2026-08-24T18:08:29.372Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 5,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "22",
+      "image": "",
+      "title": "Cozinha em Matosinhos",
+      "address": "Rua Brito Capelo 340, Matosinhos",
+      "client": 3,
+      "value": "2385.00",
+      "state": "EM ESPERA",
+      "key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "created_at": "2026-08-24T18:08:29.373Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 6,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "23",
+      "image": "",
+      "title": "Escritório na Baixa",
+      "address": "Rua de Sá da Bandeira 78, Porto",
+      "client": 2,
+      "value": "5150.00",
+      "state": "EM ESPERA",
+      "key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "created_at": "2026-08-24T18:08:29.374Z"
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 7,
+    "fields": {
+      "user": ["demo"],
+      "quote_number": "19",
+      "image": "",
+      "title": "Fachada em Campanhã",
+      "address": "Rua do Freixo 1204, Porto",
+      "client": 1,
+      "value": "5150.00",
+      "state": "EM EXECUÇÃO",
+      "key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "created_at": "2026-08-24T18:08:29.376Z"
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 1,
+    "fields": {
+      "name": "Demolições e preparação",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 2,
+    "fields": {
+      "name": "Pavimentos e revestimentos",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 3,
+    "fields": {
+      "name": "Instalações",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 4,
+    "fields": {
+      "name": "Pintura",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_count": "4",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 5,
+    "fields": {
+      "name": "Movimentação de terras",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 6,
+    "fields": {
+      "name": "Estrutura",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 7,
+    "fields": {
+      "name": "Casa de banho",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 8,
+    "fields": {
+      "name": "Cobertura",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 9,
+    "fields": {
+      "name": "Cozinha",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 10,
+    "fields": {
+      "name": "Divisórias e tetos",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 11,
+    "fields": {
+      "name": "Pintura",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.sectionquote",
+    "pk": 12,
+    "fields": {
+      "name": "Fachada",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 1,
+    "fields": {
+      "name": "Remoção de pavimento cerâmico existente",
+      "quantity": "68 m2",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 2,
+    "fields": {
+      "name": "Picagem de paredes da cozinha",
+      "quantity": "24 m2",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 3,
+    "fields": {
+      "name": "Assentamento de pavimento flutuante",
+      "quantity": "68 m2",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 4,
+    "fields": {
+      "name": "Azulejo cerâmico em cozinha e casas de banho",
+      "quantity": "31 m2",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 5,
+    "fields": {
+      "name": "Substituição de rede de águas em cozinha",
+      "quantity": "1 un",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 6,
+    "fields": {
+      "name": "Reforço de quadro elétrico",
+      "quantity": "1 un",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 7,
+    "fields": {
+      "name": "Pintura geral de paredes e tetos",
+      "quantity": "196 m2",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "4",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 8,
+    "fields": {
+      "name": "Abertura de vala para fundação",
+      "quantity": "42 m",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 9,
+    "fields": {
+      "name": "Execução de muro em blocos de cimento",
+      "quantity": "63 m2",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 10,
+    "fields": {
+      "name": "Capeamento do muro",
+      "quantity": "42 m",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 11,
+    "fields": {
+      "name": "Substituição de louças e torneiras",
+      "quantity": "1 un",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 12,
+    "fields": {
+      "name": "Impermeabilização e azulejo",
+      "quantity": "18 m2",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 13,
+    "fields": {
+      "name": "Remoção de chapa de fibrocimento",
+      "quantity": "310 m2",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 14,
+    "fields": {
+      "name": "Aplicação de painel sandwich",
+      "quantity": "310 m2",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 15,
+    "fields": {
+      "name": "Desmontagem de mobiliário existente",
+      "quantity": "1 un",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 16,
+    "fields": {
+      "name": "Assentamento de azulejo e bancada",
+      "quantity": "14 m2",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 17,
+    "fields": {
+      "name": "Instalação de eletrodomésticos",
+      "quantity": "4 un",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "service_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 18,
+    "fields": {
+      "name": "Montagem de divisórias em pladur",
+      "quantity": "46 m2",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 19,
+    "fields": {
+      "name": "Teto falso com iluminação embutida",
+      "quantity": "78 m2",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 20,
+    "fields": {
+      "name": "Pintura de paredes e tetos",
+      "quantity": "124 m2",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "2",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 21,
+    "fields": {
+      "name": "Montagem de andaime",
+      "quantity": "185 m2",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "service_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.servicesquote",
+    "pk": 22,
+    "fields": {
+      "name": "Reboco e pintura exterior",
+      "quantity": "185 m2",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "service_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 1,
+    "fields": {
+      "description": "Mão de obra 2 operários",
+      "cost": "480.00",
+      "charged": "760.00",
+      "profit_money": "280.00",
+      "profit_percentage": "58.333333333333336",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 2,
+    "fields": {
+      "description": "Aluguer de contentor de entulho",
+      "cost": "180.00",
+      "charged": "230.00",
+      "profit_money": "50.00",
+      "profit_percentage": "27.77777777777778",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 3,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "210.00",
+      "charged": "340.00",
+      "profit_money": "130.00",
+      "profit_percentage": "61.904761904761905",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 4,
+    "fields": {
+      "description": "Pavimento flutuante carvalho 8mm",
+      "cost": "849.32",
+      "charged": "1120.00",
+      "profit_money": "270.68",
+      "profit_percentage": "31.870202043988122",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 5,
+    "fields": {
+      "description": "Rodapé MDF branco",
+      "cost": "94.80",
+      "charged": "145.00",
+      "profit_money": "50.20",
+      "profit_percentage": "52.953586497890306",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 6,
+    "fields": {
+      "description": "Mão de obra de assentamento",
+      "cost": "540.00",
+      "charged": "820.00",
+      "profit_money": "280.00",
+      "profit_percentage": "51.85185185185185",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 7,
+    "fields": {
+      "description": "Azulejo branco 20x20",
+      "cost": "271.25",
+      "charged": "372.00",
+      "profit_money": "100.75",
+      "profit_percentage": "37.142857142857146",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 8,
+    "fields": {
+      "description": "Cola para ladrilhos",
+      "cost": "58.40",
+      "charged": "82.00",
+      "profit_money": "23.60",
+      "profit_percentage": "40.41095890410959",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 9,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "465.00",
+      "charged": "700.00",
+      "profit_money": "235.00",
+      "profit_percentage": "50.53763440860215",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "2",
+      "services_key": "2",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 10,
+    "fields": {
+      "description": "Material de canalização",
+      "cost": "186.40",
+      "charged": "255.00",
+      "profit_money": "68.60",
+      "profit_percentage": "36.80257510729613",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 11,
+    "fields": {
+      "description": "Mão de obra especializada",
+      "cost": "320.00",
+      "charged": "520.00",
+      "profit_money": "200.00",
+      "profit_percentage": "62.5",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 12,
+    "fields": {
+      "description": "Quadro elétrico 12 módulos",
+      "cost": "22.40",
+      "charged": "38.00",
+      "profit_money": "15.60",
+      "profit_percentage": "69.64285714285715",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 13,
+    "fields": {
+      "description": "Cabo e tomadas",
+      "cost": "97.35",
+      "charged": "145.00",
+      "profit_money": "47.65",
+      "profit_percentage": "48.94709809964048",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 14,
+    "fields": {
+      "description": "Mão de obra de eletricista",
+      "cost": "280.00",
+      "charged": "440.00",
+      "profit_money": "160.00",
+      "profit_percentage": "57.14285714285714",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "3",
+      "services_key": "2",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 15,
+    "fields": {
+      "description": "Tinta plástica interior 15L x3",
+      "cost": "119.70",
+      "charged": "168.00",
+      "profit_money": "48.30",
+      "profit_percentage": "40.35087719298245",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "4",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 16,
+    "fields": {
+      "description": "Primário selante",
+      "cost": "37.20",
+      "charged": "52.00",
+      "profit_money": "14.80",
+      "profit_percentage": "39.78494623655913",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "4",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 17,
+    "fields": {
+      "description": "Mão de obra de pintura",
+      "cost": "690.00",
+      "charged": "1080.00",
+      "profit_money": "390.00",
+      "profit_percentage": "56.52173913043478",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2",
+      "section_key": "4",
+      "services_key": "1",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 18,
+    "fields": {
+      "description": "Aluguer de retroescavadora",
+      "cost": "420.00",
+      "charged": "580.00",
+      "profit_money": "160.00",
+      "profit_percentage": "38.095238095238095",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 19,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "260.00",
+      "charged": "400.00",
+      "profit_money": "140.00",
+      "profit_percentage": "53.84615384615385",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 20,
+    "fields": {
+      "description": "Blocos e cimento",
+      "cost": "710.00",
+      "charged": "980.00",
+      "profit_money": "270.00",
+      "profit_percentage": "38.028169014084504",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 21,
+    "fields": {
+      "description": "Ferro de armadura",
+      "cost": "265.00",
+      "charged": "355.00",
+      "profit_money": "90.00",
+      "profit_percentage": "33.9622641509434",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 22,
+    "fields": {
+      "description": "Mão de obra de alvenaria",
+      "cost": "980.00",
+      "charged": "1520.00",
+      "profit_money": "540.00",
+      "profit_percentage": "55.10204081632652",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 23,
+    "fields": {
+      "description": "Capeamento pré-fabricado",
+      "cost": "294.00",
+      "charged": "410.00",
+      "profit_money": "116.00",
+      "profit_percentage": "39.455782312925166",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 24,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "180.00",
+      "charged": "290.00",
+      "profit_money": "110.00",
+      "profit_percentage": "61.111111111111114",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9",
+      "section_key": "2",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 25,
+    "fields": {
+      "description": "Torneira monocomando cromada",
+      "cost": "34.90",
+      "charged": "62.00",
+      "profit_money": "27.10",
+      "profit_percentage": "77.65042979942695",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 26,
+    "fields": {
+      "description": "Sifão e acessórios",
+      "cost": "28.60",
+      "charged": "48.00",
+      "profit_money": "19.40",
+      "profit_percentage": "67.83216783216783",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 27,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "240.00",
+      "charged": "390.00",
+      "profit_money": "150.00",
+      "profit_percentage": "62.5",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 28,
+    "fields": {
+      "description": "Material",
+      "cost": "196.30",
+      "charged": "268.00",
+      "profit_money": "71.70",
+      "profit_percentage": "36.52572592969943",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 29,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "310.00",
+      "charged": "480.00",
+      "profit_money": "170.00",
+      "profit_percentage": "54.83870967741935",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 30,
+    "fields": {
+      "description": "Remoção e transporte especializado",
+      "cost": "2100.00",
+      "charged": "2750.00",
+      "profit_money": "650.00",
+      "profit_percentage": "30.952380952380953",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 31,
+    "fields": {
+      "description": "Painel sandwich 40mm",
+      "cost": "4340.00",
+      "charged": "5580.00",
+      "profit_money": "1240.00",
+      "profit_percentage": "28.57142857142857",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 32,
+    "fields": {
+      "description": "Mão de obra e montagem",
+      "cost": "1860.00",
+      "charged": "2790.00",
+      "profit_money": "930.00",
+      "profit_percentage": "50.0",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 33,
+    "fields": {
+      "description": "Mão de obra e remoção",
+      "cost": "290.00",
+      "charged": "450.00",
+      "profit_money": "160.00",
+      "profit_percentage": "55.172413793103445",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 34,
+    "fields": {
+      "description": "Azulejo e cola",
+      "cost": "148.20",
+      "charged": "205.00",
+      "profit_money": "56.80",
+      "profit_percentage": "38.32658569500676",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 35,
+    "fields": {
+      "description": "Bancada em granito",
+      "cost": "560.00",
+      "charged": "790.00",
+      "profit_money": "230.00",
+      "profit_percentage": "41.07142857142857",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 36,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "420.00",
+      "charged": "660.00",
+      "profit_money": "240.00",
+      "profit_percentage": "57.14285714285714",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 37,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "160.00",
+      "charged": "280.00",
+      "profit_money": "120.00",
+      "profit_percentage": "75.0",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101",
+      "section_key": "1",
+      "services_key": "3",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 38,
+    "fields": {
+      "description": "Placas e estrutura",
+      "cost": "480.00",
+      "charged": "690.00",
+      "profit_money": "210.00",
+      "profit_percentage": "43.75",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 39,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "620.00",
+      "charged": "980.00",
+      "profit_money": "360.00",
+      "profit_percentage": "58.06451612903226",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 40,
+    "fields": {
+      "description": "Material",
+      "cost": "690.00",
+      "charged": "940.00",
+      "profit_money": "250.00",
+      "profit_percentage": "36.231884057971016",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 41,
+    "fields": {
+      "description": "Luminárias LED",
+      "cost": "310.00",
+      "charged": "465.00",
+      "profit_money": "155.00",
+      "profit_percentage": "50.0",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 42,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "740.00",
+      "charged": "1150.00",
+      "profit_money": "410.00",
+      "profit_percentage": "55.4054054054054",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 43,
+    "fields": {
+      "description": "Tinta e primário",
+      "cost": "118.00",
+      "charged": "165.00",
+      "profit_money": "47.00",
+      "profit_percentage": "39.83050847457627",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 44,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "480.00",
+      "charged": "760.00",
+      "profit_money": "280.00",
+      "profit_percentage": "58.333333333333336",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e",
+      "section_key": "2",
+      "services_key": "1",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 45,
+    "fields": {
+      "description": "Aluguer de andaime 3 semanas",
+      "cost": "980.00",
+      "charged": "1320.00",
+      "profit_money": "340.00",
+      "profit_percentage": "34.69387755102041",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "services_key": "1",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 46,
+    "fields": {
+      "description": "Material de reboco",
+      "cost": "740.00",
+      "charged": "1010.00",
+      "profit_money": "270.00",
+      "profit_percentage": "36.486486486486484",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "1",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 47,
+    "fields": {
+      "description": "Tinta exterior",
+      "cost": "395.00",
+      "charged": "540.00",
+      "profit_money": "145.00",
+      "profit_percentage": "36.708860759493675",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "2",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.pricesquote",
+    "pk": 48,
+    "fields": {
+      "description": "Mão de obra",
+      "cost": "1480.00",
+      "charged": "2280.00",
+      "profit_money": "800.00",
+      "profit_percentage": "54.054054054054056",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c",
+      "section_key": "1",
+      "services_key": "2",
+      "prices_count": "3",
+      "visible": true
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 1,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "377d19e2-cec7-4ed5-9627-7d8d31180db2"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 2,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "f80343ae-777b-4b44-aa80-aef5f1ff1af9"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 3,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "07bf2c7e-d961-4fa4-91d5-544b02620d41"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 4,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "561653c9-6ef9-4483-8477-75ad5a94efbe"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 5,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "732cf43e-4b53-4728-a367-ba6b4ac8d101"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 6,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "a3cdfca5-2fb1-4ac8-992a-49f8d920788e"
+    }
+  },
+  {
+    "model": "projects.notes",
+    "pk": 7,
+    "fields": {
+      "notes": "Validade da proposta: 30 dias. Valores sem IVA. Alterações ao âmbito implicam revisão do orçamento.",
+      "project_key": "ace01688-2ca9-4506-8fcd-d8dc9b7e767c"
+    }
+  },
+  {
+    "model": "landingpage.additionalinformation",
+    "pk": 1,
+    "fields": {
+      "additional_information_text": "Termos de uso",
+      "additional_information_href": "termos-uso/"
+    }
+  },
+  {
+    "model": "landingpage.additionalinformation",
+    "pk": 2,
+    "fields": {
+      "additional_information_text": "Política de privacidade",
+      "additional_information_href": "politica-privacidade/"
+    }
+  },
+  {
+    "model": "landingpage.additionalinformation",
+    "pk": 3,
+    "fields": {
+      "additional_information_text": "Créditos",
+      "additional_information_href": "creditos/"
+    }
+  },
+  {
+    "model": "landingpage.websitepages",
+    "pk": 1,
+    "fields": {
+      "text_pages": "Início",
+      "pages_href": ""
+    }
+  },
+  {
+    "model": "landingpage.websitepages",
+    "pk": 2,
+    "fields": {
+      "text_pages": "Orçamentos",
+      "pages_href": "project_list"
+    }
+  },
+  {
+    "model": "landingpage.websitepages",
+    "pk": 3,
+    "fields": {
+      "text_pages": "Produtos",
+      "pages_href": "products_page"
+    }
+  },
+  {
+    "model": "landingpage.websitepages",
+    "pk": 4,
+    "fields": {
+      "text_pages": "Clientes",
+      "pages_href": "client_list"
+    }
+  },
+  {
+    "model": "landingpage.footercontact",
+    "pk": 1,
+    "fields": {
+      "information_image": null,
+      "information": "geral@asyquote.example",
+      "information_url": "mailto:geral@asyquote.example"
+    }
+  },
+  {
+    "model": "landingpage.footercontact",
+    "pk": 2,
+    "fields": {
+      "information_image": null,
+      "information": "Porto, Portugal",
+      "information_url": ""
+    }
+  },
+  {
+    "model": "landingpage.footertitles",
+    "pk": 1,
+    "fields": {
+      "footer_navigation_title": "Navegação",
+      "footer_contact_title": "Contacto",
+      "copyright": "© 2024 AsyQuote — projeto de demonstração"
+    }
+  },
+  {
+    "model": "landingpage.reviewhome",
+    "pk": 1,
+    "fields": {
+      "sort_order": 1,
+      "page": 3,
+      "review_card": null,
+      "title_card": "Deixámos de perder propostas por demora",
+      "paragraph_card": "Antes levávamos dois dias a montar um orçamento de remodelação. Agora sai no mesmo dia da visita.",
+      "letters_circle_card": "MC",
+      "name_of_the_person_card": "Miguel Cardoso",
+      "function_of_the_person_card": "Sócio-gerente, empresa de remodelações"
+    }
+  },
+  {
+    "model": "landingpage.reviewhome",
+    "pk": 2,
+    "fields": {
+      "sort_order": 2,
+      "page": 3,
+      "review_card": null,
+      "title_card": "A margem deixou de ser um palpite",
+      "paragraph_card": "Ver o custo e o valor cobrado lado a lado em cada linha mudou a forma como fazemos preços.",
+      "letters_circle_card": "SL",
+      "name_of_the_person_card": "Sofia Lemos",
+      "function_of_the_person_card": "Responsável de orçamentação"
+    }
+  },
+  {
+    "model": "landingpage.reviewhome",
+    "pk": 3,
+    "fields": {
+      "sort_order": 3,
+      "page": 3,
+      "review_card": null,
+      "title_card": "O cliente recebe algo apresentável",
+      "paragraph_card": "O ficheiro que sai já está formatado por capítulos. Não temos de mexer mais nada.",
+      "letters_circle_card": "RF",
+      "name_of_the_person_card": "Rui Faria",
+      "function_of_the_person_card": "Encarregado de obra"
+    }
+  },
+  {
+    "model": "landingpage.faqs",
+    "pk": 1,
+    "fields": {
+      "sort_order": 1,
+      "page": 3,
+      "question": "Preciso de instalar alguma coisa?",
+      "answer": "Não. O AsyQuote corre no navegador.",
+      "text_href": null,
+      "href_url": null
+    }
+  },
+  {
+    "model": "landingpage.faqs",
+    "pk": 2,
+    "fields": {
+      "sort_order": 2,
+      "page": 3,
+      "question": "Posso usar os meus próprios preços?",
+      "answer": "Sim. Cada linha aceita um custo e um valor cobrado próprios.",
+      "text_href": null,
+      "href_url": null
+    }
+  },
+  {
+    "model": "landingpage.faqs",
+    "pk": 3,
+    "fields": {
+      "sort_order": 3,
+      "page": 3,
+      "question": "Como funciona a margem?",
+      "answer": "Escreva a percentagem no campo de valor cobrado e prima %; o valor é calculado a partir do custo da linha.",
+      "text_href": null,
+      "href_url": null
+    }
+  },
+  {
+    "model": "landingpage.faqs",
+    "pk": 4,
+    "fields": {
+      "sort_order": 4,
+      "page": 3,
+      "question": "O orçamento sai em PDF?",
+      "answer": "A exportação é em Excel, já formatada para imprimir ou guardar como PDF.",
+      "text_href": null,
+      "href_url": null
+    }
+  },
+  {
+    "model": "landingpage.homepage",
+    "pk": 3,
+    "fields": {
       "hero_image": null,
       "hero_title": "Orçamentos de obra em minutos, não em folhas de Excel",
-      "uses_image": "[]",
-      "uses_title": "Feito para quem orça obras todos os dias",
-      "draft_title": "AsyQuote",
-      "review_home": [],
-      "action_title": "Experimente o construtor de orçamentos",
-      "content_type": 60,
-      "review_title": "O que dizem quem já usou",
-      "about_image_1": null,
-      "about_image_2": null,
-      "about_image_3": null,
-      "about_title_1": "Construtor por capítulos",
-      "about_title_2": "Catálogo de fornecedores",
-      "about_title_3": "Exportação para Excel",
-      "live_revision": null,
-      "show_in_menus": false,
-      "action_benefit": "Sem instalação. Basta uma conta.",
       "hero_paragraph": "<p>Monte propostas por capítulos, controle a margem linha a linha e exporte um orçamento pronto a enviar ao cliente.</p>",
+      "uses_title": "Feito para quem orça obras todos os dias",
+      "uses_image": "[]",
+      "about_title_1": "Construtor por capítulos",
+      "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
+      "about_image_1": null,
+      "about_title_2": "Catálogo de fornecedores",
+      "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
+      "about_image_2": null,
+      "about_title_3": "Exportação para Excel",
+      "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
+      "about_image_3": null,
+      "review_title": "O que dizem quem já usou",
+      "faqs_title": "Perguntas frequentes",
+      "action_title": "Experimente o construtor de orçamentos",
+      "action_benefit": "Sem instalação. Basta uma conta."
+    }
+  },
+  {
+    "model": "wagtailcore.revision",
+    "pk": 1,
+    "fields": {
+      "content_type": ["landingpage", "homepage"],
+      "base_content_type": ["wagtailcore", "page"],
+      "object_id": "3",
+      "submitted_for_moderation": false,
+      "created_at": "2026-08-24T18:08:29.428Z",
+      "user": null,
+      "object_str": "AsyQuote",
+      "content": {
+        "pk": 3,
+        "faqs": [],
+        "live": true,
+        "path": "00010002",
+        "slug": "home",
+        "depth": 2,
+        "owner": null,
+        "title": "AsyQuote",
+        "locale": 1,
+        "locked": false,
+        "expired": false,
+        "alias_of": null,
+        "numchild": 0,
+        "url_path": "/home/",
+        "expire_at": null,
+        "locked_at": null,
+        "locked_by": null,
+        "seo_title": "",
+        "faqs_title": "Perguntas frequentes",
+        "go_live_at": null,
+        "hero_image": null,
+        "hero_title": "Orçamentos de obra em minutos, não em folhas de Excel",
+        "uses_image": "[]",
+        "uses_title": "Feito para quem orça obras todos os dias",
+        "draft_title": "AsyQuote",
+        "review_home": [],
+        "action_title": "Experimente o construtor de orçamentos",
+        "content_type": 60,
+        "review_title": "O que dizem quem já usou",
+        "about_image_1": null,
+        "about_image_2": null,
+        "about_image_3": null,
+        "about_title_1": "Construtor por capítulos",
+        "about_title_2": "Catálogo de fornecedores",
+        "about_title_3": "Exportação para Excel",
+        "live_revision": null,
+        "show_in_menus": false,
+        "action_benefit": "Sem instalação. Basta uma conta.",
+        "hero_paragraph": "<p>Monte propostas por capítulos, controle a margem linha a linha e exporte um orçamento pronto a enviar ao cliente.</p>",
+        "latest_revision": null,
+        "translation_key": "a179a036-0c91-4708-a393-1de10f913329",
+        "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
+        "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
+        "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
+        "last_published_at": null,
+        "first_published_at": null,
+        "search_description": "",
+        "wagtail_admin_comments": [],
+        "has_unpublished_changes": false,
+        "latest_revision_created_at": null
+      },
+      "approved_go_live_at": null
+    }
+  },
+  {
+    "model": "wagtailcore.revision",
+    "pk": 2,
+    "fields": {
+      "content_type": ["landingpage", "homepage"],
+      "base_content_type": ["wagtailcore", "page"],
+      "object_id": "3",
+      "submitted_for_moderation": false,
+      "created_at": "2026-08-24T18:08:29.456Z",
+      "user": null,
+      "object_str": "AsyQuote",
+      "content": {
+        "pk": 3,
+        "faqs": [
+          {
+            "pk": 1,
+            "page": 3,
+            "answer": "Não. O AsyQuote corre no navegador.",
+            "href_url": null,
+            "question": "Preciso de instalar alguma coisa?",
+            "text_href": null,
+            "sort_order": 1
+          },
+          {
+            "pk": 2,
+            "page": 3,
+            "answer": "Sim. Cada linha aceita um custo e um valor cobrado próprios.",
+            "href_url": null,
+            "question": "Posso usar os meus próprios preços?",
+            "text_href": null,
+            "sort_order": 2
+          },
+          {
+            "pk": 3,
+            "page": 3,
+            "answer": "Escreva a percentagem no campo de valor cobrado e prima %; o valor é calculado a partir do custo da linha.",
+            "href_url": null,
+            "question": "Como funciona a margem?",
+            "text_href": null,
+            "sort_order": 3
+          },
+          {
+            "pk": 4,
+            "page": 3,
+            "answer": "A exportação é em Excel, já formatada para imprimir ou guardar como PDF.",
+            "href_url": null,
+            "question": "O orçamento sai em PDF?",
+            "text_href": null,
+            "sort_order": 4
+          }
+        ],
+        "live": true,
+        "path": "00010002",
+        "slug": "home",
+        "depth": 2,
+        "owner": null,
+        "title": "AsyQuote",
+        "locale": 1,
+        "locked": false,
+        "expired": false,
+        "alias_of": null,
+        "numchild": 0,
+        "url_path": "/home/",
+        "expire_at": null,
+        "locked_at": null,
+        "locked_by": null,
+        "seo_title": "",
+        "faqs_title": "Perguntas frequentes",
+        "go_live_at": null,
+        "hero_image": null,
+        "hero_title": "Orçamentos de obra em minutos, não em folhas de Excel",
+        "uses_image": "[]",
+        "uses_title": "Feito para quem orça obras todos os dias",
+        "draft_title": "AsyQuote",
+        "review_home": [
+          {
+            "pk": 1,
+            "page": 3,
+            "sort_order": 1,
+            "title_card": "Deixámos de perder propostas por demora",
+            "review_card": null,
+            "paragraph_card": "Antes levávamos dois dias a montar um orçamento de remodelação. Agora sai no mesmo dia da visita.",
+            "letters_circle_card": "MC",
+            "name_of_the_person_card": "Miguel Cardoso",
+            "function_of_the_person_card": "Sócio-gerente, empresa de remodelações"
+          },
+          {
+            "pk": 2,
+            "page": 3,
+            "sort_order": 2,
+            "title_card": "A margem deixou de ser um palpite",
+            "review_card": null,
+            "paragraph_card": "Ver o custo e o valor cobrado lado a lado em cada linha mudou a forma como fazemos preços.",
+            "letters_circle_card": "SL",
+            "name_of_the_person_card": "Sofia Lemos",
+            "function_of_the_person_card": "Responsável de orçamentação"
+          },
+          {
+            "pk": 3,
+            "page": 3,
+            "sort_order": 3,
+            "title_card": "O cliente recebe algo apresentável",
+            "review_card": null,
+            "paragraph_card": "O ficheiro que sai já está formatado por capítulos. Não temos de mexer mais nada.",
+            "letters_circle_card": "RF",
+            "name_of_the_person_card": "Rui Faria",
+            "function_of_the_person_card": "Encarregado de obra"
+          }
+        ],
+        "action_title": "Experimente o construtor de orçamentos",
+        "content_type": 60,
+        "review_title": "O que dizem quem já usou",
+        "about_image_1": null,
+        "about_image_2": null,
+        "about_image_3": null,
+        "about_title_1": "Construtor por capítulos",
+        "about_title_2": "Catálogo de fornecedores",
+        "about_title_3": "Exportação para Excel",
+        "live_revision": null,
+        "show_in_menus": false,
+        "action_benefit": "Sem instalação. Basta uma conta.",
+        "hero_paragraph": "<p>Monte propostas por capítulos, controle a margem linha a linha e exporte um orçamento pronto a enviar ao cliente.</p>",
+        "latest_revision": 1,
+        "translation_key": "a179a036-0c91-4708-a393-1de10f913329",
+        "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
+        "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
+        "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
+        "last_published_at": null,
+        "first_published_at": null,
+        "search_description": "",
+        "wagtail_admin_comments": [],
+        "has_unpublished_changes": true,
+        "latest_revision_created_at": "2026-08-24T18:08:29.428Z"
+      },
+      "approved_go_live_at": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 1,
+      "translation_key": "d4fed57e-a1fe-4ccf-9244-a2e9caf169bb",
+      "locale": 1,
       "latest_revision": null,
-      "translation_key": "077868d8-20e6-442d-9275-14908fa8fc0d",
-      "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
-      "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
-      "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
-      "last_published_at": null,
-      "first_published_at": null,
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": null
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 2,
-  "fields": {
-    "content_type": [
-      "landingpage",
-      "homepage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "3",
-    "submitted_for_moderation": false,
-    "created_at": "2026-08-24T17:52:09.495Z",
-    "user": null,
-    "object_str": "AsyQuote",
-    "content": {
-      "pk": 3,
-      "faqs": [
-        {
-          "pk": 1,
-          "page": 3,
-          "answer": "Não. O AsyQuote corre no navegador.",
-          "href_url": null,
-          "question": "Preciso de instalar alguma coisa?",
-          "text_href": null,
-          "sort_order": 1
-        },
-        {
-          "pk": 2,
-          "page": 3,
-          "answer": "Sim. Cada linha aceita um custo e um valor cobrado próprios.",
-          "href_url": null,
-          "question": "Posso usar os meus próprios preços?",
-          "text_href": null,
-          "sort_order": 2
-        },
-        {
-          "pk": 3,
-          "page": 3,
-          "answer": "Escreva a percentagem no campo de valor cobrado e prima %; o valor é calculado a partir do custo da linha.",
-          "href_url": null,
-          "question": "Como funciona a margem?",
-          "text_href": null,
-          "sort_order": 3
-        },
-        {
-          "pk": 4,
-          "page": 3,
-          "answer": "A exportação é em Excel, já formatada para imprimir ou guardar como PDF.",
-          "href_url": null,
-          "question": "O orçamento sai em PDF?",
-          "text_href": null,
-          "sort_order": 4
-        }
-      ],
       "live": true,
-      "path": "00010002",
-      "slug": "home",
-      "depth": 2,
-      "owner": null,
-      "title": "AsyQuote",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/home/",
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
       "expire_at": null,
+      "expired": false,
+      "locked": false,
       "locked_at": null,
       "locked_by": null,
+      "title": "Root",
+      "draft_title": "Root",
+      "slug": "root",
+      "content_type": ["wagtailcore", "page"],
+      "url_path": "/",
+      "owner": null,
       "seo_title": "",
-      "faqs_title": "Perguntas frequentes",
-      "go_live_at": null,
-      "hero_image": null,
-      "hero_title": "Orçamentos de obra em minutos, não em folhas de Excel",
-      "uses_image": "[]",
-      "uses_title": "Feito para quem orça obras todos os dias",
-      "draft_title": "AsyQuote",
-      "review_home": [
-        {
-          "pk": 1,
-          "page": 3,
-          "sort_order": 1,
-          "title_card": "Deixámos de perder propostas por demora",
-          "review_card": null,
-          "paragraph_card": "Antes levávamos dois dias a montar um orçamento de remodelação. Agora sai no mesmo dia da visita.",
-          "letters_circle_card": "MC",
-          "name_of_the_person_card": "Miguel Cardoso",
-          "function_of_the_person_card": "Sócio-gerente, empresa de remodelações"
-        },
-        {
-          "pk": 2,
-          "page": 3,
-          "sort_order": 2,
-          "title_card": "A margem deixou de ser um palpite",
-          "review_card": null,
-          "paragraph_card": "Ver o custo e o valor cobrado lado a lado em cada linha mudou a forma como fazemos preços.",
-          "letters_circle_card": "SL",
-          "name_of_the_person_card": "Sofia Lemos",
-          "function_of_the_person_card": "Responsável de orçamentação"
-        },
-        {
-          "pk": 3,
-          "page": 3,
-          "sort_order": 3,
-          "title_card": "O cliente recebe algo apresentável",
-          "review_card": null,
-          "paragraph_card": "O ficheiro que sai já está formatado por capítulos. Não temos de mexer mais nada.",
-          "letters_circle_card": "RF",
-          "name_of_the_person_card": "Rui Faria",
-          "function_of_the_person_card": "Encarregado de obra"
-        }
-      ],
-      "action_title": "Experimente o construtor de orçamentos",
-      "content_type": 60,
-      "review_title": "O que dizem quem já usou",
-      "about_image_1": null,
-      "about_image_2": null,
-      "about_image_3": null,
-      "about_title_1": "Construtor por capítulos",
-      "about_title_2": "Catálogo de fornecedores",
-      "about_title_3": "Exportação para Excel",
-      "live_revision": null,
       "show_in_menus": false,
-      "action_benefit": "Sem instalação. Basta uma conta.",
-      "hero_paragraph": "<p>Monte propostas por capítulos, controle a margem linha a linha e exporte um orçamento pronto a enviar ao cliente.</p>",
-      "latest_revision": 1,
-      "translation_key": "077868d8-20e6-442d-9275-14908fa8fc0d",
-      "about_paragraph_1": "Capítulos, artigos e linhas de preço aninhados, com subtotais automáticos.",
-      "about_paragraph_2": "Pesquise materiais importados dos catálogos e traga o preço mais baixo directamente para o orçamento.",
-      "about_paragraph_3": "Uma proposta formatada, com fórmulas e cabeçalhos repetidos, pronta a imprimir.",
-      "last_published_at": null,
-      "first_published_at": null,
       "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": true,
-      "latest_revision_created_at": "2026-08-24T17:52:09.455Z"
-    },
-    "approved_go_live_at": null
+      "latest_revision_created_at": null,
+      "alias_of": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 3,
+    "fields": {
+      "path": "00010002",
+      "depth": 2,
+      "numchild": 0,
+      "translation_key": "a179a036-0c91-4708-a393-1de10f913329",
+      "locale": 1,
+      "latest_revision": 2,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": "2026-08-24T18:08:29.465Z",
+      "last_published_at": "2026-08-24T18:08:29.465Z",
+      "live_revision": 2,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "AsyQuote",
+      "draft_title": "AsyQuote",
+      "slug": "home",
+      "content_type": ["landingpage", "homepage"],
+      "url_path": "/home/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": "2026-08-24T18:08:29.456Z",
+      "alias_of": null
+    }
   }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 1,
-  "fields": {
-    "path": "0001",
-    "depth": 1,
-    "numchild": 1,
-    "translation_key": "6b9f5b0e-daac-4930-b787-e41caafde2a0",
-    "locale": 1,
-    "latest_revision": null,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": null,
-    "last_published_at": null,
-    "live_revision": null,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Root",
-    "draft_title": "Root",
-    "slug": "root",
-    "content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "url_path": "/",
-    "owner": null,
-    "seo_title": "",
-    "show_in_menus": false,
-    "search_description": "",
-    "latest_revision_created_at": null,
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 3,
-  "fields": {
-    "path": "00010002",
-    "depth": 2,
-    "numchild": 0,
-    "translation_key": "077868d8-20e6-442d-9275-14908fa8fc0d",
-    "locale": 1,
-    "latest_revision": 2,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2026-08-24T17:52:09.504Z",
-    "last_published_at": "2026-08-24T17:52:09.504Z",
-    "live_revision": 2,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "AsyQuote",
-    "draft_title": "AsyQuote",
-    "slug": "home",
-    "content_type": [
-      "landingpage",
-      "homepage"
-    ],
-    "url_path": "/home/",
-    "owner": null,
-    "seo_title": "",
-    "show_in_menus": false,
-    "search_description": "",
-    "latest_revision_created_at": "2026-08-24T17:52:09.495Z",
-    "alias_of": null
-  }
-}
 ]

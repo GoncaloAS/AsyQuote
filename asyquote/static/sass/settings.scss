@@ -13,7 +13,9 @@
   padding: 5px 10px;
   width: 450px;
   margin-right: 80px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow:
+    rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .card_marketing_preferences {
@@ -21,7 +23,9 @@
   border-radius: 10px;
   padding: 5px 10px;
   width: 450px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow:
+    rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 #hint_id_new_password1 {
@@ -33,12 +37,12 @@
   justify-content: center;
   display: flex;
   margin: 0 auto;
-  background: #62C6C8;
+  background: #62c6c8;
   border: 0;
 }
 
 .btn_change_password:hover {
-  background: #62C6C8;
+  background: #62c6c8;
   border: 0;
 }
 
@@ -85,22 +89,25 @@
   margin-right: 20px;
 }
 
-.color_remove, .color_remove:hover {
-  background: #D2122E;
+.color_remove,
+.color_remove:hover {
+  background: #d2122e;
   border: 0;
 }
 
-.color_primary, .color_primary:hover {
-  background: #17B169;
+.color_primary,
+.color_primary:hover {
+  background: #17b169;
   border: 0;
 }
 
 .color_resend {
-  background: #FDDA0D;
+  background: #fdda0d;
   border: 0;
 }
 
-.add_email_settings, .add_email_settings:hover {
+.add_email_settings,
+.add_email_settings:hover {
   background: #62c6c8;
   border: 0;
   width: 100%;
@@ -128,7 +135,6 @@
 }
 
 @media (max-width: 800px) {
-
   .padding_preferences_card {
     padding-left: 10px;
     padding-right: 10px;
@@ -139,8 +145,6 @@
   #ex-with-icons-tabs-1 {
     margin-top: 0;
   }
-
-
 }
 
 @media (max-width: 360px) {

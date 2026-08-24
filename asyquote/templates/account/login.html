@@ -1,6 +1,6 @@
 {% extends "account/base.html" %}
-{% load crispy_forms_filters %}
 
+{% load crispy_forms_filters %}
 {% load i18n %}
 {% load account socialaccount %}
 {% load crispy_forms_tags %}
@@ -35,26 +35,20 @@
       <form class="login" method="post" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form|crispy }}
-
-        <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'project_list' %}">
-
+        <input type="hidden"
+               name="{{ redirect_field_name }}"
+               value="{% url 'project_list' %}" />
         <div class="additional-options">
-          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">
-            {% translate "Forgot Password?" %}
-          </a>
-
+          <a class="button secondaryAction"
+             href="{% url 'account_reset_password' %}">{% translate "Forgot Password?" %}</a>
           <!-- Custom styling for "Remember me" -->
           <div class="remember-me">
             {{ form.remember }}
             {{ form.remember.label_tag }}
-
           </div>
         </div>
-
         <button class="primaryAction btn btn-signin" type="submit">{% translate "Sign In" %}</button>
       </form>
     </div>
   </div>
-
 {% endblock content %}
-

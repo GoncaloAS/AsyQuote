@@ -1,82 +1,79 @@
 import json
-from django.shortcuts import render, redirect, get_object_or_404
+
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError, transaction
 from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 
+from ..projects.models import Project
 from .forms import ClientForm
 from .models import Client
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.template import RequestContext
-from ..projects.models import Project
-from django.contrib import messages
-from django.db import transaction, IntegrityError
 
 
 class ClientListView(LoginRequiredMixin, ListView):
-    template_name = 'clients/client_page.html'
+    template_name = "clients/client_page.html"
     model = Client
     paginate_by = 7
-    context_object_name = 'clients'
+    context_object_name = "clients"
 
     def get_queryset(self):
-        return Client.objects.filter(user=self.request.user).order_by('-id')
+        return Client.objects.filter(user=self.request.user).order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ClientForm(user=self.request.user)
+        context["form"] = ClientForm(user=self.request.user)
         return context
 
 
 def create_client(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ClientForm(request.POST)
         if form.is_valid():
-            nif = form.cleaned_data['nif']
+            nif = form.cleaned_data["nif"]
             if len(nif) != 9:
-                return JsonResponse({'error': 'O NIF deve ter exatamente 9 dígitos.'})
+                return JsonResponse({"error": "O NIF deve ter exatamente 9 dígitos."})
             contains_letters = any(not char.isdigit() for char in nif)
             if contains_letters:
-                return JsonResponse({'error': 'O NIF só deve conter dígitos.'})
+                return JsonResponse({"error": "O NIF só deve conter dígitos."})
             try:
                 with transaction.atomic():
                     if Client.objects.filter(nif=nif, user=request.user).exists():
-                        return JsonResponse({'error': 'Erro ao adicionar cliente. Este cliente já existe.'})
+                        return JsonResponse({"error": "Erro ao adicionar cliente. Este cliente já existe."})
                     client = form.save(commit=False)
                     client.user = request.user
                     client.save()
-                    return JsonResponse({'success': 'Cliente adicionado com sucesso'})
+                    return JsonResponse({"success": "Cliente adicionado com sucesso"})
             except IntegrityError:
-                return JsonResponse({'error': 'Erro ao adicionar cliente. Por favor, tente novamente.'})
+                return JsonResponse({"error": "Erro ao adicionar cliente. Por favor, tente novamente."})
         else:
             errors = json.loads(form.errors.as_json())
-            return JsonResponse({'error': errors})
+            return JsonResponse({"error": errors})
     else:
         form = ClientForm()
 
-    return render(request, 'clients/client_page.html', {'form': form})
+    return render(request, "clients/client_page.html", {"form": form})
 
 
 def update_client(request, client_id):
     client = get_object_or_404(Client, id=client_id)
-    if request.method == 'POST':
-
-        updated_name = request.POST.get('update_name')
-        updated_email = request.POST.get('update_email')
-        updated_phone = request.POST.get('update_phone')
-        updated_address = request.POST.get('update_address')
-        updated_nif = request.POST.get('update_nif')
+    if request.method == "POST":
+        updated_name = request.POST.get("update_name")
+        updated_email = request.POST.get("update_email")
+        updated_phone = request.POST.get("update_phone")
+        updated_address = request.POST.get("update_address")
+        updated_nif = request.POST.get("update_nif")
 
         if len(updated_nif) != 9:
-            return JsonResponse({'error': 'O NIF deve ter exatamente 9 dígitos.'})
+            return JsonResponse({"error": "O NIF deve ter exatamente 9 dígitos."})
         if Client.objects.filter(nif=updated_nif, user=request.user).exclude(id=client_id).exists():
-            return JsonResponse({'error': 'Este cliente já existe.'})
+            return JsonResponse({"error": "Este cliente já existe."})
         else:
             contains_letters = any(not char.isdigit() for char in updated_nif)
             if contains_letters:
-                return JsonResponse({'error': 'O NIF só deve conter dígitos.'})
+                return JsonResponse({"error": "O NIF só deve conter dígitos."})
         client.name = updated_name
         client.email = updated_email
         client.phone = updated_phone
@@ -84,9 +81,9 @@ def update_client(request, client_id):
         client.nif = updated_nif
         client.save()
 
-        return JsonResponse({'success': 'Informações atualizadas com sucesso'})
+        return JsonResponse({"success": "Informações atualizadas com sucesso"})
     else:
-        return JsonResponse({'error': 'Erro ao atualizar o campo. Tente novamente.'})
+        return JsonResponse({"error": "Erro ao atualizar o campo. Tente novamente."})
 
 
 def delete_client(request, client_id):
@@ -97,21 +94,23 @@ def delete_client(request, client_id):
         if project.client.id == client.id:
             flag = 1
             break
-    if request.method == 'POST' and flag == 0:
+    if request.method == "POST" and flag == 0:
         client.delete()
-        return redirect('client_list')
+        return redirect("client_list")
     else:
-        messages.error(request,
-                       "Este cliente tem projetos associados. Apague primeiro os projetos para conseguir apagar o cliente.")
-    return redirect('client_list')
+        messages.error(
+            request,
+            "Este cliente tem projetos associados. Apague primeiro os projetos para conseguir apagar o cliente.",
+        )
+    return redirect("client_list")
 
 
 def filter_clients(request):
-    search_query = request.GET.get('searchClient')
-    clients = Client.objects.filter(user=request.user).order_by('-id')
+    search_query = request.GET.get("searchClient")
+    clients = Client.objects.filter(user=request.user).order_by("-id")
     if search_query:
-        clients = clients.filter(Q(name__icontains=search_query) | Q(nif__icontains=search_query)).order_by('-id')
+        clients = clients.filter(Q(name__icontains=search_query) | Q(nif__icontains=search_query)).order_by("-id")
     else:
-        clients = Client.objects.filter(user=request.user).order_by('-id')[:7]
+        clients = Client.objects.filter(user=request.user).order_by("-id")[:7]
 
-    return render(request, 'clients/client_page_partial.html', {'clients': clients})
+    return render(request, "clients/client_page_partial.html", {"clients": clients})

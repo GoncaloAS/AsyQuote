@@ -1,10 +1,11 @@
 {% load static %}
+
 <div class="sidebarfont">
   <nav class="sidebar hoverable close sidebar_index">
     <div class="logo_items flex">
-        <span class="nav_image">
-          <img src="{% static 'images/logo.png' %}" alt="Logo AsyQuote"/>
-        </span>
+      <span class="nav_image">
+        <img src="{% static 'images/logo.png' %}" alt="Logo AsyQuote" />
+      </span>
       <span class="logo_name">AsyQuote</span>
       <i class="bx bx-lock-alt d-none" id="lock-icon" title="Unlock Sidebar"></i>
       <i class="bx bx-x" id="sidebar-close"></i>
@@ -54,7 +55,9 @@
           </li>
           {% if user.is_superuser %}
             <li class="item">
-              <a href="../../../../django-admin/users/user/" class="link flex" target="_blank">
+              <a href="../../../../django-admin/users/user/"
+                 class="link flex"
+                 target="_blank">
                 <i class="fa-solid fa-user"></i>
                 <span>Utilizadores</span>
               </a>
@@ -66,22 +69,22 @@
               {% if redirect_field_value %}
                 <input type="hidden"
                        name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}"/>
+                       value="{{ redirect_field_value }}" />
               {% endif %}
-              <a href="#" class="link flex" onclick="document.getElementById('logoutForm').submit(); return false;">
+              <a href="#"
+                 class="link flex"
+                 onclick="document.getElementById('logoutForm').submit(); return false;">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
               </a>
             </form>
           </li>
-
         </ul>
       </div>
-
       <div class="sidebar_profile flex">
-          <span class="nav_image2">
-            <img src="{% static 'images/user.png' %}" alt="logo_img"/>
-          </span>
+        <span class="nav_image2">
+          <img src="{% static 'images/user.png' %}" alt="logo_img" />
+        </span>
         <div class="data_text">
           <span class="name">{{ user.username }}</span>
           <span class="email">{{ user.email }}</span>

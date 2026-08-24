@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Project, ServicesQuote, SectionQuote, PricesQuote, Notes
+from .models import Notes, PricesQuote, Project, SectionQuote, ServicesQuote
 
 admin.site.register(Project)
 
