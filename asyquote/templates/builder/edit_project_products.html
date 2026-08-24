@@ -7,22 +7,26 @@
               overflow-y: auto">
     {% if filtered_products %}
       {% for product in filtered_products %}
-        <div class="d-flex align-items-center mb-2 px-3 gap-2"
-             title="{{ product.title }}">
+        <div class="product-result-row d-flex align-items-center mb-2 px-2 gap-2">
           <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.svg' %}{% endif %}"
                alt="{{ product.title }}"
                class="supplier-image flex-shrink-0"
-               style="width: 48px"
+               style="width: 40px"
+               title="{% translate 'Copiar link do produto' %}"
                onclick="copyToClipboard('{{ product.minimum_price_info.2 }}')" />
           <div class="flex-grow-1 min-width-0">
             <p class="product-result-title mb-0" title="{{ product.title }}">{{ product.title }}</p>
             <p class="product-result-price mb-0">{{ product.minimum_price_info.0 }}&nbsp;EUR</p>
           </div>
-          <div class="supplier-info d-flex flex-shrink-0">
-            <a href="{{ product.minimum_price_info.2 }}" target="_blank">
-              <button class="supplier-link">{% translate "Ver na loja" %}</button>
-            </a>
-          </div>
+          {# An icon rather than a full-width button: the label was taking most of #}
+          {# a 340px panel and squeezing the product name down to 88px. #}
+          <a href="{{ product.minimum_price_info.2 }}"
+             target="_blank"
+             rel="noopener"
+             class="product-result-link flex-shrink-0"
+             title="{% translate 'Ver na loja' %} — {{ product.minimum_price_info.1 }}">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
         </div>
       {% endfor %}
     {% endif %}

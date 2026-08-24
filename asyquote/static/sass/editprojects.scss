@@ -140,6 +140,24 @@
   max-width: 340px;
 }
 
+.product-result-row {
+  border-bottom: 1px solid #f0f2f4;
+  padding-bottom: 0.35rem;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.product-result-link {
+  color: #63c5c7;
+  padding: 0.25rem 0.35rem;
+
+  &:hover {
+    color: #3a9496;
+  }
+}
+
 .product-result-title {
   font-size: 0.78rem;
   line-height: 1.2;
