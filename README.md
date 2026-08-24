@@ -147,18 +147,16 @@ resumes from the spreadsheet instead of re-crawling the menu.
 The second pass walks each category. Product listings are paginated and the
 page count is not published, so the scraper requests **pages in batches of ten**
 against a single `aiohttp.ClientSession` and awaits them with
-`asyncio.gather`, then parses all ten responses before advancing the window. It
-stops when a page comes back with no price on it. Sequentially each page costs a
-full round trip before the next request can leave; batched, ten requests are in
-flight at once, so a category's wall-clock time is bounded by the slowest
-request in each batch rather than the sum of every request. The ceiling is the
-network, not the parser — which is why the batch size is fixed rather than
-unbounded. Transient `ServerDisconnectedError` is retried with exponential
-backoff (`2 ** attempt`, ten attempts) so one dropped connection does not lose
-the batch.
+`asyncio.gather`, so requests overlap instead of each page waiting for the one
+before it. It stops when a page comes back with no price on it. The ceiling is
+the network, not the parser — which is why concurrency is capped rather than
+unbounded. Transient errors, `429`s and `5xx`s are retried with exponential
+backoff so one dropped connection does not lose the batch.
 
-Product images are downloaded the same way: one `gather` over every image URL in
-the category, writing with `aiofiles`.
+That concurrency is now bounded by politeness rather than by the client:
+requests pass through a throttle that enforces the site's `Crawl-delay`, which
+serialises them when the site asks for a gap. Parallelism only takes effect when
+`--delay 0` is passed explicitly.
 
 Each category is normalised to a fixed six-column sheet — title, product URL,
 price, image URL, category, supplier — which is exactly the shape
@@ -167,11 +165,29 @@ price, image URL, category, supplier — which is exactly the shape
 existing products for that supplier/category pair, then downloads all product
 images concurrently before writing rows.
 
-**On robots.txt:** the target site's `robots.txt` was read before any of this was
-written. It disallows account, login and password paths and permits the rest;
-product listings are not restricted. That check is what the crawl rests on, and
-it is a manual, up-front decision recorded in the project report — the scraper
-does **not** parse `robots.txt` at runtime, and it should (see below).
+**On robots.txt.** Originally this was a decision made once by hand: the site's
+`robots.txt` was read before the scraper was written, it disallowed account,
+login and password paths and permitted the rest, and product listings were not
+restricted. The project report records that check.
+
+Doing it once by hand does not survive the site changing its mind, and this one
+did — it now also publishes a `Content-Signal` header and a `Crawl-delay` that
+did not exist then. So the check happens on every run instead. `scrappers/robots.py`
+fetches and parses the rules, and every URL is tested before it is requested;
+disallowed URLs are skipped and counted. The matching is written out rather than
+taken from `urllib.robotparser`, which mishandles wildcard patterns — it reads
+`Disallow: /*pt/carrinho` as permitting `/pt/carrinho`. Rules follow RFC 9309:
+`*` matches any run of characters, `$` anchors the end, longest match wins and
+ties go to `Allow`.
+
+The user agent identifies the tool (`AsyQuoteScraper/1.0`) instead of
+impersonating Chrome, which is what the original did — a site cannot apply its
+own rules to a crawler that claims to be a browser. The declared `Crawl-delay`
+is honoured by default, and the script prints an estimated runtime and refuses
+to start a long crawl without `--yes`. At the 30 second delay the site currently
+asks for, a full catalogue crawl with images is around 130 hours, so the limits
+(`--categories`, `--max-pages`, `--no-images`) exist to make a small run the easy
+one.
 
 ### The quote builder
 
@@ -377,16 +393,15 @@ any non-numeric value raises `ValueError` while rendering the page. It should be
 an integer with a per-user unique constraint, and the sequence should be
 allocated in the database rather than read-modify-written in a form.
 
-**The scraper should be a management command that honours `robots.txt` at
-runtime.** As a standalone script with module-level mutable state and a
-`global teller` flag controlling the loop, it cannot be tested, scheduled, or
-run against a second supplier without copying the file. It also writes
+**The scraper should be a management command, and the importer should be
+transactional.** The crawl itself is now well behaved, but it is still a
+standalone script rather than a `manage.py` command, so it cannot be scheduled or
+pointed at a second supplier without editing the file. It also writes
 spreadsheets for a human to re-upload, when it could write to the database
-directly — `upload_excel` inserts row by row instead of using `bulk_create`, and
-deletes the previous products for a category before the new ones are confirmed
-good. Reading `robots.txt` with `urllib.robotparser` on each run, and respecting
-`Crawl-delay`, would replace a decision I made once by hand with one the code
-re-checks every time.
+directly — and that importer is the weakest link: `upload_excel` inserts row by
+row instead of using `bulk_create`, deletes the previous products for a category
+before the new ones are confirmed good, and wraps the lot in one broad
+`except Exception` that surfaces as a flash message.
 
 **And there are no tests worth the name.** The suite covers the cookiecutter
 users app and nothing else — not the margin arithmetic, not the Excel export,

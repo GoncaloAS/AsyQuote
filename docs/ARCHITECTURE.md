@@ -207,8 +207,14 @@ category menu ─► products_links.xlsx
 ```
 
 The handoff is a six-column sheet: title, product URL, price, image URL,
-category, supplier. Concurrency appears twice — batches of ten listing pages in
-the scraper, and one `asyncio.gather` over every image URL on import.
+category, supplier.
+
+`scrappers/robots.py` parses the site's rules on every run and every URL is
+checked before it is fetched; `scrappers/peixoto2.py` throttles requests to the
+declared `Crawl-delay`, identifies itself honestly, and takes `--categories`,
+`--max-pages`, `--delay` and `--no-images` so a small run is easy. The matcher is
+hand-written because `urllib.robotparser` gets wildcard `Disallow` patterns
+wrong. On import, one `asyncio.gather` fetches every image URL in the sheet.
 
 The import has the sharp edges: it deletes the existing products for a
 supplier/category pair *before* the new rows are validated, inserts row by row

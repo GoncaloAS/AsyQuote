@@ -310,6 +310,7 @@ asyquote/media/supplier_images/
 asyquote/media/project_images/
 
 # Scraper output: per-category spreadsheets and downloaded product images
+scrappers/output/
 scrappers/*.xlsx
 scrappers/*_products/
 

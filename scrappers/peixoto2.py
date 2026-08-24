@@ -1,5 +1,29 @@
+"""Scrape a supplier catalogue into the spreadsheets the products importer reads.
+
+There is no supplier API, so this walks the storefront. Two passes: discover the
+category URLs, then page through each category collecting title, product URL,
+price and image URL. Output per category is a six-column .xlsx plus a folder of
+images, which is exactly the shape `products.views.upload_excel` expects.
+
+The crawl obeys robots.txt: rules are fetched at start-up, every URL is checked
+before it is requested, and the site's Crawl-delay is honoured by default. The
+user agent identifies the tool rather than impersonating a browser.
+
+    python scrappers/peixoto2.py --list-categories
+    python scrappers/peixoto2.py --categories 1 --max-pages 2
+    python scrappers/peixoto2.py --yes
+
+Run `--help` for the full set of limits.
+"""
+from __future__ import annotations
+
+import argparse
 import asyncio
 import os
+import sys
+import time
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
 
 import aiofiles
 import aiohttp
@@ -7,210 +31,251 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-first_url = "https://casapeixoto.pt/2-produtos"
-data = []
-product_titles = []
-product_hrefs = []
-product_prices = []
-imagem_products = []
-unique_urls = set()
-unique_data = []
-numberpage = 1
-global teller
-teller = True
-global i
-i = 0
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from scrappers import robots  # noqa: E402
+
+SITE = "https://casapeixoto.pt"
+CATALOGUE_URL = f"{SITE}/2-produtos"
+SUPPLIER = "Casa Peixoto"
+PAGE_SIZE_HINT = 24
+
+# Identify the tool. Impersonating Chrome would mean the site cannot tell who is
+# crawling it, or apply its own rules to us.
+USER_AGENT = "AsyQuoteScraper/1.0 (+https://github.com/GoncaloAS/AsyQuote)"
+DEFAULT_DELAY = 1.0
+RETRY_LIMIT = 5
 
 
-async def fetch(session, url, headers):
-    retry_limit = 10
-    retry_count = 0
-    while retry_count < retry_limit:
-        try:
-            async with session.get(url, headers=headers) as response:
-                return await response.text()
-        except aiohttp.client_exceptions.ServerDisconnectedError:
-            retry_count += 1
-            await asyncio.sleep(2**retry_count)
+class Throttle:
+    """Enforce a minimum interval between the start of successive requests."""
 
-    raise RuntimeError(f"Exceeded retry limit ({retry_limit}) for {url}")
+    def __init__(self, delay: float, concurrency: int):
+        self.delay = delay
+        self._lock = asyncio.Lock()
+        self._semaphore = asyncio.Semaphore(max(1, concurrency))
+        self._last = 0.0
 
+    async def __aenter__(self):
+        await self._semaphore.acquire()
+        async with self._lock:
+            wait = self.delay - (time.monotonic() - self._last)
+            if wait > 0:
+                await asyncio.sleep(wait)
+            self._last = time.monotonic()
+        return self
 
-def save_to_excel(product_titles, product_hrefs, product_prices, category_name, imagem_products):
-    num_products = len(product_titles)
-    category_names = [category_name] * num_products
-    suppliers = ["Casa Peixoto"] * num_products
-    data = {
-        "Title": product_titles,
-        "Href": product_hrefs,
-        "Price": product_prices,
-        "imagem": imagem_products,
-        "Category": category_names,
-        "Supplier": suppliers,
-    }
-    df = pd.DataFrame(data)
-    filename = f"{category_name}_products.xlsx"
-    df.to_excel(filename, sheet_name="products", index=False)
-    print(f"Saved data for category {category_name} to {filename}")
-    return filename
+    async def __aexit__(self, *exc):
+        self._semaphore.release()
 
 
-async def download_image(session, folder_name, i, image_url):
-    try:
-        async with session.get(image_url) as response:
-            if response.status == 200:
-                image_filename = os.path.join(folder_name, f"image_{i + 1}.jpg")
-                async with aiofiles.open(image_filename, "wb") as f:
-                    await f.write(await response.read())
-                print(f"Downloaded image {i + 1} to {image_filename}")
-            else:
-                print(f"Failed to download image {i + 1}")
-    except Exception as e:
-        print(f"Error downloading image {i + 1}. URL: {image_url}")
-        print(f"Error details: {e}")
+class Crawler:
+    def __init__(self, rules: robots.Rules, throttle: Throttle, headers: dict):
+        self.rules = rules
+        self.throttle = throttle
+        self.headers = headers
+        self.skipped: list[str] = []
 
-
-async def download_images(folder_name, imagem_products):
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-
-    async with aiohttp.ClientSession() as session:
-        tasks = [download_image(session, folder_name, i, image_url) for i, image_url in enumerate(imagem_products)]
-        await asyncio.gather(*tasks)
-
-
-def scrape_product(page_content, product_titles, product_hrefs, product_prices, imagem_products):
-    global teller
-    soup = BeautifulSoup(page_content, "html.parser")
-    product_info = soup.find_all(class_="product-meta")
-    product_image = soup.find_all(class_="product-image")
-    for image_product in product_image:
-        image = image_product.select_one("img")
-        if image:
-            imagem = image.get("src")
-            imagem_products.append(imagem)
-
-    for product_title in product_info:
-        title_product = product_title.select("a")
-        for title_element in title_product:
-            title_text = title_element.get_text()
-            title_link = title_element["href"]
-            product_titles.append(title_text)
-            product_hrefs.append(title_link)
-    price = ""
-    price_info = soup.find_all(class_="price")
-    for price_element in price_info:
-        price = price_element.get_text()
-        product_prices.append(price)
-
-    if price == "" or price == " ":
-        teller = False
-
-
-async def scrape_category_async(
-    category_url, headers, product_titles, product_hrefs, product_prices, imagem_products, numberpage
-):
-    global i, teller
-    retry_limit = 10
-    retry_count = 0
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as session:
-        while teller and retry_count < retry_limit:
-            print(f"--------------------------------{i}")
-            tasks = []
-            for page in range(numberpage, numberpage + 10):
-                url = f"{category_url}?page={page}"
-                tasks.append(fetch(session, url, headers))
-
+    async def get(self, session: aiohttp.ClientSession, url: str) -> bytes | None:
+        if not self.rules.allows(url):
+            self.skipped.append(url)
+            print(f"  robots.txt disallows, skipping: {url}")
+            return None
+        for attempt in range(RETRY_LIMIT):
             try:
-                responses = await asyncio.gather(*tasks)
-            except RuntimeError as e:
-                print(e)
-                retry_count += 1
+                async with self.throttle:
+                    async with session.get(url, headers=self.headers) as response:
+                        if response.status == 429 or response.status >= 500:
+                            raise aiohttp.ClientError(f"HTTP {response.status}")
+                        if response.status != 200:
+                            print(f"  HTTP {response.status} for {url}")
+                            return None
+                        return await response.read()
+            except (aiohttp.ClientError, TimeoutError) as exc:
+                backoff = 2**attempt
+                print(f"  {type(exc).__name__} on {url}; retrying in {backoff}s")
+                await asyncio.sleep(backoff)
+        print(f"  giving up on {url} after {RETRY_LIMIT} attempts")
+        return None
+
+
+def discover_categories(rules: robots.Rules, headers: dict, start_at: str | None) -> list[str]:
+    if not rules.allows(CATALOGUE_URL):
+        sys.exit(f"robots.txt disallows {CATALOGUE_URL}; nothing to do.")
+    response = requests.get(CATALOGUE_URL, headers=headers, timeout=30)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    urls: list[str] = []
+    for menu in soup.find_all("ul", {"class": "category-sub-menu"}):
+        for item in menu.find_all("li", {"data-depth": "0"}):
+            link = item.find("a")
+            if not link or not link.get("href"):
                 continue
+            url = urljoin(SITE, link["href"])
+            if url not in urls:
+                urls.append(url)
 
-            for page_content in responses:
-                scrape_product(page_content, product_titles, product_hrefs, product_prices, imagem_products)
+    if start_at:
+        matches = [i for i, u in enumerate(urls) if start_at in u]
+        if matches:
+            urls = urls[matches[0] :]
+        else:
+            print(f"  --start-at {start_at!r} matched nothing; keeping all categories")
+    return [u for u in urls if rules.allows(u)]
 
-            numberpage += 10
-            i += 1
+
+def parse_listing(html: bytes) -> tuple[list[str], list[str], list[str], list[str]]:
+    soup = BeautifulSoup(html, "html.parser")
+    titles, hrefs, prices, images = [], [], [], []
+
+    for block in soup.find_all(class_="product-image"):
+        img = block.select_one("img")
+        if img and img.get("src"):
+            images.append(img["src"])
+    for block in soup.find_all(class_="product-meta"):
+        for anchor in block.select("a"):
+            titles.append(anchor.get_text(strip=True))
+            hrefs.append(anchor["href"])
+    for block in soup.find_all(class_="price"):
+        prices.append(block.get_text(strip=True))
+
+    return titles, hrefs, prices, images
 
 
-def main():
-    global teller, i
+async def scrape_category(crawler: Crawler, session, url: str, max_pages: int) -> dict[str, list[str]]:
+    """Page through one category until a page comes back with no priced products."""
+    rows: dict[str, list[str]] = {"Title": [], "Href": [], "Price": [], "imagem": []}
+    for page in range(1, max_pages + 1):
+        html = await crawler.get(session, f"{url}?page={page}")
+        if html is None:
+            break
+        titles, hrefs, prices, images = parse_listing(html)
+        if not prices:
+            break
+        rows["Title"].extend(titles)
+        rows["Href"].extend(hrefs)
+        rows["Price"].extend(prices)
+        rows["imagem"].extend(images)
+        print(f"  page {page}: {len(prices)} products (running total {len(rows['Price'])})")
+        if len(prices) < PAGE_SIZE_HINT:
+            break
+    return rows
+
+
+async def download_images(crawler: Crawler, session, folder: Path, urls: list[str]) -> int:
+    folder.mkdir(parents=True, exist_ok=True)
+    saved = 0
+    for index, image_url in enumerate(urls):
+        data = await crawler.get(session, urljoin(SITE, image_url))
+        if data is None:
+            continue
+        # Positional names: the importer zips rows and images by index.
+        async with aiofiles.open(folder / f"image_{index + 1}.jpg", "wb") as handle:
+            await handle.write(data)
+        saved += 1
+    return saved
+
+
+def write_sheet(rows: dict[str, list[str]], category: str, out_dir: Path) -> Path:
+    count = min(len(rows["Title"]), len(rows["Href"]), len(rows["Price"]), len(rows["imagem"]))
+    frame = pd.DataFrame(
+        {
+            "Title": rows["Title"][:count],
+            "Href": rows["Href"][:count],
+            "Price": rows["Price"][:count],
+            "imagem": rows["imagem"][:count],
+            "Category": [category] * count,
+            "Supplier": [SUPPLIER] * count,
+        }
+    )
+    path = out_dir / f"{category}_products.xlsx"
+    frame.to_excel(path, sheet_name="products", index=False)
+    print(f"  wrote {count} rows to {path}")
+    return path
+
+
+async def run(args, rules: robots.Rules, headers: dict, categories: list[str]) -> None:
+    delay = args.delay if args.delay is not None else (rules.crawl_delay or DEFAULT_DELAY)
+    throttle = Throttle(delay, args.concurrency)
+    crawler = Crawler(rules, throttle, headers)
+    out_dir = Path(args.out)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    pd.DataFrame({"Category": categories}).to_excel(
+        out_dir / "products_links.xlsx", sheet_name="products_links", index=False
+    )
+    print(f"category map -> {out_dir / 'products_links.xlsx'}\n")
+
+    timeout = aiohttp.ClientTimeout(total=300)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        for number, url in enumerate(categories, start=1):
+            name = urlparse(url).path.strip("/").split("/")[-1]
+            print(f"[{number}/{len(categories)}] {name}")
+            rows = await scrape_category(crawler, session, url, args.max_pages)
+            if not rows["Price"]:
+                print("  no products found\n")
+                continue
+            sheet = write_sheet(rows, name, out_dir)
+            if args.images:
+                folder = out_dir / sheet.stem
+                saved = await download_images(crawler, session, folder, rows["imagem"])
+                print(f"  saved {saved} images to {folder}")
+            print()
+
+    if crawler.skipped:
+        print(f"skipped {len(crawler.skipped)} URLs disallowed by robots.txt")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--categories", type=int, default=0, help="only crawl the first N categories (0 = all)")
+    parser.add_argument("--max-pages", type=int, default=200, help="page cap per category (default 200)")
+    parser.add_argument("--delay", type=float, default=None, help="seconds between requests (default: robots.txt)")
+    parser.add_argument("--concurrency", type=int, default=4, help="parallel requests, only useful with --delay 0")
+    parser.add_argument("--out", default="scrappers/output", help="output directory")
+    parser.add_argument("--start-at", default=None, help="skip categories until one matches this substring")
+    parser.add_argument("--no-images", dest="images", action="store_false", help="spreadsheets only")
+    parser.add_argument("--list-categories", action="store_true", help="print the category map and exit")
+    parser.add_argument("--yes", action="store_true", help="skip the confirmation for a long run")
+    args = parser.parse_args()
+
     headers = {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,"
-        "application/signed-exchange;v=b3;q=0.7",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/119.0.0.0 Safari/537.36",
-        "Accept-Encoding": "zip, deflate, br",
-        "referer": "https://casapeixoto.pt/",
-        "Accept-Language": "pt-PT,pt;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6",
-        # A browser session cookie was originally pasted in here. Credentials do not
-        # belong in source control: set SCRAPER_COOKIE in the environment if the
-        # target site requires a session, otherwise the header is simply omitted.
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "pt-PT,pt;q=0.9",
     }
     cookie = os.environ.get("SCRAPER_COOKIE")
     if cookie:
         headers["Cookie"] = cookie
 
-    response = requests.get(first_url, headers=headers)
+    print(f"fetching {SITE}/robots.txt as {USER_AGENT}")
+    robots_txt = requests.get(f"{SITE}/robots.txt", headers=headers, timeout=30)
+    rules = robots.parse(robots_txt.text if robots_txt.ok else "", USER_AGENT)
+    print(f"  rules for {rules.matched_agent!r}: {len(rules.allow)} allow, {len(rules.disallow)} disallow")
+    if rules.content_signal:
+        print(f"  Content-Signal: {rules.content_signal}")
+    print(f"  Crawl-delay: {rules.crawl_delay if rules.crawl_delay is not None else 'not set'}")
 
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, "html.parser")
-        product_containers = soup.find_all("ul", {"class": "category-sub-menu"})
-        start_processing = False
+    categories = discover_categories(rules, headers, args.start_at)
+    if args.categories:
+        categories = categories[: args.categories]
+    print(f"  {len(categories)} categories allowed\n")
 
-        for product_container in product_containers:
-            links_main = product_container.find_all("li", {"data-depth": "0"})
+    if args.list_categories:
+        for url in categories:
+            print(f"  {url}")
+        return
+    if not categories:
+        sys.exit("nothing to crawl")
 
-            for li in links_main:
-                first_a_tag = li.find("a")
+    delay = args.delay if args.delay is not None else (rules.crawl_delay or DEFAULT_DELAY)
+    pages = len(categories) * min(args.max_pages, 40)
+    estimate = pages * delay * (1 + (PAGE_SIZE_HINT if args.images else 0))
+    print(f"at {delay}s per request this is roughly {estimate / 3600:.1f} h of crawling")
+    if estimate > 600 and not args.yes:
+        sys.exit("refusing to start a long crawl without --yes")
 
-                if first_a_tag:
-                    category_url = first_a_tag.get("href")
-
-                    if start_processing or category_url.startswith("https://casapeixoto.pt/745-jardim"):
-                        start_processing = True
-                        print(f"Processing category URL: {category_url}")
-                        data.append({"Category": category_url})
-                    if start_processing:
-                        pass
-
-    for entry in data:
-        category_url = entry["Category"]
-        if category_url not in unique_urls:
-            unique_urls.add(category_url)
-            unique_data.append(entry)
-    df = pd.DataFrame(unique_data)
-    df.to_excel("products_links.xlsx", sheet_name="products_links", index=False)
-
-    # Tudo Certo para cima para ir buscar os links
-
-    for entry in unique_data:
-        category_url = entry["Category"]
-        print(category_url)
-        numberpage = 1
-        i = 0
-
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(
-            scrape_category_async(
-                category_url, headers, product_titles, product_hrefs, product_prices, imagem_products, numberpage
-            )
-        )
-
-        save_to_excel(product_titles, product_hrefs, product_prices, category_url.split("/")[-1], imagem_products)
-        excel_filename = save_to_excel(
-            product_titles, product_hrefs, product_prices, category_url.split("/")[-1], imagem_products
-        )
-        folder_name = os.path.splitext(excel_filename)[0]
-        loop.run_until_complete(download_images(folder_name, imagem_products))
-        # Reset
-        product_titles.clear()
-        product_hrefs.clear()
-        product_prices.clear()
-        imagem_products.clear()
-        teller = True
+    asyncio.run(run(args, rules, headers, categories))
 
 
 if __name__ == "__main__":
