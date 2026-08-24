@@ -8,7 +8,7 @@ DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="REDACTED-DJANGO-SECRET-KEY",
+    default="django-insecure-local-development-key-do-not-use-in-production",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
@@ -27,12 +27,12 @@ CACHES = {
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 # EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email server's hostname
-EMAIL_PORT = 587  # Replace with your email server's port
-EMAIL_USE_TLS = True  # Use TLS (True/False)
-EMAIL_HOST_USER = 'REDACTED-EMAIL-ADDRESS'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'REDACTED-SMTP-APP-PASSWORD'  # Replace with your email password
+# Locally, print emails (including the allauth verification links) to the console.
+# Set DJANGO_EMAIL_BACKEND in .env to send through a real SMTP server instead.
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
+)
 
 # WhiteNoise
 # ------------------------------------------------------------------------------

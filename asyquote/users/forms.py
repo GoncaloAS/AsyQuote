@@ -1,5 +1,6 @@
 from allauth.account.forms import SignupForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
+from django.conf import settings
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 from django.contrib.auth import forms as admin_forms
@@ -64,7 +65,7 @@ class UserSignupForm(SignupForm):
         subject = 'Thank you for signing up'
         html_content = render_to_string('account/email/signup_email.html', {'user': user})
         plain_message = strip_tags(html_content)
-        from_email = 'REDACTED-EMAIL-ADDRESS'
+        from_email = settings.DEFAULT_FROM_EMAIL
         to_email = [user.email]
         send_mail(subject, plain_message, from_email, to_email, html_message=html_content)
 

@@ -138,23 +138,14 @@ def main():
         'Accept-Encoding': 'zip, deflate, br',
         'referer': 'https://casapeixoto.pt/',
         'Accept-Language': 'pt-PT,pt;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6',
-        'Cookie': 'PrestaShop-REDACTED-SCRAPER-SESSION-COOKIE=REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE; PHPSESSID=REDACTED-'
-                  'SCRAPER-PHPSESSID; cp-popup-last-displayed=1700757457; cp-popup-2=1700757457; cp-popup-9=1700757457; '
-                  'AT_MOVIC'
-                  '_PANEL_CONFIG_grid_list=grid; '
-                  'PrestaShop-REDACTED-SCRAPER-SESSION-COOKIE=REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE'
-                  'REDACTED-SCRAPER-SESSION-COOKIE',
+        # A browser session cookie was originally pasted in here. Credentials do not
+        # belong in source control: set SCRAPER_COOKIE in the environment if the
+        # target site requires a session, otherwise the header is simply omitted.
     }
+    cookie = os.environ.get('SCRAPER_COOKIE')
+    if cookie:
+        headers['Cookie'] = cookie
+
     response = requests.get(first_url, headers=headers)
 
     if response.status_code == 200:

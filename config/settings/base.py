@@ -252,12 +252,16 @@ X_FRAME_OPTIONS = "DENY"
 #     "DJANGO_EMAIL_BACKEND",
 #     default="django.core.mail.backends.smtp.EmailBackend",
 # )
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email server's hostname
-EMAIL_PORT = 587  # Replace with your email server's port
-EMAIL_USE_TLS = True  # Use TLS (True/False)
-EMAIL_HOST_USER = 'REDACTED-EMAIL-ADDRESS'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'REDACTED-SMTP-APP-PASSWORD'  # Replace with your email password
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND",
+    default="django.core.mail.backends.smtp.EmailBackend",
+)
+EMAIL_HOST = env("EMAIL_HOST", default="localhost")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER or "noreply@localhost")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -266,7 +270,7 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Gonçalo Sousa""", "gonçalo-sousa@example.com")]
+ADMINS = [("AsyQuote", env("DJANGO_ADMIN_EMAIL", default="admin@example.com"))]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
@@ -323,6 +327,8 @@ GRAPH_MODELS = {
 }
 
 WAGTAIL_SITE_NAME = 'AsyQuote'
-WAGTAILADMIN_BASE_URL = "http://example.com"
-RECAPTCHA_PUBLIC_KEY = 'REDACTED-RECAPTCHA-SITE-KEY'
-RECAPTCHA_PRIVATE_KEY = 'REDACTED-RECAPTCHA-SECRET-KEY'
+WAGTAILADMIN_BASE_URL = env("WAGTAILADMIN_BASE_URL", default="http://localhost:8000")
+# django-recaptcha: without real keys the widget falls back to Google's public
+# test keys, which always validate. Fine for local development, never for production.
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe")
