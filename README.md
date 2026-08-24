@@ -268,8 +268,39 @@ Django admin at `/django-admin/` are both reachable.
 
 Registration works locally too. `.env.example` leaves the reCAPTCHA keys blank,
 which falls back to Google's public test keys, so the checkbox renders and
-always validates. Email uses the console backend, so the verification link for a
-new account is printed in the `docker compose` log rather than sent.
+always validates.
+
+Signup requires a confirmed email address, so the stack runs
+[mailpit](https://github.com/axllent/mailpit) alongside it. The app really sends
+the message over SMTP, nothing leaves the machine, and every mail is readable at
+**http://localhost:8025** — open the verification link from there and the
+account is active. No provider account and no credentials needed.
+
+<details>
+<summary>Sending mail for real</summary>
+
+Point the SMTP variables in `.env` at any provider and restart. Free
+allowances change often, so check the current terms before relying on one.
+
+```bash
+DJANGO_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp-relay.brevo.com     # or smtp.resend.com, smtp.gmail.com, ...
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=<provider username>
+EMAIL_HOST_PASSWORD=<provider key or app password>
+DJANGO_DEFAULT_FROM_EMAIL=AsyQuote <you@yourdomain>
+```
+
+Two things catch people out: providers reject a `From` address they have not
+verified, so `DJANGO_DEFAULT_FROM_EMAIL` has to be a sender you own; and Gmail
+needs an [app password](https://myaccount.google.com/apppasswords) rather than
+your account password, which requires 2FA to be on.
+
+`config/settings/production.py` takes a different route — Mailgun through
+Anymail, configured with `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`.
+
+</details>
 
 <details>
 <summary>Without Docker</summary>
@@ -282,6 +313,9 @@ pip install -r requirements/local.txt
 
 createdb asyquote
 export DJANGO_SETTINGS_MODULE=config.settings.local
+
+# .env is picked up automatically, but its DATABASE_URL names the compose
+# service, so override it for a host-side Postgres. Shell variables win over .env.
 export DATABASE_URL=postgres:///asyquote
 
 python manage.py migrate                             # builds the public site
@@ -290,6 +324,9 @@ python manage.py runserver
 ```
 
 </details>
+
+Mail still goes to mailpit on `localhost:1025`, so `docker compose up mailpit`
+is worth leaving running even when the app itself runs on the host.
 
 <details>
 <summary>Tests, linting and assets</summary>

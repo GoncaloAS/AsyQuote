@@ -6,6 +6,18 @@
 # empty database before starting the dev server on http://localhost:8000.
 
 services:
+  # Local mail catcher: the app really sends, nothing leaves the machine, and
+  # every message is readable at http://localhost:8025 (SMTP on 1025).
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    environment:
+      MP_MAX_MESSAGES: 500
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
   postgres:
     image: postgres:15-alpine
     volumes:
@@ -31,6 +43,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     volumes:
       # Source is mounted so runserver's autoreload picks up edits. This also
       # exposes the demo media the fixture's Wagtail image rows point at.
@@ -40,6 +54,9 @@ services:
     environment:
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.local}
       DATABASE_URL: ${DATABASE_URL:-postgres://asyquote:asyquote@postgres:5432/asyquote}
+      # Unset in .env, so mail goes to the mailpit container. Set EMAIL_HOST to
+      # a real SMTP server and it is honoured here too.
+      EMAIL_HOST: ${EMAIL_HOST:-mailpit}
     ports:
       - '8000:8000'
     command: /start

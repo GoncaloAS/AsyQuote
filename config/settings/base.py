@@ -10,10 +10,14 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = BASE_DIR / "asyquote"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+# Read .env whenever one exists. DJANGO_READ_DOT_ENV_FILE lives inside .env
+# itself, so keeping the cookiecutter default of False meant the file was never
+# read outside Docker, where compose injects the variables directly.
+DOT_ENV_FILE = BASE_DIR / ".env"
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=DOT_ENV_FILE.exists())
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR / ".env"))
+    env.read_env(str(DOT_ENV_FILE))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -259,7 +263,8 @@ EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.smtp.EmailBackend",
 )
-EMAIL_HOST = env("EMAIL_HOST", default="localhost")
+# `or` rather than a default: an empty environment variable counts as set.
+EMAIL_HOST = env("EMAIL_HOST", default="") or "localhost"
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")

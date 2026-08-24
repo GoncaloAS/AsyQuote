@@ -224,8 +224,14 @@ rather than with `bulk_create`, and wraps everything in one broad
 `.env` is git-ignored.
 
 Locally, reCAPTCHA falls back to Google's public test keys (which always
-validate) and email to the console backend, so registration works end to end
-with no third-party account. `local.py` silences
+validate) and SMTP points at the mailpit container, so registration works end to
+end with no third-party account: the confirmation mail is genuinely sent and
+read back at http://localhost:8025.
+
+`EMAIL_HOST` and the reCAPTCHA keys both use `env(...) or <fallback>` rather
+than `env(..., default=...)`, because django-environ treats an empty variable as
+set. `.env.example` leaves both blank on purpose, and an empty site key silently
+broke signup once already. `local.py` silences
 `captcha.recaptcha_test_key_error`, which is an error-level system check that
 otherwise aborts every management command.
 
