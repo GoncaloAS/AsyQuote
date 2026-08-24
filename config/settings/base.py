@@ -29,7 +29,7 @@ LANGUAGE_CODE = "pt"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 # from django.utils.translation import gettext_lazy as _
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
-    ('pt', 'Português'),
+    ("pt", "Português"),
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -74,23 +74,23 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.locales',
-    'wagtail',
-    'modelcluster',
-    'taggit',
-    'wagtail_modeladmin',
-    'wagtail.contrib.modeladmin',
-    'wagtailmenus',
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail.locales",
+    "wagtail",
+    "modelcluster",
+    "taggit",
+    "wagtail_modeladmin",
+    "wagtail.contrib.modeladmin",
+    "wagtailmenus",
     "wagtail.contrib.routable_page",
 ]
 THIRD_PARTY_APPS = [
@@ -100,7 +100,6 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "captcha",
-
 ]
 
 LOCAL_APPS = [
@@ -132,6 +131,12 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "login"
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-reset-timeout
+# The project report specifies a two-minute window for the password reset link.
+# The setting was never present, so the reset token silently inherited Django's
+# three-day default; this restores the documented behaviour.
+PASSWORD_RESET_TIMEOUT = 120
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -165,8 +170,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 # STATIC
@@ -213,12 +217,11 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "asyquote.users.context_processors.allauth_settings",
-                'wagtailmenus.context_processors.wagtailmenus',
-                'asyquote.utils.context_processors.titles_context',
-                'asyquote.utils.context_processors.contact_context',
-                'asyquote.utils.context_processors.navigation_context',
-                'asyquote.utils.context_processors.additional_context',
-
+                "wagtailmenus.context_processors.wagtailmenus",
+                "asyquote.utils.context_processors.titles_context",
+                "asyquote.utils.context_processors.contact_context",
+                "asyquote.utils.context_processors.navigation_context",
+                "asyquote.utils.context_processors.additional_context",
             ],
         },
     }
@@ -322,11 +325,11 @@ SOCIALACCOUNT_FORMS = {"signup": "asyquote.users.forms.UserSocialSignupForm"}
 # ------------------------------------------------------------------------------
 
 GRAPH_MODELS = {
-    'all_applications': True,
-    'group_models': True,
+    "all_applications": True,
+    "group_models": True,
 }
 
-WAGTAIL_SITE_NAME = 'AsyQuote'
+WAGTAIL_SITE_NAME = "AsyQuote"
 WAGTAILADMIN_BASE_URL = env("WAGTAILADMIN_BASE_URL", default="http://localhost:8000")
 # django-recaptcha: without real keys the widget falls back to Google's public
 # test keys, which always validate. Fine for local development, never for production.
