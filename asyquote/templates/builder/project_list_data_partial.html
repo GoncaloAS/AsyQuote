@@ -1,4 +1,5 @@
 {% load i18n static %}
+
 <div class="table-responsive">
   <table class="mt-5 table_style_data_projects">
     <tr>
@@ -12,7 +13,8 @@
       <td class="table_field px-3">Estado</td>
     </tr>
     {% for project in projects %}
-      <tr class="table_cell_hover" ondblclick="window.location='{% url 'edit_project' project.key %}'">
+      <tr class="table_cell_hover"
+          ondblclick="window.location='{% url 'edit_project' project.key %}'">
         <div class="d-flex">
           <td class="table_field px-3">{{ project.quote_number }}</td>
           <td class="table_field px-3">{{ project.title }}</td>
@@ -20,7 +22,7 @@
           <td class="table_field px-3">{{ project.address }}</td>
           <td class="table_field px-3">{{ project.total_cost }}€</td>
           <td class="table_field px-3">{{ project.total_charged }}€</td>
-          <td class="table_field px-3">{{ project.profit_percentage }}%</td>
+          <td class="table_field px-3">{{ project.profit_percentage|floatformat:2 }}%</td>
           <td class="table_field project_state px-3">{{ project.state|title }}</td>
         </div>
       </tr>

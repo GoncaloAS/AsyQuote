@@ -1,4 +1,5 @@
 {% extends 'builder/builder_landing.html' %}
+
 {% load crispy_forms_filters %}
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
 {% load account %}
@@ -12,20 +13,17 @@
         <div id="list_projects_a" class="col-12 col-md-7 text-end d-flex">
           <a href="{% url 'project_list' %}"
              class="btn btn-secondary form-listing text-uppercase menu-project-listing list_project_active"
-             style="margin-right: 20px;">
-            Listar Projetos
-          </a>
+             style="margin-right: 20px">Listar Projetos</a>
           <a id="download_link"
              href="{% url 'download_excel' %}"
-             class="btn btn-secondary form-listing text-uppercase menu-project-listing" style="margin-right: 20px;">
-            Download Excel
-          </a>
-
-
-          <select name="state" id="state_filter_data"
+             class="btn btn-secondary form-listing text-uppercase menu-project-listing"
+             style="margin-right: 20px">Download Excel</a>
+          <select name="state"
+                  id="state_filter_data"
                   class="form-select text-center text-uppercase no-outline menu-project-listing"
                   hx-get="{% url 'filter_projects_data' %}"
-                  hx-trigger="change" hx-target="#project_list">
+                  hx-trigger="change"
+                  hx-target="#project_list">
             <option value="EM EXECUÇÃO" selected>Em execução</option>
             <option valulist_projects_ae="CONCLUÍDO">Concluído</option>
             <option value="EM ESPERA">Em espera</option>
@@ -33,8 +31,6 @@
             <option value="">Todos</option>
           </select>
         </div>
-
-
         <div id="project_list" class="justify-content-center d-flex">
           <div class="table-responsive">
             <table class="mt-5 table_style_data_projects">
@@ -49,7 +45,8 @@
                 <td class="table_field px-3">Estado</td>
               </tr>
               {% for project in projects %}
-                <tr class="table_cell_hover" ondblclick="window.location='{% url 'edit_project' project.key %}'">
+                <tr class="table_cell_hover"
+                    ondblclick="window.location='{% url 'edit_project' project.key %}'">
                   <div class="d-flex">
                     <td class="table_field px-3">{{ project.quote_number }}</td>
                     <td class="table_field px-3">{{ project.title }}</td>
@@ -57,7 +54,7 @@
                     <td class="table_field px-3">{{ project.address }}</td>
                     <td class="table_field px-3">{{ project.total_cost }}€</td>
                     <td class="table_field px-3">{{ project.total_charged }}€</td>
-                    <td class="table_field px-3">{{ project.profit_percentage }}%</td>
+                    <td class="table_field px-3">{{ project.profit_percentage|floatformat:2 }}%</td>
                     <td class="table_field project_state px-3">{{ project.state|title }}</td>
                   </div>
                 </tr>
@@ -68,12 +65,12 @@
       </div>
     </div>
   </div>
-  </div>
-  <script>
-    document.getElementById('state_filter_data').addEventListener('change', function () {
-      var state = this.value;
-      var downloadLink = document.getElementById('download_link');
-      downloadLink.href = "{% url 'download_excel' %}?state=" + state;
-    });
-  </script>
+</div>
+<script>
+  document.getElementById('state_filter_data').addEventListener('change', function() {
+    var state = this.value;
+    var downloadLink = document.getElementById('download_link');
+    downloadLink.href = "{% url 'download_excel' %}?state=" + state;
+  });
+</script>
 {% endblock %}
