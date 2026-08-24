@@ -18,15 +18,13 @@ Run `--help` for the full set of limits.
 from __future__ import annotations
 
 import argparse
-import asyncio
 import os
+import re
 import sys
 import time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
-import aiofiles
-import aiohttp
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -49,51 +47,56 @@ RETRY_LIMIT = 5
 class Throttle:
     """Enforce a minimum interval between the start of successive requests."""
 
-    def __init__(self, delay: float, concurrency: int):
+    def __init__(self, delay: float):
         self.delay = delay
-        self._lock = asyncio.Lock()
-        self._semaphore = asyncio.Semaphore(max(1, concurrency))
         self._last = 0.0
 
-    async def __aenter__(self):
-        await self._semaphore.acquire()
-        async with self._lock:
-            wait = self.delay - (time.monotonic() - self._last)
-            if wait > 0:
-                await asyncio.sleep(wait)
-            self._last = time.monotonic()
-        return self
-
-    async def __aexit__(self, *exc):
-        self._semaphore.release()
+    def wait(self) -> None:
+        gap = self.delay - (time.monotonic() - self._last)
+        if gap > 0:
+            time.sleep(gap)
+        self._last = time.monotonic()
 
 
 class Crawler:
+    """Fetch pages politely, skipping anything robots.txt disallows.
+
+    Requests rather than aiohttp: the site sits behind Cloudflare, which
+    fingerprints the client and answers aiohttp with 403 even for a URL its own
+    robots.txt allows and with an identical User-Agent. Since the declared
+    Crawl-delay serialises the crawl anyway, the async machinery bought nothing.
+    """
+
     def __init__(self, rules: robots.Rules, throttle: Throttle, headers: dict):
         self.rules = rules
         self.throttle = throttle
-        self.headers = headers
+        self.session = requests.Session()
+        self.session.headers.update(headers)
         self.skipped: list[str] = []
 
-    async def get(self, session: aiohttp.ClientSession, url: str) -> bytes | None:
+    def get(self, url: str) -> bytes | None:
         if not self.rules.allows(url):
             self.skipped.append(url)
             print(f"  robots.txt disallows, skipping: {url}")
             return None
         for attempt in range(RETRY_LIMIT):
+            self.throttle.wait()
             try:
-                async with self.throttle:
-                    async with session.get(url, headers=self.headers) as response:
-                        if response.status == 429 or response.status >= 500:
-                            raise aiohttp.ClientError(f"HTTP {response.status}")
-                        if response.status != 200:
-                            print(f"  HTTP {response.status} for {url}")
-                            return None
-                        return await response.read()
-            except (aiohttp.ClientError, TimeoutError) as exc:
+                response = self.session.get(url, timeout=60)
+            except requests.RequestException as exc:
                 backoff = 2**attempt
                 print(f"  {type(exc).__name__} on {url}; retrying in {backoff}s")
-                await asyncio.sleep(backoff)
+                time.sleep(backoff)
+                continue
+            if response.status_code == 200:
+                return response.content
+            if response.status_code == 429 or response.status_code >= 500:
+                backoff = 2**attempt
+                print(f"  HTTP {response.status_code} on {url}; retrying in {backoff}s")
+                time.sleep(backoff)
+                continue
+            print(f"  HTTP {response.status_code} for {url}")
+            return None
         print(f"  giving up on {url} after {RETRY_LIMIT} attempts")
         return None
 
@@ -142,11 +145,11 @@ def parse_listing(html: bytes) -> tuple[list[str], list[str], list[str], list[st
     return titles, hrefs, prices, images
 
 
-async def scrape_category(crawler: Crawler, session, url: str, max_pages: int) -> dict[str, list[str]]:
+def scrape_category(crawler: Crawler, url: str, max_pages: int) -> dict[str, list[str]]:
     """Page through one category until a page comes back with no priced products."""
     rows: dict[str, list[str]] = {"Title": [], "Href": [], "Price": [], "imagem": []}
     for page in range(1, max_pages + 1):
-        html = await crawler.get(session, f"{url}?page={page}")
+        html = crawler.get(f"{url}?page={page}")
         if html is None:
             break
         titles, hrefs, prices, images = parse_listing(html)
@@ -162,42 +165,51 @@ async def scrape_category(crawler: Crawler, session, url: str, max_pages: int) -
     return rows
 
 
-async def download_images(crawler: Crawler, session, folder: Path, urls: list[str]) -> int:
+def download_images(crawler: Crawler, folder: Path, urls: list[str]) -> int:
     folder.mkdir(parents=True, exist_ok=True)
     saved = 0
     for index, image_url in enumerate(urls):
-        data = await crawler.get(session, urljoin(SITE, image_url))
+        data = crawler.get(urljoin(SITE, image_url))
         if data is None:
             continue
         # Positional names: the importer zips rows and images by index.
-        async with aiofiles.open(folder / f"image_{index + 1}.jpg", "wb") as handle:
-            await handle.write(data)
+        (folder / f"image_{index + 1}.jpg").write_bytes(data)
         saved += 1
     return saved
 
 
 def write_sheet(rows: dict[str, list[str]], category: str, out_dir: Path) -> Path:
     count = min(len(rows["Title"]), len(rows["Href"]), len(rows["Price"]), len(rows["imagem"]))
+
+    # Listings carry "Preço sob consulta" rows. upload_excel drops a price it
+    # cannot parse but keeps the title, which shifts every later row against its
+    # price and image and makes the whole import fail its length check. A product
+    # with no price is useless in a price catalogue, so drop it here instead -
+    # across all four columns at once, keeping them aligned.
+    keep = [i for i in range(count) if re.search(r"\d", str(rows["Price"][i]))]
+    dropped = count - len(keep)
+    if dropped:
+        print(f"  dropped {dropped} products with no numeric price")
+
     frame = pd.DataFrame(
         {
-            "Title": rows["Title"][:count],
-            "Href": rows["Href"][:count],
-            "Price": rows["Price"][:count],
-            "imagem": rows["imagem"][:count],
-            "Category": [category] * count,
-            "Supplier": [SUPPLIER] * count,
+            "Title": [rows["Title"][i] for i in keep],
+            "Href": [rows["Href"][i] for i in keep],
+            "Price": [rows["Price"][i] for i in keep],
+            "imagem": [rows["imagem"][i] for i in keep],
+            "Category": [category] * len(keep),
+            "Supplier": [SUPPLIER] * len(keep),
         }
     )
     path = out_dir / f"{category}_products.xlsx"
     frame.to_excel(path, sheet_name="products", index=False)
-    print(f"  wrote {count} rows to {path}")
+    print(f"  wrote {len(keep)} rows to {path}")
     return path
 
 
-async def run(args, rules: robots.Rules, headers: dict, categories: list[str]) -> None:
+def run(args, rules: robots.Rules, headers: dict, categories: list[str]) -> None:
     delay = args.delay if args.delay is not None else (rules.crawl_delay or DEFAULT_DELAY)
-    throttle = Throttle(delay, args.concurrency)
-    crawler = Crawler(rules, throttle, headers)
+    crawler = Crawler(rules, Throttle(delay), headers)
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -206,21 +218,19 @@ async def run(args, rules: robots.Rules, headers: dict, categories: list[str]) -
     )
     print(f"category map -> {out_dir / 'products_links.xlsx'}\n")
 
-    timeout = aiohttp.ClientTimeout(total=300)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        for number, url in enumerate(categories, start=1):
-            name = urlparse(url).path.strip("/").split("/")[-1]
-            print(f"[{number}/{len(categories)}] {name}")
-            rows = await scrape_category(crawler, session, url, args.max_pages)
-            if not rows["Price"]:
-                print("  no products found\n")
-                continue
-            sheet = write_sheet(rows, name, out_dir)
-            if args.images:
-                folder = out_dir / sheet.stem
-                saved = await download_images(crawler, session, folder, rows["imagem"])
-                print(f"  saved {saved} images to {folder}")
-            print()
+    for number, url in enumerate(categories, start=1):
+        name = urlparse(url).path.strip("/").split("/")[-1]
+        print(f"[{number}/{len(categories)}] {name}")
+        rows = scrape_category(crawler, url, args.max_pages)
+        if not rows["Price"]:
+            print("  no products found\n")
+            continue
+        sheet = write_sheet(rows, name, out_dir)
+        if args.images:
+            folder = out_dir / sheet.stem
+            saved = download_images(crawler, folder, rows["imagem"])
+            print(f"  saved {saved} images to {folder}")
+        print()
 
     if crawler.skipped:
         print(f"skipped {len(crawler.skipped)} URLs disallowed by robots.txt")
@@ -231,7 +241,6 @@ def main() -> None:
     parser.add_argument("--categories", type=int, default=0, help="only crawl the first N categories (0 = all)")
     parser.add_argument("--max-pages", type=int, default=200, help="page cap per category (default 200)")
     parser.add_argument("--delay", type=float, default=None, help="seconds between requests (default: robots.txt)")
-    parser.add_argument("--concurrency", type=int, default=4, help="parallel requests, only useful with --delay 0")
     parser.add_argument("--out", default="scrappers/output", help="output directory")
     parser.add_argument("--start-at", default=None, help="skip categories until one matches this substring")
     parser.add_argument("--no-images", dest="images", action="store_false", help="spreadsheets only")
@@ -275,7 +284,7 @@ def main() -> None:
     if estimate > 600 and not args.yes:
         sys.exit("refusing to start a long crawl without --yes")
 
-    asyncio.run(run(args, rules, headers, categories))
+    run(args, rules, headers, categories)
 
 
 if __name__ == "__main__":
