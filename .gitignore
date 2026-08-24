@@ -287,7 +287,9 @@ tags
 dump.rdb
 
 ### Project template
-asyquote/media/
+# Not asyquote/media/ wholesale: that directory holds the demo fixture's own
+# artwork, which the repository ships. The regenerable and upload-only
+# subdirectories are listed further down instead.
 
 .pytest_cache/
 project.css

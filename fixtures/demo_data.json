@@ -419,7 +419,7 @@
     "model": "products.products",
     "pk": 1,
     "fields": {
-      "image": "",
+      "image": "demo_products/pavimento-flutuante.png",
       "title": "Pavimento flutuante carvalho natural 8mm (m²)",
       "categories": 1,
       "suppliers": [1, 2],
@@ -430,7 +430,7 @@
     "model": "products.products",
     "pk": 2,
     "fields": {
-      "image": "",
+      "image": "demo_products/rodape-mdf.png",
       "title": "Rodapé MDF branco 2.4m",
       "categories": 1,
       "suppliers": [1, 2],
@@ -441,7 +441,7 @@
     "model": "products.products",
     "pk": 3,
     "fields": {
-      "image": "",
+      "image": "demo_products/azulejo-branco.png",
       "title": "Azulejo cerâmico branco 20x20cm (m²)",
       "categories": 1,
       "suppliers": [1, 2],
@@ -452,7 +452,7 @@
     "model": "products.products",
     "pk": 4,
     "fields": {
-      "image": "",
+      "image": "demo_products/cola-ladrilhos.png",
       "title": "Cola para ladrilhos cinza 25kg",
       "categories": 1,
       "suppliers": [1, 2],
@@ -463,7 +463,7 @@
     "model": "products.products",
     "pk": 5,
     "fields": {
-      "image": "",
+      "image": "demo_products/tubo-pvc.png",
       "title": "Tubo PVC 110mm esgoto 3m",
       "categories": 2,
       "suppliers": [1, 2],
@@ -474,7 +474,7 @@
     "model": "products.products",
     "pk": 6,
     "fields": {
-      "image": "",
+      "image": "demo_products/sifao-lavatorio.png",
       "title": "Sifão universal lavatório",
       "categories": 2,
       "suppliers": [1, 2],
@@ -485,7 +485,7 @@
     "model": "products.products",
     "pk": 7,
     "fields": {
-      "image": "",
+      "image": "demo_products/torneira-monocomando.png",
       "title": "Torneira monocomando lavatório cromada",
       "categories": 2,
       "suppliers": [1, 2],
@@ -496,7 +496,7 @@
     "model": "products.products",
     "pk": 8,
     "fields": {
-      "image": "",
+      "image": "demo_products/cabo-eletrico.png",
       "title": "Cabo elétrico H07V-K 2.5mm² (rolo 100m)",
       "categories": 3,
       "suppliers": [1, 2],
@@ -507,7 +507,7 @@
     "model": "products.products",
     "pk": 9,
     "fields": {
-      "image": "",
+      "image": "demo_products/quadro-eletrico.png",
       "title": "Quadro elétrico embutir 12 módulos",
       "categories": 3,
       "suppliers": [1, 2],
@@ -518,7 +518,7 @@
     "model": "products.products",
     "pk": 10,
     "fields": {
-      "image": "",
+      "image": "demo_products/tomada-schuko.png",
       "title": "Tomada schuko branca com terra",
       "categories": 3,
       "suppliers": [1, 2],
@@ -529,7 +529,7 @@
     "model": "products.products",
     "pk": 11,
     "fields": {
-      "image": "",
+      "image": "demo_products/tinta-plastica.png",
       "title": "Tinta plástica interior branca 15L",
       "categories": 4,
       "suppliers": [1, 2],
@@ -540,7 +540,7 @@
     "model": "products.products",
     "pk": 12,
     "fields": {
-      "image": "",
+      "image": "demo_products/primario-selante.png",
       "title": "Primário selante aquoso 5L",
       "categories": 4,
       "suppliers": [1, 2],
@@ -551,7 +551,7 @@
     "model": "products.products",
     "pk": 13,
     "fields": {
-      "image": "",
+      "image": "demo_products/rolo-pintura.png",
       "title": "Rolo de pintura antigota 25cm",
       "categories": 4,
       "suppliers": [1, 2],
@@ -562,7 +562,7 @@
     "model": "products.products",
     "pk": 14,
     "fields": {
-      "image": "",
+      "image": "demo_products/nivel-laser.png",
       "title": "Nível laser autonivelante 2 linhas",
       "categories": 5,
       "suppliers": [1, 2],
@@ -573,7 +573,7 @@
     "model": "products.products",
     "pk": 15,
     "fields": {
-      "image": "",
+      "image": "demo_products/martelo-perfurador.png",
       "title": "Martelo perfurador SDS-Plus 800W",
       "categories": 5,
       "suppliers": [1, 2],
