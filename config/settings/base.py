@@ -333,5 +333,10 @@ WAGTAIL_SITE_NAME = "AsyQuote"
 WAGTAILADMIN_BASE_URL = env("WAGTAILADMIN_BASE_URL", default="http://localhost:8000")
 # django-recaptcha: without real keys the widget falls back to Google's public
 # test keys, which always validate. Fine for local development, never for production.
-RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI")
-RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe")
+# Google's public test keys, which always validate. `or` rather than a default:
+# an empty environment variable counts as set, and an empty site key breaks the
+# widget outright.
+RECAPTCHA_TEST_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+RECAPTCHA_TEST_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default="") or RECAPTCHA_TEST_PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="") or RECAPTCHA_TEST_PRIVATE_KEY
