@@ -292,11 +292,12 @@ dump.rdb
 # subdirectories are listed further down instead.
 
 .pytest_cache/
-project.css
-project.min.css
-vendors.js
-*.min.js
-*.min.js.map
+
+# cookiecutter-django ignores the gulp output on the assumption that assets are
+# built at deploy time. This repository ships them instead - project.css,
+# project.min.css, vendors.js and the .min.js bundles are committed so the app
+# runs without a Node toolchain - so ignoring them only meant a newly generated
+# asset would be skipped without saying so.
 
 ### AsyQuote project-specific
 # Environment: never commit real credentials. See .env.example for the template.
